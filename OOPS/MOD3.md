@@ -1,3 +1,13 @@
+<!-- TOC -->
+
+- [Single Responsibility Principle (SRP) for Java](#single-responsibility-principle-srp-for-java)
+- [Don’t Repeat Yourself (DRY) Principle in java](#dont-repeat-yourself-dry-principle-in-java)
+- [Tight coupling and Loose coupling in java](#tight-coupling-and-loose-coupling-in-java)
+  - [Tightly Coupled Classes](#tightly-coupled-classes)
+  - [Loosely Coupled Classes](#loosely-coupled-classes)
+
+<!-- /TOC -->
+
 # Single Responsibility Principle (SRP) for Java
 
 The Single Responsibility Principle (SRP) is a principle of object-oriented design that states that a class should have only one reason to change. In other words, a class should have only one responsibility or job. This makes the class easier to understand, maintain, and test, as well as making the code more modular and reusable.

@@ -110,3 +110,61 @@ So if we now say that `sb.append("Das")` then the string `Tamal` will be changed
 In String class,  old value is still there at `100` and is not used anymore. This means that the old value is wasted memory. 
 
 But in the case of string buffer, the old value is still there at `100` and is used. This means that the old value is not wasted memory.
+
+## StringBuffer methods
+
+The StringBuffer class has many useful methods that can be used to manipulate strings. Here are some of the most commonly used methods:
+
+- `append()` - Appends the specified string to the end of this buffer
+
+```java
+StringBuffer sb = new StringBuffer("Tamal");
+sb.append("Das");
+System.out.println(sb);
+```
+
+- `insert()` - Inserts the specified string into this buffer at the specified position
+
+```java
+StringBuffer sb = new StringBuffer("Tamal");
+sb.insert(5, "Das");
+System.out.println(sb); // TamalDas
+```
+
+- `replace()` - Replaces the characters in a substring of this buffer with characters in the specified String
+
+```java
+StringBuffer sb = new StringBuffer("Tamal");
+sb.replace(0, 5, "Das");
+System.out.println(sb); // Das
+```
+
+
+- `delete()` - Removes the characters in a substring of this buffer
+
+```java
+StringBuffer sb = new StringBuffer("Tamal");
+sb.delete(0, 5);
+System.out.println(sb); // ""
+```
+
+
+- `reverse()` - Causes this character sequence to be replaced by the reverse of the sequence
+
+```java
+StringBuffer sb = new StringBuffer("Tamal");
+sb.reverse();
+System.out.println(sb); // lamaT
+```
+
+# StringBuilder Class
+
+The StringBuilder class is used to create mutable (modifiable) strings. The StringBuilder class is part of the `java.lang` package, which is automatically imported into all Java programs, so you don't need to import it explicitly. This means you can use StringBuilder objects directly in your code.
+
+## Difference between StringBuffer and StringBuilder
+
+StringBuffer is synchronized i.e. thread safe. It means two threads can't call the methods of StringBuffer simultaneously. StringBuilder is non-synchronized i.e. not thread safe. It means two threads can call the methods of StringBuilder simultaneously.
+
+**The methods are really not that different.**
+
+```java

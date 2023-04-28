@@ -1,5 +1,44 @@
 <!-- what is a class in java ?  -->
 
+
+
+<!-- TOC -->
+
+- [What is a class in java ?](#what-is-a-class-in-java-)
+  - [Example](#example)
+  - [Understanding Objects](#understanding-objects)
+  - [How to use this class using object ?](#how-to-use-this-class-using-object-)
+  - [Understanding the `new` keyword](#understanding-the-new-keyword)
+  - [How to manipulate the state of an object ?](#how-to-manipulate-the-state-of-an-object-)
+- [Java constructor](#java-constructor)
+  - [Constructor overloading](#constructor-overloading)
+- [Pass by value, and Pass by reference in java](#pass-by-value-and-pass-by-reference-in-java)
+- [Wrapper Classes](#wrapper-classes)
+- [The `final` keyword](#the-final-keyword)
+- [Packages](#packages)
+- [The `import` statement](#the-import-statement)
+- [The `static` keyword](#the-static-keyword)
+- [PolyMorphism in Java](#polymorphism-in-java)
+  - [Compile Time Polymorphism](#compile-time-polymorphism)
+  - [Run Time Polymorphism](#run-time-polymorphism)
+- [Inheritance in Java](#inheritance-in-java)
+- [Access Modifiers](#access-modifiers)
+    - [Public Modifier](#public-modifier)
+    - [Protected Modifier](#protected-modifier)
+    - [Default Modifier](#default-modifier)
+- [Interfaces in Java](#interfaces-in-java)
+  - [Multiple Inheritance using interfaces](#multiple-inheritance-using-interfaces)
+- [Abstraction](#abstraction)
+  - [What is Abstract class in Java?](#what-is-abstract-class-in-java)
+- [Relationship in Classes Java](#relationship-in-classes-java)
+  - [Advantages of relationship in classes](#advantages-of-relationship-in-classes)
+  - [Inheritance (IS-A relationship)](#inheritance-is-a-relationship)
+  - [Association (HAS-A relationship)](#association-has-a-relationship)
+  - [Dependencies (Use, call)](#dependencies-use-call)
+- [Relationship between objects in Java](#relationship-between-objects-in-java)
+
+<!-- /TOC -->
+
 # What is a class in java ?
 
 A **class is a logical blueprint/template** from which individual objects are created. It is a collection of variables and methods. It is a user defined data type.
@@ -305,10 +344,14 @@ In this example, `staticVariable` and `staticMethod()` are declared as static, w
 
 ```java
 // Access static members
+// we don't need to create an object of MyClass to access static members
+
 MyClass.staticVariable = 1;
 MyClass.staticMethod();
 
 // Access non-static members
+// we created myObject which is an instance of MyClass
+
 MyClass myObject = new MyClass();
 myObject.nonStaticVariable = 2;
 myObject.nonStaticMethod();
@@ -567,6 +610,7 @@ class GeekNew
 	}
 }
 ```
+
 # Interfaces in Java
 
 An Interface in Java programming language is defined as an abstract type used to specify the behavior of a class. An interface in Java is a blueprint of a behaviour. A Java interface contains static constants and abstract methods.

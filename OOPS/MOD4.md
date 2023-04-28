@@ -1,3 +1,14 @@
+<!-- TOC -->
+
+- [JDK, JRE, JVM](#jdk-jre-jvm)
+- [Java bytecode](#java-bytecode)
+- [Data types in Java](#data-types-in-java)
+- [Garbage collection](#garbage-collection)
+- [How to work Garbage collection ?](#how-to-work-garbage-collection-)
+- [Static variable in Java](#static-variable-in-java)
+
+<!-- /TOC -->
+
 # JDK, JRE, JVM
 
 JDK, JRE, and JVM are all related to the Java programming language. Here's a simple explanation of what each of these terms means:
