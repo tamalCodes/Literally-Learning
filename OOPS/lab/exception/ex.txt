@@ -1,0 +1,106 @@
+Exception CASE-1: Problem without exception handling
+
+public class ExceptionWithoutHandling {
+    public static void main(String[] args) {
+        int num1 = 10;
+        int num2 = 0;
+        int result = num1 / num2;
+        System.out.println(result);
+    }
+}
+
+Exception CASE-2: Exception creates but properly handled
+
+
+public class ExceptionHandled {
+    public static void main(String[] args) {
+        try {
+            int num1 = 10;
+            int num2 = 0;
+            int result = num1 / num2;
+            System.out.println(result);
+        } catch (ArithmeticException e) {
+            System.out.println("Cannot divide by zero");
+        }
+    }
+}
+
+
+
+Exception CASE-3: Exception creates but not handled
+
+
+public class ExceptionUnhandled {
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 3};
+        System.out.println(arr[3]);
+    }
+}
+
+
+
+
+Write a java program to implement Java Multi catch block
+
+public class MultiCatchExample {
+   public static void main(String[] args) {
+      try {
+         int num = Integer.parseInt(args[0]);
+         int res = 100 / num;
+         System.out.println("Result: " + res);
+      } catch (ArithmeticException | ArrayIndexOutOfBoundsException ex) {
+         System.out.println("Exception Caught: " + ex);
+      }
+   }
+}
+Write a java program to implement Java Nested try statement
+
+public class NestedTryExample {
+   public static void main(String[] args) {
+      try {
+         int arr[] = { 10, 20, 30, 40 };
+         try {
+            int num = Integer.parseInt(args[0]);
+            int res = arr[3] / num;
+            System.out.println("Result: " + res);
+         } catch (ArithmeticException ex) {
+            System.out.println("Arithmetic Exception: " + ex);
+         }
+      } catch (ArrayIndexOutOfBoundsException ex) {
+         System.out.println("Array Index Out Of Bounds Exception: " + ex);
+      }
+   }
+}
+Write a java program to implement the throw keyword.
+
+public class ThrowExample {
+   public static void main(String[] args) {
+      try {
+         int age = Integer.parseInt(args[0]);
+         if (age < 18) {
+            throw new ArithmeticException("Age is less than 18");
+         }
+         System.out.println("Age is valid");
+      } catch (ArithmeticException ex) {
+         System.out.println("Exception Caught: " + ex);
+      }
+   }
+}
+Write a java program to implement the throws keyword.
+
+import java.io.*;
+
+public class ThrowsExample {
+   public static void main(String[] args) {
+      try {
+         FileReader file = new FileReader("example.txt");
+         BufferedReader fileInput = new BufferedReader(file);
+         String str = fileInput.readLine();
+         System.out.println(str);
+      } catch (FileNotFoundException ex) {
+         System.out.println("File not found: " + ex);
+      } catch (IOException ex) {
+         System.out.println("IOException: " + ex);
+      }
+   }
+}

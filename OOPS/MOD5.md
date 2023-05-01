@@ -1,3 +1,17 @@
+<!-- TOC -->
+
+- [What is String Class in Java ?](#what-is-string-class-in-java-)
+  - [Disadvantages of String Class](#disadvantages-of-string-class)
+  - [Concept of immutable string](#concept-of-immutable-string)
+  - [String methods](#string-methods)
+- [StringBuffer Class](#stringbuffer-class)
+  - [Concept of mutable string](#concept-of-mutable-string)
+  - [StringBuffer methods](#stringbuffer-methods)
+- [StringBuilder Class](#stringbuilder-class)
+  - [Difference between StringBuffer and StringBuilder](#difference-between-stringbuffer-and-stringbuilder)
+
+<!-- /TOC -->
+
 # What is String Class in Java ? 
 
 In Java, the String class is a built-in class that represents a sequence of characters. It is used to store and manipulate strings of text.

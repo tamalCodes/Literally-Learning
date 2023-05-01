@@ -1,0 +1,270 @@
+Creating Thread by Extending Thread Class:
+class MyThread extends Thread {
+    public void run() {
+        System.out.println("Thread is running...");
+    }
+
+    public static void main(String[] args) {
+        MyThread t1 = new MyThread();
+        t1.start();
+    }
+}
+
+
+Creating Thread by Implementing Runnable Interface:
+class MyThread implements Runnable {
+    public void run() {
+        System.out.println("Thread is running...");
+    }
+
+    public static void main(String[] args) {
+        MyThread obj = new MyThread();
+        Thread t1 = new Thread(obj);
+        t1.start();
+    }
+}
+
+
+Implementing the yield() Method in Thread Programming:
+
+class MyThread extends Thread {
+    public void run() {
+        for (int i = 0; i < 5; i++) {
+            Thread.yield();
+            System.out.println("Thread is running...");
+        }
+    }
+
+    public static void main(String[] args) {
+        MyThread t1 = new MyThread();
+        t1.start();
+    }
+}
+
+
+Implementing the sleep(n) Method in Thread Programming:
+
+
+class MyThread extends Thread {
+    public void run() {
+        for (int i = 1; i <= 5; i++) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }
+            System.out.println(i);
+        }
+    }
+
+    public static void main(String[] args) {
+        MyThread t1 = new MyThread();
+        t1.start();
+    }
+}
+Implementing the suspend() & resume() Method in Thread Programming:
+
+
+class MyThread extends Thread {
+    boolean suspended = false;
+
+    public void run() {
+        for (int i = 1; i <= 5; i++) {
+            try {
+                Thread.sleep(500);
+                synchronized (this) {
+                    while (suspended) {
+                        wait();
+                    }
+                }
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }
+            System.out.println(i);
+        }
+    }
+
+    void mySuspend() {
+        suspended = true;
+    }
+
+    synchronized void myResume() {
+        suspended = false;
+        notify();
+    }
+
+    public static void main(String[] args) {
+        MyThread t1 = new MyThread();
+        t1.start();
+        try {
+            Thread.sleep(2000);
+            t1.mySuspend();
+            System.out.println("Thread suspended...");
+            Thread.sleep(2000);
+            t1.myResume();
+            System.out.println("Thread resumed...");
+        } catch (InterruptedException e) {
+            System.out.println(e);
+        }
+    }
+}
+
+Implementing the sleep(n) Method in Thread Programming:
+
+
+class MyThread extends Thread {
+    public void run() {
+        for (int i = 1; i <= 5; i++) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }
+            System.out.println(i);
+        }
+    }
+
+    public static void main(String[] args) {
+        MyThread t1 = new MyThread();
+        t1.start();
+    }
+}
+
+
+Create 4 threads with priority 1,3,5,7 respectively. Update a counter in each of the threads for 10 ms. Print the final value of count for each thread.
+
+public class ThreadPriorityDemo {
+
+    public static void main(String[] args) throws InterruptedException {
+        CounterThread thread1 = new CounterThread("Thread 1", 1);
+        CounterThread thread2 = new CounterThread("Thread 2", 3);
+        CounterThread thread3 = new CounterThread("Thread 3", 5);
+        CounterThread thread4 = new CounterThread("Thread 4", 7);
+
+        thread1.start();
+        thread2.start();
+        thread3.start();
+        thread4.start();
+
+        thread1.join();
+        thread2.join();
+        thread3.join();
+        thread4.join();
+
+        System.out.println(thread1.getName() + " count: " + thread1.getCount());
+        System.out.println(thread2.getName() + " count: " + thread2.getCount());
+        System.out.println(thread3.getName() + " count: " + thread3.getCount());
+        System.out.println(thread4.getName() + " count: " + thread4.getCount());
+    }
+
+    static class CounterThread extends Thread {
+        private int count = 0;
+
+        public CounterThread(String name, int priority) {
+            super(name);
+            setPriority(priority);
+        }
+
+        @Override
+        public void run() {
+            for (int i = 0; i < 100; i++) {
+                count++;
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        public int getCount() {
+            return count;
+        }
+    }
+}
+
+Write a Java Program to Synchronize the Threads Acting on the Same Object. The Synchronized Block in the Program can be Executed by Only One Thread at a Time.
+
+public class SynchronizedThreadDemo {
+
+    public static void main(String[] args) {
+        Counter counter = new Counter();
+
+        Thread thread1 = new CounterThread("Thread 1", counter);
+        Thread thread2 = new CounterThread("Thread 2", counter);
+
+        thread1.start();
+        thread2.start();
+    }
+
+    static class Counter {
+        private int count = 0;
+
+        public synchronized void increment() {
+            count++;
+        }
+
+        public synchronized int getCount() {
+            return count;
+        }
+    }
+
+    static class CounterThread extends Thread {
+        private Counter counter;
+
+        public CounterThread(String name, Counter counter) {
+            super(name);
+            this.counter = counter;
+        }
+
+        @Override
+        public void run() {
+            for (int i = 0; i < 100; i++) {
+                counter.increment();
+                System.out.println(getName() + " count: " + counter.getCount());
+            }
+        }
+    }
+}
+
+
+Write a Java Program to Check a Thread is Alive or Not.
+
+class MyThread implements Runnable {
+    public void run() {
+        System.out.println("Thread is running...");
+    }
+}
+
+public class ThreadStatus {
+    public static void main(String[] args) {
+        MyThread myThread = new MyThread();
+        Thread thread = new Thread(myThread);
+        thread.start();
+        
+        // Check if the thread is alive or not
+        if (thread.isAlive()) {
+            System.out.println("Thread is alive");
+        } else {
+            System.out.println("Thread is not alive");
+        }
+    }
+}
+
+
+
+Java program to get the name of a running thread:
+
+class MyThread implements Runnable {
+    public void run() {
+        System.out.println("Thread name: " + Thread.currentThread().getName());
+    }
+}
+
+public class ThreadName {
+    public static void main(String[] args) {
+        MyThread myThread = new MyThread();
+        Thread thread = new Thread(myThread);
+        thread.start();
+    }
+}

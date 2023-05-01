@@ -1,3 +1,56 @@
+<!-- TOC -->
+
+- [File handling in Java](#file-handling-in-java)
+  - [What is a stream ?](#what-is-a-stream-)
+- [Types of streams](#types-of-streams)
+  - [Binary Stream](#binary-stream)
+    - [InputStream class subclasses](#inputstream-class-subclasses)
+  - [Character Stream](#character-stream)
+- [Introduction to BufferedReader class](#introduction-to-bufferedreader-class)
+  - [Example](#example)
+- [Introduction to Scanner class](#introduction-to-scanner-class)
+  - [Example](#example-1)
+  - [Difference between BufferedReader and Scanner class](#difference-between-bufferedreader-and-scanner-class)
+  - [Methods of Scanner class](#methods-of-scanner-class)
+- [Subclasses, Superclasses, and Inheritance](#subclasses-superclasses-and-inheritance)
+  - [Superclasses and Subclasses](#superclasses-and-subclasses)
+  - [Example](#example-2)
+  - [Multi level hierarchy](#multi-level-hierarchy)
+  - [Process of constructor calling in inheritance](#process-of-constructor-calling-in-inheritance)
+  - [Example](#example-3)
+- [Use of super and final keywords](#use-of-super-and-final-keywords)
+  - [Use of super keyword](#use-of-super-keyword)
+  - [Example](#example-4)
+  - [Use of final keyword](#use-of-final-keyword)
+    - [Final variable](#final-variable)
+    - [Example](#example-5)
+    - [Final method](#final-method)
+    - [Example](#example-6)
+    - [Final class](#final-class)
+      - [Example](#example-7)
+      - [What happens if we try to inherit from a final Class?](#what-happens-if-we-try-to-inherit-from-a-final-class)
+      - [Advantage of the Final Class](#advantage-of-the-final-class)
+- [Comparison between super and this keyword](#comparison-between-super-and-this-keyword)
+  - [Example of super keyword](#example-of-super-keyword)
+  - [Example of this keyword](#example-of-this-keyword)
+  - [Implementation of `this` keyword](#implementation-of-this-keyword)
+    - [To invoke current class method](#to-invoke-current-class-method)
+    - [To invoke current class constructor:](#to-invoke-current-class-constructor)
+    - [Pass as an argument in the method](#pass-as-an-argument-in-the-method)
+    - [Pass as argument in the constructor call](#pass-as-argument-in-the-constructor-call)
+- [Dynamic method dispatch](#dynamic-method-dispatch)
+    - [Example](#example-8)
+- [Method Hiding](#method-hiding)
+  - [What is method overriding?](#what-is-method-overriding)
+  - [What is method hiding?](#what-is-method-hiding)
+  - [Summary](#summary)
+- [Object typecasting](#object-typecasting)
+  - [How to Typecast Objects with a dynamically loaded Class ?](#how-to-typecast-objects-with-a-dynamically-loaded-class-)
+    - [Upcasting](#upcasting)
+    - [Downcasting](#downcasting)
+
+<!-- /TOC -->
+
 # File handling in Java
 
 File handling is an important part of any application. Java provides several classes and methods to handle files. We can perform read, write and other operations on files using these classes.
@@ -541,6 +594,82 @@ public class ThisKeyword {
 
 In the above example, the this keyword is used to refer to the instance variable of the current class. In this case, `a` is the instance variable of the current class.
 
+## Implementation of `this` keyword 
+
+
+### To invoke current class method
+
+```java
+public class MyClass {
+    private int x;
+
+    public void setValue(int x) {
+        this.x = x;
+    }
+
+    public void printValue() {
+        System.out.println("The value of x is: " + this.x);
+    }
+}
+```
+
+### To invoke current class constructor:
+
+```java
+public class MyClass {
+    private int x;
+    private int y;
+
+    public MyClass() {
+        this(0, 0); // calling the other constructor with default values
+    }
+
+    public MyClass(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+```
+
+### Pass as an argument in the method
+
+```java
+public class MyClass {
+    private int x;
+
+    public void setValue(int x) {
+        this.x = x;
+    }
+
+    public void printValue(MyClass obj) {
+        System.out.println("The value of x is: " + obj.x);
+    }
+}
+```
+
+### Pass as argument in the constructor call
+
+```java
+public class MyClass {
+    private int x;
+    private int y;
+
+    public MyClass() {
+        this(0); // calling the other constructor with default values
+    }
+
+    public MyClass(int x) {
+        this(x, 0);
+    }
+
+    public MyClass(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+
+```
+
 # Dynamic method dispatch
 
 Dynamic method dispatch is a mechanism by which a call to an overridden method is resolved at runtime, rather than compile-time. Dynamic method dispatch is an important feature of polymorphism.
@@ -580,3 +709,139 @@ In the above example, the display() method of class A is overridden in the subcl
 
 
 
+
+# Method Hiding
+
+In this section, we will discuss what is method hiding in Java, method hiding factors (MHF), and the differences between method hiding and method overriding. Also, implement the method hiding concept in a Java program.
+
+To understand the method hiding concept in Java, first, **we will understand the method overriding**. Because the method hiding concept is very similar to the method overriding.
+## What is method overriding?
+
+Method overriding is a concept in which a subclass provides a new implementation of a method that is already defined in its superclass. In this case, the subclass method "overrides" the superclass method. To implement method overriding, you define a method in the subclass with the same name, return type, and parameters as the method in the superclass that you want to override. Here's an example:
+
+```java
+
+class SuperClass {
+  public void myMethod() {
+    System.out.println("SuperClass.myMethod");
+  }
+}
+
+class SubClass extends SuperClass {
+  public void myMethod() {
+    System.out.println("SubClass.myMethod");
+  }
+}
+
+
+// Output
+
+// Hi
+
+```
+
+In the above example, the `SubClass` overrides the `myMethod()` method of its superclass, `SuperClass`. In this case, the subclass method "overrides" the superclass method.
+
+## What is method hiding?
+
+Method hiding is a concept in which a subclass defines a static method with the same name and signature as a static method in its superclass. In this case, the subclass method "hides" the superclass method. To implement method hiding, you simply define a static method in the subclass with the same name and signature as the static method in the superclass. Here's an example:
+
+
+```java
+
+class SuperClass {
+  public static void myMethod() {
+    System.out.println("SuperClass.myMethod");
+  }
+}
+
+class SubClass extends SuperClass {
+  public static void myMethod() {
+    System.out.println("SubClass.myMethod");
+  }
+}
+
+```
+
+In this example the `SubClass` defines a static method with the same name and signature as the static method in its superclass, `SuperClass`. In this case, the subclass method "hides" the superclass method.
+
+## Summary
+To summarize, the main difference between method hiding and method overriding is that method hiding involves defining a static method with the same name and signature as a static method in the superclass, while method overriding involves providing a new implementation of a non-static method that is already defined in the superclass.
+
+# Object typecasting
+
+In java object typecasting one object reference can be type cast into another object reference. The cast can be to its own class type or to one of its subclass or superclass types or interfaces. There are compile-time rules and runtime rules for casting in java.
+
+## How to Typecast Objects with a dynamically loaded Class ?
+
+The casting of object references depends on the relationship of the classes involved in the same hierarchy. Any object reference can be assigned to a reference variable of the type Object, because the Object class is a superclass of every Java class.
+
+### Upcasting
+
+Upcasting is the process of converting an object of a subclass type to its superclass type. In Java, upcasting happens implicitly, and you don't need to write any code to perform the conversion. Here's an example:
+
+```java
+
+class Animal {
+  public void makeSound() {
+    System.out.println("Animal is making a sound");
+  }
+}
+
+class Dog extends Animal {
+  public void makeSound() {
+    System.out.println("Dog is barking");
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Animal myAnimal = new Dog(); // Upcasting
+    myAnimal.makeSound(); // Output: "Dog is barking"
+  }
+}
+
+
+```
+
+In the above example, the `Dog` class is a subclass of the `Animal` class. We create an object of the `Dog` class and assign it to a variable of the `Animal` class. This is called upcasting. In this case, the `Dog` object is implicitly upcasted to an `Animal` object.
+
+
+### Downcasting
+
+Downcasting is the process of converting an object of a superclass type to its subclass type. In Java, downcasting must be done explicitly, and the syntax for downcasting is (Subclass) superclassObject. Here's an example:
+
+```java
+
+class Animal {
+  public void makeSound() {
+    System.out.println("Animal is making a sound");
+  }
+}
+
+class Dog extends Animal {
+  public void makeSound() {
+    System.out.println("Dog is barking");
+  }
+  
+  public void playFetch() {
+    System.out.println("Dog is playing fetch");
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Animal myAnimal = new Dog(); // Upcasting
+    myAnimal.makeSound(); // Output: "Dog is barking"
+    
+    Dog myDog = (Dog) myAnimal; // Downcasting
+    myDog.playFetch(); // Output: "Dog is playing fetch"
+  }
+}
+```
+
+In this example, we first upcast a Dog object to an Animal object and assign it to a variable of type Animal. We can call the `makeSound()` method on the Animal object, and it outputs "Dog is barking" because we have overridden this method in the Dog class.
+
+Next, we downcast the Animal object back to a Dog object using (Dog) myAnimal. We can then call the `playFetch()` method on the Dog object, which outputs "Dog is playing fetch". This is an example of downcasting because we are converting an Animal object to a Dog object.
+
+It's important to note that downcasting can cause a ClassCastException at runtime if the object being downcasted is not actually an instance of the subclass. To avoid this, you can use the instanceof operator to check if an object is an instance of a particular class before downcasting.

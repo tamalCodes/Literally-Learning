@@ -13,9 +13,14 @@
 - [Java constructor](#java-constructor)
   - [Constructor overloading](#constructor-overloading)
 - [Pass by value, and Pass by reference in java](#pass-by-value-and-pass-by-reference-in-java)
+  - [Pass by Value](#pass-by-value)
+  - [Pass by Reference](#pass-by-reference)
 - [Wrapper Classes](#wrapper-classes)
 - [The `final` keyword](#the-final-keyword)
 - [Packages](#packages)
+  - [Advantages of using packages](#advantages-of-using-packages)
+  - [Buit-in packages](#buit-in-packages)
+  - [Member access for packages in Java](#member-access-for-packages-in-java)
 - [The `import` statement](#the-import-statement)
 - [The `static` keyword](#the-static-keyword)
 - [PolyMorphism in Java](#polymorphism-in-java)
@@ -125,68 +130,124 @@ public class StudentType {
 
 # Java constructor
 
-A constructor basically defines what will happen when your object will be created. When you don't have any constructor in your class, Java compiler creates a default constructor for you. But if you have defined a constructor in your class, then Java compiler will not create a default constructor for you.
+In Java, a constructor is a special method that is used to initialize an object of a class. When an object is created using the new keyword, the constructor is automatically called to initialize the object's state. 
+
+> It has the same name as the class and is syntactically similar to a method. However, constructors have no explicit return type.
 
 ```java
-class StudentType {
-    String name;
-    int rollNo;
-    String address;
-}
-
-public class OOPS{
+public class Car {
+    private String make;
+    private String model;
+    private int year;
+    
+    // Constructor with parameters
+    public Car(String make, String model, int year) {
+        this.make = make;
+        this.model = model;
+        this.year = year;
+    }
+    
+    // Getter methods for private fields
+    public String getMake() {
+        return make;
+    }
+    
+    public String getModel() {
+        return model;
+    }
+    
+    public int getYear() {
+        return year;
+    }
+    
     public static void main(String[] args) {
-        StudentType student1 = new StudentType();
-        student1.name = "John";
-        student1.rollNo = 1;
-        student1.address = "New York";
+        // Create a new Car object using the constructor
+        Car myCar = new Car("Honda", "Civic", 2022);
+        
+        // Call the getter methods to access the object's state
+        System.out.println("Make: " + myCar.getMake());
+        System.out.println("Model: " + myCar.getModel());
+        System.out.println("Year: " + myCar.getYear());
     }
 }
+
 ```
 
-Here `StudentType()` is a constructor. 
+In the above example the `Car` class has 3 private fields : `make`, `model` and `year`. 
+
 
 ## Constructor overloading
 
+Constructor overloading is a feature in Java that allows a class to have multiple constructors with different parameter lists. This means that a class can be instantiated in different ways, depending on the arguments passed to the constructor.
+
+When a constructor is overloaded, it means that there are multiple constructors with the same name but different parameter lists. **Each constructor can have a different number or type of parameters.**
+
 ```java
 
-public class StudentType {
-    String name;
-    int rollNo;
-    String address;
-
-    public StudentType(String name, int rollNo, String address) {
-        this.name = name;
-        this.rollNo = rollNo;
-        this.address = address;
+public class Rectangle {
+    private int width;
+    private int height;
+    
+    // Constructor with no parameters
+    public Rectangle() {
+        this.width = 0;
+        this.height = 0;
     }
-
-    public StudentType(String name, int rollNo) {
-        this(name, rollNo, ""); // Call the three-argument constructor with empty address
+    
+    // Constructor with one parameter
+    public Rectangle(int size) {
+        this.width = size;
+        this.height = size;
     }
-
-    public StudentType(String name) {
-        this(name, 0, ""); // Call the two-argument constructor with rollNo=0 and empty address
+    
+    // Constructor with two parameters
+    public Rectangle(int width, int height) {
+        this.width = width;
+        this.height = height;
     }
-
-    public StudentType() {
-        this("", 0, ""); // Call the three-argument constructor with empty name, rollNo=0, and empty address
+    
+    // Getter methods for private fields
+    public int getWidth() {
+        return width;
+    }
+    
+    public int getHeight() {
+        return height;
+    }
+    
+    public static void main(String[] args) {
+        // Create Rectangle objects using different constructors
+        Rectangle rect1 = new Rectangle(); // no arguments
+        Rectangle rect2 = new Rectangle(5); // one argument
+        Rectangle rect3 = new Rectangle(3, 4); // two arguments
+        
+        // Print the dimensions of each Rectangle object
+        System.out.println("Rectangle 1: " + rect1.getWidth() + " x " + rect1.getHeight());
+        System.out.println("Rectangle 2: " + rect2.getWidth() + " x " + rect2.getHeight());
+        System.out.println("Rectangle 3: " + rect3.getWidth() + " x " + rect3.getHeight());
     }
 }
 
+
 ```
 
-In this example, we have defined **four constructors** for the StudentType class with different parameter lists.
+In this example, the `Rectangle` class has three constructors that are overloaded based on the number of parameters. 
 
-- The first constructor takes three parameters **name, rollNo, and address** and sets the corresponding instance variables.
-- The second constructor takes **only name and rollNo** and sets address to an empty string.
-- The third constructor takes **only name** and sets both rollNo and address to default values. The fourth constructor takes no arguments and sets all instance variables to default values.
+- The first constructor has no parameters and initializes the width and height to 0.
+
+- The second constructor has one parameter and initializes both the width and height to the value of the parameter.
+
+- The third constructor has two parameters and initializes the width and height to the values of the parameters.
+
+
 
 # Pass by value, and Pass by reference in java
 
-In Java, when passing an argument to a method, there are two ways to do it: pass by value and pass by reference.
+## Pass by Value
 
-- **Pass by value:** In Java, primitive data types such as int, float, char, etc., are passed by value. When a primitive value is passed to a method, a copy of the value is made and passed to the method. Any changes made to the parameter inside the method have no effect on the original value outside the method.
+In Java, primitive data types such as **int, float, char, etc., are passed by value**. When a primitive value is passed to a method, a copy of the value is made and passed to the method. 
+
+- Any changes made to the parameter inside the method **have no effect on the original value** outside the method.
 
   ```java
 
@@ -202,8 +263,9 @@ In Java, when passing an argument to a method, there are two ways to do it: pass
 
 In the above example, the increment() method receives a copy of the num variable. Any changes made to the num variable inside the method are not reflected outside the method.
 
+## Pass by Reference
 
-- **Pass by reference:** In Java, objects are passed by reference. When an object is passed to a method, a copy of the reference to the object is passed to the method, not a copy of the object itself. This means that any changes made to the object inside the method are also reflected outside the method.
+In Java, objects are passed by reference. When an object is passed to a method, a copy of the reference to the object is passed to the method, not a copy of the object itself. This means that any changes made to the object inside the method **are also reflected outside the method.**
 
 ```java
 public static void main(String[] args) {
@@ -305,6 +367,34 @@ public class MyArrayListExample {
 ```
 
 `import java.util.*` imports all the classes in the `java.util` package. This is called a wildcard import.
+
+## Advantages of using packages
+
+- Java package is used to categorize the classes and interfaces so that they can be easily maintained.
+
+- Java package provides access protection.
+
+- Java package removes naming collision.
+
+## Buit-in packages
+
+Packages that come with JDK or JRD you download are known as built-in packages. The built-in packages have come in the form of JAR files and when we unzip the JAR files we can easily see the packages in JAR files, for example, lang, io, util, SQL, etc. Java provides various built-in packages for example java.awt
+
+- java.sql: Provides the classes for accessing and processing data stored in a database. Classes like Connection, DriverManager, PreparedStatement, ResultSet, Statement, etc. are part of this package.
+
+- java.lang: Contains classes and interfaces that are fundamental to the design of the Java programming language. Classes like String, StringBuffer, System, Math, Integer, etc. are part of this package.
+
+- java.util: Contains the collections framework, some internationalization support classes, properties, random number generation classes. Classes like ArrayList, LinkedList, HashMap, Calendar, Date, Time Zone, etc. are part of this package.
+
+## Member access for packages in Java
+
+By default, classes and interfaces in a package have package-level access, which means they can be accessed by other classes and interfaces within the same package, but not by classes and interfaces in other packages. 
+
+However, you can also specify public or private access for classes and interfaces in a package. so that they can be accessed by classes and interfaces in other packages.   
+
+- `public` - accessible from any other class or interface in any package. 
+- `private` - accessible only from within the same class or interface.
+- `protected` - accessible from within the same class or interface, or from a subclass of the same package, or from a subclass of a different package.
 
 # The `import` statement
 

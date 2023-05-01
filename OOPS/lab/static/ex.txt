@@ -1,0 +1,106 @@
+Java program to implement the static keyword in java:
+csharp
+Copy code
+public class StaticExample {
+   static int num = 0;
+   public static void main(String[] args) {
+      StaticExample s1 = new StaticExample();
+      StaticExample s2 = new StaticExample();
+      s1.num = 10;
+      s2.num = 20;
+      System.out.println("s1.num = " + s1.num);
+      System.out.println("s2.num = " + s2.num);
+   }
+}
+
+Java program to implement the static method in java:
+arduino
+Copy code
+public class StaticMethodExample {
+   public static void main(String[] args) {
+      double radius = 5;
+      double area = Circle.area(radius);
+      System.out.println("Area of circle with radius " + radius + " is " + area);
+   }
+}
+class Circle {
+   static double pi = 3.14;
+   static double area(double radius) {
+      return pi * radius * radius;
+   }
+}
+
+
+Java program to implement the single inheritance in java:
+csharp
+Copy code
+public class Animal {
+   public void eat() {
+      System.out.println("Eating...");
+   }
+}
+public class Dog extends Animal {
+   public void bark() {
+      System.out.println("Barking...");
+   }
+   public static void main(String[] args) {
+      Dog d = new Dog();
+      d.eat();
+      d.bark();
+   }
+}
+
+Java program to implement the hierarchical inheritance in java:
+csharp
+Copy code
+public class Animal {
+   public void eat() {
+      System.out.println("Eating...");
+   }
+}
+public class Dog extends Animal {
+   public void bark() {
+      System.out.println("Barking...");
+   }
+}
+public class Cat extends Animal {
+   public void meow() {
+      System.out.println("Meowing...");
+   }
+}
+public class HierarchicalInheritanceExample {
+   public static void main(String[] args) {
+      Dog d = new Dog();
+      Cat c = new Cat();
+      d.eat();
+      d.bark();
+      c.eat();
+      c.meow();
+   }
+}
+
+
+Java program to implement the multilevel inheritance in java:
+csharp
+Copy code
+public class Animal {
+   public void eat() {
+      System.out.println("Eating...");
+   }
+}
+public class Dog extends Animal {
+   public void bark() {
+      System.out.println("Barking...");
+   }
+}
+public class BabyDog extends Dog {
+   public void weep() {
+      System.out.println("Weeping...");
+   }
+   public static void main(String[] args) {
+      BabyDog bd = new BabyDog();
+      bd.eat();
+      bd.bark();
+      bd.weep();
+   }
+}
