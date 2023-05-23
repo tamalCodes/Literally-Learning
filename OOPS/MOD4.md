@@ -1,22 +1,28 @@
 <!-- TOC -->
 
+- [Advantages of Java](#advantages-of-java)
 - [JDK, JRE, JVM](#jdk-jre-jvm)
 - [Java bytecode](#java-bytecode)
+  - [Java bytecode advantages](#java-bytecode-advantages)
 - [Data types in Java](#data-types-in-java)
 - [Garbage collection](#garbage-collection)
 - [How to work Garbage collection ?](#how-to-work-garbage-collection-)
 
 <!-- /TOC -->
 
+# Advantages of Java
+
+- **Simple**: Java is easy to learn and use. It has a concise, cohesive set of features that makes it easy to write programs that are easy to understand and maintain.
+- **Object-Oriented**: Java is an object-oriented programming language. This means that it models real-world objects as software objects. For example, a car can be modeled as a software object. This makes it easier to write programs that are organized around data, rather than around actions.
+- **Platform-Independent**: Java is platform-independent. This means that you can write a Java program once, and run it on any operating system. This makes it easier to develop software for multiple platforms.
 # JDK, JRE, JVM
 
 JDK, JRE, and JVM are all related to the Java programming language. Here's a simple explanation of what each of these terms means:
 
 - **JDK (Java Development Kit)**: JDK is a software development kit used to develop Java applications. It includes tools that allow developers to write, compile, and debug their code. In other words, if you want to create Java applications, you need to install the JDK on your computer.
-
+- **JVM (Java Virtual Machine)**: JVM is a virtual machine that interprets Java bytecode and executes it on your computer. It is a part of both the JDK and the JRE. When you run a Java program, the JVM converts the bytecode into machine code that can be executed by your computer's CPU.
 - **JRE (Java Runtime Environment)**: JRE is a software environment that allows you to run Java applications on your computer. It includes the Java Virtual Machine (JVM) and other libraries that are necessary to run Java programs. So, if you want to run a Java application, you need to install the JRE on your computer.
 
-- **JVM (Java Virtual Machine)**: JVM is a virtual machine that interprets Java bytecode and executes it on your computer. It is a part of both the JDK and the JRE. When you run a Java program, the JVM converts the bytecode into machine code that can be executed by your computer's CPU.
 
 In summary, JDK is used to develop Java applications, JRE is used to run Java applications, and JVM is the virtual machine that executes Java code
 
@@ -27,6 +33,7 @@ Java bytecode is a binary format that represents the instructions of a Java prog
 
 Java bytecode is a **low-level** representation of your program that can be executed by the Java Virtual Machine (JVM). This means that your Java code can run on any computer that has a JVM installed, regardless of the operating system or hardware architecture.
 
+## Java bytecode advantages
 **One advantage of using Java bytecode is that it is platform-independent.** This means that you can write a Java program once and run it on any computer that has a JVM installed, without having to worry about the specific details of that computer's operating system or hardware.
 
 **Another advantage of Java bytecode is that it can be optimized by the JVM at runtime.** This means that the JVM can analyze the bytecode and make optimizations based on the specific environment in which the code is running, such as the available memory or the number of processors.
