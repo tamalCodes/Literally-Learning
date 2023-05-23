@@ -12,22 +12,22 @@
   - [Example](#example-1)
   - [Difference between BufferedReader and Scanner class](#difference-between-bufferedreader-and-scanner-class)
   - [Methods of Scanner class](#methods-of-scanner-class)
+  - [Methods of BufferedReader class](#methods-of-bufferedreader-class)
 - [Subclasses, Superclasses, and Inheritance](#subclasses-superclasses-and-inheritance)
   - [Superclasses and Subclasses](#superclasses-and-subclasses)
   - [Example](#example-2)
   - [Multi level hierarchy](#multi-level-hierarchy)
-  - [Process of constructor calling in inheritance](#process-of-constructor-calling-in-inheritance)
-  - [Example](#example-3)
+  - [Constructor Chaining](#constructor-chaining)
 - [Use of super and final keywords](#use-of-super-and-final-keywords)
   - [Use of super keyword](#use-of-super-keyword)
-  - [Example](#example-4)
+  - [Example](#example-3)
   - [Use of final keyword](#use-of-final-keyword)
     - [Final variable](#final-variable)
-    - [Example](#example-5)
+    - [Example](#example-4)
     - [Final method](#final-method)
-    - [Example](#example-6)
+    - [Example](#example-5)
     - [Final class](#final-class)
-      - [Example](#example-7)
+      - [Example](#example-6)
       - [What happens if we try to inherit from a final Class?](#what-happens-if-we-try-to-inherit-from-a-final-class)
       - [Advantage of the Final Class](#advantage-of-the-final-class)
 - [Comparison between super and this keyword](#comparison-between-super-and-this-keyword)
@@ -39,11 +39,12 @@
     - [Pass as an argument in the method](#pass-as-an-argument-in-the-method)
     - [Pass as argument in the constructor call](#pass-as-argument-in-the-constructor-call)
 - [Dynamic method dispatch](#dynamic-method-dispatch)
-    - [Example](#example-8)
+    - [Example](#example-7)
 - [Method Hiding](#method-hiding)
   - [What is method overriding?](#what-is-method-overriding)
   - [What is method hiding?](#what-is-method-hiding)
   - [Summary](#summary)
+- [Implicit, Explicit casting](#implicit-explicit-casting)
 - [Object typecasting](#object-typecasting)
   - [How to Typecast Objects with a dynamically loaded Class ?](#how-to-typecast-objects-with-a-dynamically-loaded-class-)
     - [Upcasting](#upcasting)
@@ -105,7 +106,10 @@ In general, each read request made of a Reader causes a corresponding read reque
 For example,
 
 ```java
-BufferedReader in = new BufferedReader(new FileReader("foo.in"));
+import java.io.BufferedReader;
+
+BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
 ```
 
 will buffer the input from the specified file. Without buffering, each invocation of read() or readLine() could cause bytes to be read from the file, converted into characters, and then returned, which can be very inefficient.
@@ -193,10 +197,19 @@ class ScannerExample {
 
 ## Difference between BufferedReader and Scanner class
 
-- `BufferedReader` can only read Strings while `Scanner` can read both Strings and primitive types like int, float, etc.
+Both BufferedReader and Scanner are classes in Java that are used for reading input from various sources, such as files, standard input (keyboard), or network connections. While they serve similar purposes, there are some differences between the two:
 
-- `BufferedReader` is faster than `Scanner`, because `Scanner` does parsing of input data and BufferedReader simply reads sequence of characters.
+- **Input sources**: **BufferedReader** is primarily used for reading text from input sources like files or network connections. It provides efficient reading of characters or lines of text. On the other hand, **Scanner** is a more versatile class that can read not only text but also other data types like integers, floating-point numbers, etc. It can parse and extract formatted input using delimiters, making it suitable for interactive parsing.
 
+- **Parsing abilities**: **BufferedReader** reads characters or lines of text as is, without any parsing or interpretation. It provides low-level operations for reading characters and lines. **Scanner**, on the other hand, can parse and extract formatted input. It has methods like nextInt(), nextDouble(), etc., which can directly read and parse input into specific data types. It can also use delimiters to separate tokens in the input.
+
+- **Performance**: **BufferedReader** is generally faster and more efficient than Scanner when reading large amounts of text or when performance is a concern. BufferedReader is designed for efficient reading by buffering the input, which reduces the number of I/O operations. **Scanner**, with its additional parsing capabilities, may be slower and may consume more system resources.
+
+- **Error handling**: **BufferedReader** throws checked exceptions like IOException, which need to be handled explicitly using try-catch blocks. On the other hand, **Scanner** does not throw checked exceptions, but it provides methods like hasNextInt(), hasNextDouble(), etc., which can be used to check if the input is of the expected type, allowing for more controlled error handling.
+
+- **Usability**: **BufferedReader** provides basic input operations like read(), readLine(), etc., which can be useful for reading text line by line. It requires manual conversion from string to other data types if parsing is required. **Scanner**, on the other hand, provides higher-level methods for reading different data types directly, which makes it easier to use in certain scenarios. However, the additional parsing functionality of Scanner may not be necessary or desired in all cases.
+
+In summary, BufferedReader is suitable for efficient reading of large amounts of text, while Scanner provides more versatile input parsing capabilities, making it convenient for interactive and formatted input. The choice between the two depends on the specific requirements and characteristics of the input being read.
 ## Methods of Scanner class
 
 - `public String nextLine()`: For getting String input from the user.
@@ -210,6 +223,12 @@ class ScannerExample {
 - `public long nextLong()`: For getting long input from the user.
 
 - `public boolean nextBoolean()`: For getting boolean input from the user.
+
+## Methods of BufferedReader class
+
+- `public String readLine()`: For getting String input from the user.
+- `public int read()`: For getting integer input from the user.
+- `public char readChar()`: For getting char input from the user.
 
 # Subclasses, Superclasses, and Inheritance
 
@@ -290,47 +309,36 @@ In the above example, the Person class is the superclass and the Student class i
 
 In Java, a class can be derived from another class, and there can be derived classes from the derived classes and so on. This is known as multi-level inheritance. In this way, a multi-level hierarchy of classes can be built.
 
-## Process of constructor calling in inheritance
+## Constructor Chaining 
 
-Whenever an object is created, its constructor is invoked. The constructor is called in the same order in which the inheritance is defined. This is known as constructor chaining.
+Constructor chaining is the process of calling one constructor from another constructor with respect to current object.
 
-## Example
-
-```java
-
-class A {
-    public A() {
-        System.out.println("Class A Constructor");
+``` java
+class A{
+    public A()
+    {
+        System.out.println("Hello A");
     }
 }
 
-class B extends A {
-    public B() {
-        System.out.println("Class B Constructor");
+class B extends A{
+    public B()
+    {
+        System.out.println("Hello B");
     }
 }
 
-class C extends B {
-    public C() {
-        System.out.println("Class C Constructor");
-    }
+public static void main()
+{
+    B obj = new B();
+
+    // Output
+    // Hello A
+    // Hello B
 }
 
-public class ConstructorChaining {
-    public static void main(String[] args) {
-        C c = new C();
-    }
-}
-
-// Output
-
-// Class A Constructor
-// Class B Constructor
-// Class C Constructor
 
 ```
-
-In the above example, the constructor of class C is called first, then the constructor of class B is called, and finally, the constructor of class A is called.
 
 # Use of super and final keywords
 
@@ -737,10 +745,12 @@ class SubClass extends SuperClass {
   }
 }
 
-
-// Output
-
-// Hi
+public class Main {
+  public static void main(String[] args) {
+    SubClass mySubClass = new SubClass();
+    mySubClass.myMethod(); // Output: "SubClass.myMethod"
+  }
+}
 
 ```
 
@@ -770,7 +780,26 @@ class SubClass extends SuperClass {
 In this example the `SubClass` defines a static method with the same name and signature as the static method in its superclass, `SuperClass`. In this case, the subclass method "hides" the superclass method.
 
 ## Summary
-To summarize, the main difference between method hiding and method overriding is that method hiding involves defining a static method with the same name and signature as a static method in the superclass, while method overriding involves providing a new implementation of a non-static method that is already defined in the superclass.
+To summarize, the main difference between method hiding and method overriding is that method hiding involves **defining a static method** with the same name and signature as a static method in the superclass, while method overriding involves providing a new implementation of a **non-static method** that is already defined in the superclass.
+
+# Implicit, Explicit casting
+Implicit casting, also known as automatic or widening casting, occurs when the conversion between two data types happens automatically by the compiler without the need for any explicit instructions from the programmer. Implicit casting is possible when there is no possibility of data loss or precision reduction during the conversion.
+
+``` java
+int_num = 10
+float_num = int_num  # Implicit casting from int to float
+
+print(float_num)
+```
+
+Explicit casting, also known as type casting or narrowing casting, is a manual conversion process where the programmer explicitly specifies the desired data type for the conversion. Explicit casting is used when there is a possibility of data loss or precision reduction during the conversion.
+
+```java
+float_num = 3.14
+int_num = int(float_num)  # Explicit casting from float to int
+
+print(int_num) 
+```
 
 # Object typecasting
 

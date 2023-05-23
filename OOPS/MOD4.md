@@ -6,7 +6,11 @@
   - [Java bytecode advantages](#java-bytecode-advantages)
 - [Data types in Java](#data-types-in-java)
 - [Garbage collection](#garbage-collection)
-- [How to work Garbage collection ?](#how-to-work-garbage-collection-)
+  - [Methods in Java Garbage Collection](#methods-in-java-garbage-collection)
+    - [Finalize() method](#finalize-method)
+    - [System.gc() method](#systemgc-method)
+- [The `this` keyword in Java](#the-this-keyword-in-java)
+- [Use of objects as a Parameter in Java](#use-of-objects-as-a-parameter-in-java)
 
 <!-- /TOC -->
 
@@ -63,26 +67,105 @@ In Java, garbage means unreferenced objects. Garbage collection is the process o
 
 We use `free()` in C language and `delete()` in C++ to free the memory allocated to a variable. But in Java, we don't have to do this manually. 
 
+When Java programs run on the JVM , objects are created in the heap space, which is a part of the memory allocated to the JVM. When an object is no longer referenced, it becomes eligible for garbage collection. The garbage collector is responsible for removing these objects from memory.
 
-# How to work Garbage collection ? 
 
- The garbage collector of JVM collects only those objects that are created by new keyword. 
+## Methods in Java Garbage Collection
 
- SO if you create an object without new keyword, then you can use the  `finalize() ` method to perform clean up processing.
+### Finalize() method
 
- ```java
- class GarbageEx{
-        public void finalize(){
-            System.out.println("Garbage collection");
-        }
-        public static void main(String[] args){
-            GarbageEx g1 = new GarbageEx();
-            GarbageEx g2 = new GarbageEx();
-            g1 = null;
-            g2 = null;
-            System.gc();
-        }
- }
- ```
+The `finalize()` method is called by the garbage collector when it determines that there are no more references to the object. It is used to perform cleanup actions before the object is garbage collected. For example, you can use the `finalize()` method to close open files or release other system resources.
 
- `System.gc()` is used to call the `finalize()` method for both g1 and g2, 2 unused objects. So finalize method will be called twice.
+Example:
+
+```java
+public class MyClass {
+    public void finalize() {
+        // cleanup code here
+    }
+}
+```
+
+### System.gc() method
+
+The `System.gc()` method is used to request garbage collection. It is not guaranteed that the garbage collector will run, but it is guaranteed that the garbage collector will not run if it is not requested. This method is useful for testing purposes, but should not be used in production code.
+
+Example:
+
+```java
+public class MyClass {
+    public static void main(String[] args) {
+        // create objects here
+        System.gc(); // request garbage collection
+    }
+}
+```
+
+# The `this` keyword in Java
+
+The `this` keyword is used to refer to the current object in Java. It can be used to access instance variables and methods of the current object. For example, if you have a class called `Person` with an instance variable called `name`, you can use the `this` keyword to access the `name` variable of the current object.
+
+Example:
+
+```java
+public class Person {
+    private String name; // let this be "Tamal"
+
+    public Person(String name) {
+        this.name = name; // this.name is "Tamal"
+    }
+
+    public String getName() {
+        return this.name; 
+        // by this.name we mean the name which we defined 
+        // in the first line of this class "private String name;"
+    }
+    
+    
+}
+```
+
+In this example, the `this` keyword is used to access the `name` variable of the current object. This allows you to write code that is more concise and readable.
+
+The `this` keyword can also be used to call methods of the current object. For example, if you have a method called `printName()` in the `Person` class, you can use the `this` keyword to call the `printName()` method of the current object.
+
+Example:
+
+```java
+public class Person {
+    private String name;
+    
+    public Person(String name) {
+        this.name = name;
+    }
+    
+    public void printName() {
+        System.out.println(this.name);
+    }
+}
+```
+
+In this example, the `this` keyword is used to call the `printName()` method of the current object. This allows you to write code that is more concise and readable.
+
+# Use of objects as a Parameter in Java
+
+In Java, objects can be used as parameters in methods. This allows you to pass an object to a method and have the method modify the object. For example, if you have a method called `setName()` that takes a `Person` object as a parameter, you can use the `setName()` method to change the name of the `Person` object.
+
+Example:
+
+```java
+public class Person {
+    private String name;
+    
+    public Person(String name) {
+        this.name = name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+```
+
+In this example, the `setName()` method takes a `Person` object as a parameter and changes the name of the `Person` object. This allows you to write code that is more concise and readable.
+
