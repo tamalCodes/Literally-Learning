@@ -5,7 +5,6 @@
 - [Data types in Java](#data-types-in-java)
 - [Garbage collection](#garbage-collection)
 - [How to work Garbage collection ?](#how-to-work-garbage-collection-)
-- [Static variable in Java](#static-variable-in-java)
 
 <!-- /TOC -->
 
@@ -80,41 +79,3 @@ We use `free()` in C language and `delete()` in C++ to free the memory allocated
  ```
 
  `System.gc()` is used to call the `finalize()` method for both g1 and g2, 2 unused objects. So finalize method will be called twice.
-
-
-# Static variable in Java
-
-In Java, a static variable is a variable that belongs to a class rather than an instance of the class. This means that the variable is shared by all instances of the class and can be accessed without creating an object of the class.
-
-Think of it like a piece of information that is associated with a class rather than with a particular object. For example, if you have a "Car" class, you might have a static variable called "numCars" that keeps track of the total number of cars that have been created. Each time a new car object is created, the "numCars" variable is incremented, so all car objects can access the updated value of the variable.
-
-Static variables are useful for storing data that needs to be shared across multiple objects of a class, and they can also be used to create global variables that are accessible throughout your program.
-
-
-```java
-public class Car {
-    static int numCars = 0; // static variable to keep track of the number of cars
-
-    String make;
-    String model;
-    int year;
-
-    public Car(String make, String model, int year) {
-        this.make = make;
-        this.model = model;
-        this.year = year;
-        numCars++; // increment the static variable each time a new Car object is created
-    }
-
-    public static void main(String[] args) {
-        Car car1 = new Car("Toyota", "Camry", 2021);
-        Car car2 = new Car("Honda", "Civic", 2022);
-
-        System.out.println("Total number of cars: " + Car.numCars); // access the static variable using the class name
-    }
-}
-```
-
-In this example, the Car class has a static variable called `numCars` that keeps track of the total number of cars that have been created. Each time a new Car object is created, the `numCars` variable is incremented using the `numCars++` statement in the constructor.
-
-In the main method, we create two Car objects (car1 and car2) and then print out the total number of cars using the Car.numCars syntax, which accesses the static variable using the class name rather than an object of the class

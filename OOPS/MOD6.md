@@ -48,6 +48,10 @@
   - [How to Typecast Objects with a dynamically loaded Class ?](#how-to-typecast-objects-with-a-dynamically-loaded-class-)
     - [Upcasting](#upcasting)
     - [Downcasting](#downcasting)
+- [Packages](#packages)
+  - [Advantages of using packages](#advantages-of-using-packages)
+  - [Buit-in packages](#buit-in-packages)
+  - [Member access for packages in Java](#member-access-for-packages-in-java)
 
 <!-- /TOC -->
 
@@ -845,3 +849,62 @@ In this example, we first upcast a Dog object to an Animal object and assign it 
 Next, we downcast the Animal object back to a Dog object using (Dog) myAnimal. We can then call the `playFetch()` method on the Dog object, which outputs "Dog is playing fetch". This is an example of downcasting because we are converting an Animal object to a Dog object.
 
 It's important to note that downcasting can cause a ClassCastException at runtime if the object being downcasted is not actually an instance of the subclass. To avoid this, you can use the instanceof operator to check if an object is an instance of a particular class before downcasting.
+
+
+# Packages
+
+In Java, a package is a way to organize related classes, interfaces, and sub-packages into a single namespace. This makes it easier to manage and reuse code, as well as avoid naming conflicts with classes from other packages.
+
+The `java.util` package is a built-in package in Java that provides a collection of useful utility classes and interfaces. 
+
+This package contains classes for data structures such as arrays, lists, sets, maps, and iterators, as well as classes for working with dates, times, and other common utility classes.
+
+```java
+
+import java.util.ArrayList;
+
+public class MyArrayListExample {
+    public static void main(String[] args) {
+        // create a new ArrayList of strings
+        ArrayList<String> list = new ArrayList<>();
+
+        // add some elements to the list
+        list.add("apple");
+        list.add("banana");
+        list.add("orange");
+
+        // print the list
+        System.out.println(list);
+    }
+}
+```
+
+`import java.util.*` imports all the classes in the `java.util` package. This is called a wildcard import.
+
+## Advantages of using packages
+
+- Java package is used to categorize the classes and interfaces so that they can be easily maintained.
+
+- Java package provides access protection.
+
+- Java package removes naming collision.
+
+## Buit-in packages
+
+Packages that come with JDK or JRD you download are known as built-in packages. The built-in packages have come in the form of JAR files and when we unzip the JAR files we can easily see the packages in JAR files, for example, lang, io, util, SQL, etc. Java provides various built-in packages for example java.awt
+
+- java.sql: Provides the classes for accessing and processing data stored in a database. Classes like Connection, DriverManager, PreparedStatement, ResultSet, Statement, etc. are part of this package.
+
+- java.lang: Contains classes and interfaces that are fundamental to the design of the Java programming language. Classes like String, StringBuffer, System, Math, Integer, etc. are part of this package.
+
+- java.util: Contains the collections framework, some internationalization support classes, properties, random number generation classes. Classes like ArrayList, LinkedList, HashMap, Calendar, Date, Time Zone, etc. are part of this package.
+
+## Member access for packages in Java
+
+By default, classes and interfaces in a package have package-level access, which means they can be accessed by other classes and interfaces within the same package, but not by classes and interfaces in other packages. 
+
+However, you can also specify public or private access for classes and interfaces in a package. so that they can be accessed by classes and interfaces in other packages.   
+
+- `public` - accessible from any other class or interface in any package. 
+- `private` - accessible only from within the same class or interface.
+- `protected` - accessible from within the same class or interface, or from a subclass of the same package, or from a subclass of a different package.

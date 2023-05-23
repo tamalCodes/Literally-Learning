@@ -4,6 +4,10 @@
 
 <!-- TOC -->
 
+- [What is Object Oriented Programming ?](#what-is-object-oriented-programming-)
+  - [Thinking differnce between OOP and other conventional programming](#thinking-differnce-between-oop-and-other-conventional-programming)
+  - [Advantages of OOP](#advantages-of-oop)
+  - [Disadvantages of OOP](#disadvantages-of-oop)
 - [What is a class in java ?](#what-is-a-class-in-java-)
   - [Example](#example)
   - [Understanding Objects](#understanding-objects)
@@ -11,28 +15,26 @@
   - [Understanding the `new` keyword](#understanding-the-new-keyword)
   - [How to manipulate the state of an object ?](#how-to-manipulate-the-state-of-an-object-)
 - [Java constructor](#java-constructor)
+  - [Why do we need a constructor ?](#why-do-we-need-a-constructor-)
+  - [Basic syntax of a constructor](#basic-syntax-of-a-constructor)
   - [Constructor overloading](#constructor-overloading)
 - [Pass by value, and Pass by reference in java](#pass-by-value-and-pass-by-reference-in-java)
-  - [Pass by Value](#pass-by-value)
-  - [Pass by Reference](#pass-by-reference)
+  - [Pass by Value (int, float, char, etc.)](#pass-by-value-int-float-char-etc)
+  - [Pass by Reference (objects)](#pass-by-reference-objects)
 - [Wrapper Classes](#wrapper-classes)
 - [The `final` keyword](#the-final-keyword)
-- [Packages](#packages)
-  - [Advantages of using packages](#advantages-of-using-packages)
-  - [Buit-in packages](#buit-in-packages)
-  - [Member access for packages in Java](#member-access-for-packages-in-java)
 - [The `import` statement](#the-import-statement)
 - [The `static` keyword](#the-static-keyword)
 - [PolyMorphism in Java](#polymorphism-in-java)
   - [Compile Time Polymorphism](#compile-time-polymorphism)
   - [Run Time Polymorphism](#run-time-polymorphism)
 - [Inheritance in Java](#inheritance-in-java)
+- [Interfaces in Java](#interfaces-in-java)
+  - [Multiple Inheritance using interfaces](#multiple-inheritance-using-interfaces)
 - [Access Modifiers](#access-modifiers)
     - [Public Modifier](#public-modifier)
     - [Protected Modifier](#protected-modifier)
     - [Default Modifier](#default-modifier)
-- [Interfaces in Java](#interfaces-in-java)
-  - [Multiple Inheritance using interfaces](#multiple-inheritance-using-interfaces)
 - [Abstraction](#abstraction)
   - [What is Abstract class in Java?](#what-is-abstract-class-in-java)
 - [Relationship in Classes Java](#relationship-in-classes-java)
@@ -43,7 +45,51 @@
 - [Relationship between objects in Java](#relationship-between-objects-in-java)
 
 <!-- /TOC -->
+# What is Object Oriented Programming ?
 
+Object-oriented programming (OOP) is a programming paradigm that uses objects and their interactions to design applications and computer programs. It is based on several principles, including encapsulation, inheritance, polymorphism, and abstraction.
+
+In Java, everything is an object. This means that you can create objects to represent real-world entities, such as cars, houses, and people. You can also create objects to represent abstract concepts, such as numbers, colors, and shapes.
+
+## Thinking differnce between OOP and other conventional programming
+
+In conventional programming, you write code that performs a series of steps to solve a problem. In object-oriented programming, you write code that creates objects and then uses those objects to solve the problem.
+
+For example, let's say you want to write a program that calculates the area of a circle. In conventional programming, you might write code that performs the following steps:
+
+- Get the radius of the circle from the user
+- Calculate the area of the circle using the formula A = πr2
+- Display the result to the user
+  
+In object-oriented programming, you might write code that creates a Circle object and then uses that object to calculate the area of the circle. The Circle object would have a method called `getArea()` that returns the area of the circle. The code would look something like this:
+
+```java
+Circle circle = new Circle();
+double area = circle.getArea();
+System.out.println("Area of circle: " + area);
+```
+
+In summary, object-oriented programming is a programming paradigm that uses objects and their interactions to design applications and computer programs. It is based on several principles, including encapsulation, inheritance, polymorphism, and abstraction.
+
+## Advantages of OOP
+
+- **Modularity**: The ability to break a program into smaller, more manageable pieces.
+- **Reusability**: The ability to reuse code that has already been written.
+- **Extensibility**: The ability to add new features to a program without breaking the existing code.
+- **Encapsulation**: The ability to hide the internal details of a class from other classes.
+- **Inheritance**: The ability to create new classes that inherit the attributes and methods of existing classes.
+- **Polymorphism**: The ability to use an object in different ways depending on the context.
+- **Abstraction**: The ability to represent the essential features of an object without including the background details.
+- **Composition**: The ability to combine simple objects to create more complex objects.
+- **Delegation**: The ability to pass responsibility for a task to another object.
+- **Interfaces**: The ability to define a common set of methods that can be implemented by multiple classes.
+
+## Disadvantages of OOP
+
+- **Complexity**: Object-oriented programming is more complex than procedural programming because it requires you to think about the relationships between objects and how they interact with each other.
+- **Performance**: Object-oriented programming is slower than procedural programming because it requires more memory and processing power.
+- **Learning Curve**: Object-oriented programming is more difficult to learn than procedural programming because it requires you to think about the relationships between objects and how they interact with each other.
+- **Debugging**: Object-oriented programming is more difficult to debug than procedural programming because it requires you to think about the relationships between objects and how they interact with each other.
 # What is a class in java ?
 
 A **class is a logical blueprint/template** from which individual objects are created. It is a collection of variables and methods. It is a user defined data type.
@@ -133,6 +179,22 @@ public class StudentType {
 In Java, a constructor is a special method that is used to initialize an object of a class. When an object is created using the new keyword, the constructor is automatically called to initialize the object's state. 
 
 > It has the same name as the class and is syntactically similar to a method. However, constructors have no explicit return type.
+
+## Why do we need a constructor ?
+
+A constructor is used to initialize an object of a class. It is called when an object is created using the new keyword. It is used to set the initial state of an object.
+
+## Basic syntax of a constructor
+
+```java
+public class MyClass {
+    public MyClass() {
+        // Constructor code
+    }
+}
+```
+
+
 
 ```java
 public class Car {
@@ -243,7 +305,7 @@ In this example, the `Rectangle` class has three constructors that are overloade
 
 # Pass by value, and Pass by reference in java
 
-## Pass by Value
+## Pass by Value (int, float, char, etc.)
 
 In Java, primitive data types such as **int, float, char, etc., are passed by value**. When a primitive value is passed to a method, a copy of the value is made and passed to the method. 
 
@@ -263,7 +325,7 @@ In Java, primitive data types such as **int, float, char, etc., are passed by va
 
 In the above example, the increment() method receives a copy of the num variable. Any changes made to the num variable inside the method are not reflected outside the method.
 
-## Pass by Reference
+## Pass by Reference (objects)
 
 In Java, objects are passed by reference. When an object is passed to a method, a copy of the reference to the object is passed to the method, not a copy of the object itself. This means that any changes made to the object inside the method **are also reflected outside the method.**
 
@@ -337,64 +399,6 @@ public class FinalExample {
     }
 }
 ```
-
-# Packages
-
-In Java, a package is a way to organize related classes, interfaces, and sub-packages into a single namespace. This makes it easier to manage and reuse code, as well as avoid naming conflicts with classes from other packages.
-
-The `java.util` package is a built-in package in Java that provides a collection of useful utility classes and interfaces. 
-
-This package contains classes for data structures such as arrays, lists, sets, maps, and iterators, as well as classes for working with dates, times, and other common utility classes.
-
-```java
-
-import java.util.ArrayList;
-
-public class MyArrayListExample {
-    public static void main(String[] args) {
-        // create a new ArrayList of strings
-        ArrayList<String> list = new ArrayList<>();
-
-        // add some elements to the list
-        list.add("apple");
-        list.add("banana");
-        list.add("orange");
-
-        // print the list
-        System.out.println(list);
-    }
-}
-```
-
-`import java.util.*` imports all the classes in the `java.util` package. This is called a wildcard import.
-
-## Advantages of using packages
-
-- Java package is used to categorize the classes and interfaces so that they can be easily maintained.
-
-- Java package provides access protection.
-
-- Java package removes naming collision.
-
-## Buit-in packages
-
-Packages that come with JDK or JRD you download are known as built-in packages. The built-in packages have come in the form of JAR files and when we unzip the JAR files we can easily see the packages in JAR files, for example, lang, io, util, SQL, etc. Java provides various built-in packages for example java.awt
-
-- java.sql: Provides the classes for accessing and processing data stored in a database. Classes like Connection, DriverManager, PreparedStatement, ResultSet, Statement, etc. are part of this package.
-
-- java.lang: Contains classes and interfaces that are fundamental to the design of the Java programming language. Classes like String, StringBuffer, System, Math, Integer, etc. are part of this package.
-
-- java.util: Contains the collections framework, some internationalization support classes, properties, random number generation classes. Classes like ArrayList, LinkedList, HashMap, Calendar, Date, Time Zone, etc. are part of this package.
-
-## Member access for packages in Java
-
-By default, classes and interfaces in a package have package-level access, which means they can be accessed by other classes and interfaces within the same package, but not by classes and interfaces in other packages. 
-
-However, you can also specify public or private access for classes and interfaces in a package. so that they can be accessed by classes and interfaces in other packages.   
-
-- `public` - accessible from any other class or interface in any package. 
-- `private` - accessible only from within the same class or interface.
-- `protected` - accessible from within the same class or interface, or from a subclass of the same package, or from a subclass of a different package.
 
 # The `import` statement
 
@@ -483,6 +487,8 @@ Compile time polymorphism is also known as static polymorphism. This is achieved
 - Method overloading is when we have multiple methods with the same name but different parameters.
 
 - Operator overloading is when we use the same operator for different purposes.
+
+Here's an example of Static Polymorphism using method overloading:
 
 ```java
 class Student{
@@ -588,6 +594,66 @@ In this example, we have created a new object of the `Dog` class and accessed al
 
 🙊 In Java, we can only inherit from one class. We can't inherit from multiple classes. But we can implement multiple interfaces.
 
+
+# Interfaces in Java
+
+An Interface in Java programming language is defined as an abstract type used to specify the behavior of a class. An interface in Java is a blueprint of a behaviour. A Java interface contains static constants and abstract methods.
+
+```java
+
+class Laptop
+{
+    public void start()
+    {
+        System.out.println("Laptop started");
+    }
+}
+
+class Developer
+{
+    public void code(Laptop lap)
+    {
+        lap.start();
+        System.out.println("Developer is coding");
+    }
+}
+
+```
+
+## Multiple Inheritance using interfaces
+
+To achieve multiple inheritance using interfaces, you can create two or more interfaces with different sets of abstract methods, and then create a class that implements all the interfaces. By doing so, the class will inherit the abstract methods from all the interfaces it implements.
+
+```java
+
+interface AnimalEat {
+   void eat();
+}
+interface AnimalTravel {
+   void travel();
+}
+class Animal implements AnimalEat, AnimalTravel {
+   public void eat() {
+      System.out.println("Animal is eating");
+   }
+   public void travel() {
+      System.out.println("Animal is travelling");
+   }
+}
+public class Demo {
+   public static void main(String args[]) {
+      Animal a = new Animal();
+      a.eat();
+      a.travel();
+   }
+}
+```
+
+- The interface AnimalEat and AnimalTravel have one abstract method each i.e. eat() and travel(). The class Animal implements the interfaces AnimalEat and AnimalTravel.
+
+- In the method main() in class Demo, an object a of class Animal is created. Then the methods eat() and travel() are called.
+
+- The class Animal implements both the interfaces AnimalEat and AnimalTravel. So the class Animal inherits the methods eat() and travel() from both the interfaces and that is how multiple inheritance is achieved in Java.
 
 # Access Modifiers
 
@@ -700,66 +766,6 @@ class GeekNew
 	}
 }
 ```
-
-# Interfaces in Java
-
-An Interface in Java programming language is defined as an abstract type used to specify the behavior of a class. An interface in Java is a blueprint of a behaviour. A Java interface contains static constants and abstract methods.
-
-```java
-
-class Laptop
-{
-    public void start()
-    {
-        System.out.println("Laptop started");
-    }
-}
-
-class Developer
-{
-    public void code(Laptop lap)
-    {
-        lap.start();
-        System.out.println("Developer is coding");
-    }
-}
-
-```
-
-## Multiple Inheritance using interfaces
-
-To achieve multiple inheritance using interfaces, you can create two or more interfaces with different sets of abstract methods, and then create a class that implements all the interfaces. By doing so, the class will inherit the abstract methods from all the interfaces it implements.
-
-```java
-
-interface AnimalEat {
-   void eat();
-}
-interface AnimalTravel {
-   void travel();
-}
-class Animal implements AnimalEat, AnimalTravel {
-   public void eat() {
-      System.out.println("Animal is eating");
-   }
-   public void travel() {
-      System.out.println("Animal is travelling");
-   }
-}
-public class Demo {
-   public static void main(String args[]) {
-      Animal a = new Animal();
-      a.eat();
-      a.travel();
-   }
-}
-```
-
-- The interface AnimalEat and AnimalTravel have one abstract method each i.e. eat() and travel(). The class Animal implements the interfaces AnimalEat and AnimalTravel.
-
-- In the method main() in class Demo, an object a of class Animal is created. Then the methods eat() and travel() are called.
-
-- The class Animal implements both the interfaces AnimalEat and AnimalTravel. So the class Animal inherits the methods eat() and travel() from both the interfaces and that is how multiple inheritance is achieved in Java.
   
 
 # Abstraction

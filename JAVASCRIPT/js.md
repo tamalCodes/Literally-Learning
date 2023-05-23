@@ -1,3 +1,172 @@
+<!-- TOC -->
+
+- [Types of variables in JS](#types-of-variables-in-js)
+  - [Difference between let and var](#difference-between-let-and-var)
+- [What is hoisting ?](#what-is-hoisting-)
+- [What is a promise ?](#what-is-a-promise-)
+  - [How to use a promise, in terms of an API ?](#how-to-use-a-promise-in-terms-of-an-api-)
+  - [What are `.then` and `.catch` ?](#what-are-then-and-catch-)
+- [What is async/await ?](#what-is-asyncawait-)
+  - [Difference between promise and async/await](#difference-between-promise-and-asyncawait)
+- [How browsers work](#how-browsers-work)
+- [Are props immutable, if so , then why ?](#are-props-immutable-if-so--then-why-)
+- [Now forget react, if we want to change props like mutate regardless of the state in parent, how can we do it , let's say in Js ?](#now-forget-react-if-we-want-to-change-props-like-mutate-regardless-of-the-state-in-parent-how-can-we-do-it--lets-say-in-js-)
+- [Are objects passed by reference or by value ?](#are-objects-passed-by-reference-or-by-value-)
+- [What is the difference between a controlled and uncontrolled component ?](#what-is-the-difference-between-a-controlled-and-uncontrolled-component-)
+- [What is lazy loading (in depth) ?](#what-is-lazy-loading-in-depth-)
+- [What is DOM ?](#what-is-dom-)
+  - [Virtual DOM in react](#virtual-dom-in-react)
+- [Hooks in react](#hooks-in-react)
+  - [useRef hook](#useref-hook)
+  - [What is the difference between useRef and useState ?](#what-is-the-difference-between-useref-and-usestate-)
+  - [Explain useMemo and why it is used ?](#explain-usememo-and-why-it-is-used-)
+  - [Explain useCallback and why it is used ?](#explain-usecallback-and-why-it-is-used-)
+- [useReducer Hook](#usereducer-hook)
+
+<!-- /TOC -->
+# Types of variables in JS
+
+- Const : Constant variables. Cannot be changed once declared.
+- Let : Block scoped variables. Can be changed once declared.
+- Var : Function scoped variables. Can be changed once declared.
+
+## Difference between let and var
+
+Var is function scoped and let is block scoped. This means that a variable declared with the var keyword can be accessed anywhere within the function containing it. On the other hand, a variable declared with the let keyword can be accessed only within the block in which it is defined.
+
+```js
+function myFunction() {
+  var myVar = "Hello";
+  let myLet = "World";
+
+  console.log(myVar); // "Hello"
+  console.log(myLet); // "World"
+}
+
+console.log(myVar); // ReferenceError: myVar is not defined
+
+console.log(myLet); // ReferenceError: myLet is not defined
+```
+
+In this example, the myVar variable is declared using the var keyword, so it can be accessed anywhere within the myFunction() function. On the other hand, the myLet variable is declared using the let keyword, so it can only be accessed within the block in which it is defined.
+
+# What is hoisting ?
+
+Hoisting is a JavaScript mechanism where variables and function declarations are moved to the top of their scope before code execution. This means that if a variable is declared anywhere in a function, it is moved to the top of the function for execution regardless of whether the declaration is at the top of the function or not.
+
+```js
+
+function myFunction() {
+  console.log(myVar); // undefined
+  var myVar = "Hello";
+  console.log(myVar); // "Hello"
+}
+
+myFunction();
+```
+
+In this example, the myVar variable is declared after the first console.log() statement, but it is still accessible within the function. This is because the declaration is hoisted to the top of the function before execution.
+
+**Why does hoisting exist ?**
+
+Hoisting exists in JavaScript because it is a compiled language. This means that before JavaScript code is executed, it is first compiled into a format that is more suitable for execution. During this compilation process, variable and function declarations are moved to the top of their scope. This allows variables and functions to be used before they are declared.
+
+# What is a promise ?
+
+A Promise is a proxy for a value not necessarily known when the promise is created. It allows you to associate handlers with an asynchronous action's eventual success value or failure reason. This lets asynchronous methods return values like synchronous methods: instead of immediately returning the final value, the asynchronous method returns a promise to supply the value at some point in the future.
+
+A promise can be in one of three states:
+
+- Pending: The initial state of a promise. It represents an operation that has not yet completed, and the promise is neither fulfilled nor rejected.
+
+- Fulfilled: The state of a promise representing a successful operation. This is the state set when the promise's resolve() function is called.
+
+- Rejected: The state of a promise representing a failed operation. This is the state set when the promise's reject() function is called.
+
+## How to use a promise, in terms of an API ?
+
+```js
+
+const myPromise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve("foo");
+  }, 300);
+});
+
+myPromise
+  .then(handleFulfilledA, handleRejectedA)
+  .then(handleFulfilledB, handleRejectedB)
+  .then(handleFulfilledC, handleRejectedC);
+
+
+
+```
+## What are `.then` and `.catch` ?
+
+The then() method returns a Promise. It takes up to two arguments: callback functions for the success and failure cases of the Promise.
+
+Example:
+
+```js
+
+fetch('flowers.jpg')
+.then(function(response) {
+  if (!response.ok) {
+    throw new Error('HTTP error, status = ' + response.status);
+  }
+  return response.blob();
+})
+
+```
+
+The catch() method returns a Promise and deals with rejected cases only. It behaves the same as calling Promise.prototype.then(undefined, onRejected) (in fact, calling obj.catch(onRejected) internally calls obj.then(undefined, onRejected)).
+
+Example:
+
+```js
+
+fetch('flowers.jpg')
+.then(function(response) {
+  if (!response.ok) {
+    throw new Error('HTTP error, status = ' + response.status);
+  }
+  return response.blob();
+})
+.catch(function(error) {
+  console.log(error);
+})
+
+```
+
+# What is async/await ?
+
+The async function declaration defines an asynchronous function, which returns an AsyncFunction object. An asynchronous function is a function which operates asynchronously via the event loop, using an implicit Promise to return its result. But the syntax and structure of your code using async functions is much more like using standard synchronous functions.
+
+The await operator is used to wait for a Promise. It can only be used inside an async function.
+
+The await expression causes async function execution to pause until a Promise is settled (that is, fulfilled or rejected), and to resume execution of the async function after fulfillment. When resumed, the value of the await expression is that of the fulfilled Promise.
+
+## Difference between promise and async/await
+
+The async/await syntax is built on top of promises. It cannot be used with plain callbacks or node callbacks. Async/await is actually just syntax sugar built on top of promises. It cannot be used with plain callbacks or node callbacks. Async/await is actually just syntax sugar built on top of promises, so it can only be used with functions that return promises. The async/await syntax allows you to write asynchronous code that reads similarly to synchronous code.
+
+```js
+
+async function myFunction() {
+  try {
+    const value = await promise;
+    console.log(value);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+```
+
+
+
+
+
 # How browsers work
 
 Here's a brief overview of how browsers work:
@@ -65,46 +234,7 @@ console.log(myObject.name); // "Jane"
 
 In this example, the modifyObject() function receives a reference to the myObject object. When the function modifies the name property of the object, the change is visible outside of the function.
 
-# Explain useMemo and why it is used ?
 
-The `useMemo()` hook is a React hook that can be used to memoize the result of a function call. This can be useful when a function call is expensive and the result of the function call needs to be reused.
-
-> Memoization is a technique used to improve performance by caching the result of a function call.
-
-
-```js
-import React, { useMemo } from 'react';
-
-function MyComponent({ value1, value2 }) {
-  const result = useMemo(() => {
-    console.log('Computing result...');
-    return value1 + value2;
-  }, [value1, value2]);
-
-  return <div>{result}</div>;
-}
-```
-
-In this example, the useMemo() hook is used to memoize the result of the addition operation. The result of the addition operation is only recomputed when the value1 or value2 props change.
-
-# Explain useCallback and why it is used ?
-
-In React, `useCallback` is a hook that is used to memoize a function so that it is only re-created when one of its dependencies changes. This is similar to useMemo, but instead of memoizing a value, useCallback memoizes a function.
-
-```js
-
-import React, { useCallback } from 'react';
-
-function MyComponent({ value1, value2 }) {
-  const handleClick = useCallback(() => {
-    console.log('Clicked!');
-  }, [onClick]);
-
-  return <button onClick={handleClick}>Click me</button>;
-}
-```
-
-In this example, the handleClick function is memoized using useCallback. This means that the function will only be re-created when the onClick prop changes.
 
 # What is the difference between a controlled and uncontrolled component ?
 
@@ -149,7 +279,9 @@ When we make changes to the UI, **React first updates the Virtual DOM tree** by 
 
 Overall, the Virtual DOM is a key part of what makes React a high-performance and efficient framework for building UIs.
 
-# What is useRef in react ?
+
+# Hooks in react
+## useRef hook
 
 The useRef hook is a React hook that can be used to create a mutable ref object which will not re-render the components.
 
@@ -167,7 +299,7 @@ function MyComponent() {
 
 In this example, the useRef hook is used to create a ref object which is assigned to the ref variable. The ref object is then passed to the div element, which allows us to access the DOM node of the div element using the ref.current property.
 
-# What is the difference between useRef and useState ?
+## What is the difference between useRef and useState ?
 
 The useRef hook is similar to the useState hook, but it does not cause the component to re-render when the ref object is updated.
 
@@ -191,7 +323,83 @@ In this example, the ref object is created using the useRef hook. The ref object
 
 The count state is created using the useState hook. When the button is clicked, the count state is updated using the setCount() function, which causes the component to re-render.
 
+## Explain useMemo and why it is used ?
+
+The `useMemo()` hook is a React hook that can be used to memoize the result of a function call. This can be useful when a function call is expensive and the result of the function call needs to be reused.
+
+> Memoization is a technique used to improve performance by caching the result of a function call.
 
 
+```js
+import React, { useMemo } from 'react';
+
+function MyComponent({ value1, value2 }) {
+  const result = useMemo(() => {
+    console.log('Computing result...');
+    return value1 + value2;
+  }, [value1, value2]);
+
+  return <div>{result}</div>;
+}
+```
+
+In this example, the useMemo() hook is used to memoize the result of the addition operation. The result of the addition operation is only recomputed when the value1 or value2 props change.
+
+## Explain useCallback and why it is used ?
+
+In React, `useCallback` is a hook that is used to memoize a function so that it is only re-created when one of its dependencies changes. This is similar to useMemo, but instead of memoizing a value, useCallback memoizes a function.
+
+```js
+
+import React, { useCallback } from 'react';
+
+function MyComponent({ value1, value2 }) {
+  const handleClick = useCallback(() => {
+    console.log('Clicked!');
+  }, [onClick]);
+
+  return <button onClick={handleClick}>Click me</button>;
+}
+```
+
+In this example, the handleClick function is memoized using useCallback. This means that the function will only be re-created when the onClick prop changes.
+
+# useReducer Hook
+
+useReducer is a hook for state management, much like useState, and relies upon a kind of function called a reducer.
+
+Reducers btw are just pure functions that take the previous state and an action, and return the next state.
+
+useReducer can be used in many of the same ways that useState can, but is more helpful for managing state across multiple components that may involve different operations or "actions".
+
+You will need to reach for useReducer less than useState around your app. But it is very helpful as a powerful means of managing state in smaller applications, rather than having to reach for a third-party state management library like Redux.
+
+```js
+
+import React, { useReducer } from 'react';
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return { count: state.count + 1 };
+    case 'decrement':
+      return { count: state.count - 1 };
+    default:
+      throw new Error();
+  }
+}
 
 
+function Counter({ initialCount }) {
+  const [state, dispatch] = useReducer(reducer, { count: initialCount });
+  return (
+    <>
+      Count: {state.count}
+      <button onClick={() => dispatch({ type: 'increment' })}>+</button>
+      <button onClick={() => dispatch({ type: 'decrement' })}>-</button>
+    </>
+  );
+}
+```
+
+In this example, the useReducer hook is used to manage the state of the count variable. The reducer function is passed to the useReducer hook as the first argument, and the initial state is passed as the second argument.
