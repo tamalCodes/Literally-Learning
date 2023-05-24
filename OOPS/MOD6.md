@@ -53,6 +53,7 @@
   - [Advantages of using packages](#advantages-of-using-packages)
   - [Buit-in packages](#buit-in-packages)
   - [Member access for packages in Java](#member-access-for-packages-in-java)
+  - [Creating a package](#creating-a-package)
 
 <!-- /TOC -->
 
@@ -937,3 +938,103 @@ However, you can also specify public or private access for classes and interface
 - `public` - accessible from any other class or interface in any package. 
 - `private` - accessible only from within the same class or interface.
 - `protected` - accessible from within the same class or interface, or from a subclass of the same package, or from a subclass of a different package.
+
+## Creating a package
+Design a package containing details of a Person class, Student class and Teacher class. Use inheritance and interface.
+
+```java
+// Package: com.example.school
+
+// Person interface
+public interface Person {
+    String getName();
+    void setName(String name);
+    int getAge();
+    void setAge(int age);
+}
+
+// Student class implementing Person interface
+public class Student implements Person {
+    private String name;
+    private int age;
+    private String studentId;
+    
+    public String getName() {
+        return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public int getAge() {
+        return age;
+    }
+    
+    public void setAge(int age) {
+        this.age = age;
+    }
+    
+    public String getStudentId() {
+        return studentId;
+    }
+    
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+}
+
+// Teacher class implementing Person interface
+public class Teacher implements Person {
+    private String name;
+    private int age;
+    private String teacherId;
+    
+    public String getName() {
+        return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public int getAge() {
+        return age;
+    }
+    
+    public void setAge(int age) {
+        this.age = age;
+    }
+    
+    public String getTeacherId() {
+        return teacherId;
+    }
+    
+    public void setTeacherId(String teacherId) {
+        this.teacherId = teacherId;
+    }
+}
+
+// Example usage
+public class Main {
+    public static void main(String[] args) {
+        Student student = new Student();
+        student.setName("John");
+        student.setAge(18);
+        student.setStudentId("S123456");
+        
+        Teacher teacher = new Teacher();
+        teacher.setName("Ms. Smith");
+        teacher.setAge(35);
+        teacher.setTeacherId("T987654");
+        
+        System.out.println("Student name: " + student.getName());
+        System.out.println("Student age: " + student.getAge());
+        System.out.println("Student ID: " + student.getStudentId());
+        
+        System.out.println("Teacher name: " + teacher.getName());
+        System.out.println("Teacher age: " + teacher.getAge());
+        System.out.println("Teacher ID: " + teacher.getTeacherId());
+    }
+}
+```

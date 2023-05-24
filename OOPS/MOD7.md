@@ -552,27 +552,33 @@ Causes the currently executing thread to sleep (temporarily cease execution) for
 Example:
 
 ```java
-class TestSleepMethod1 extends Thread{
- public void run(){
-  for(int i=1;i<5;i++){
-    try
-    {
-      Thread.sleep(500);
-    }
-    catch(InterruptedException e)
-    {
-      System.out.println(e);
-    }
-    System.out.println(i);
-  }
- }
- public static void main(String args[]){
-  TestSleepMethod1 t1=new TestSleepMethod1();
-  TestSleepMethod1 t2=new TestSleepMethod1();
+public class HelloTamal extends Thread {
 
-  t1.start();
-  t2.start();
- }
+    public static void main(String[] args) {
+        Thread t1 = new Thread(() -> {
+            for (int i = 0; i < 10; i++) {
+
+                if (i == 5) {
+                    try {
+                        Thread.sleep(5000);
+                        System.out.println(Thread.currentThread().getName() + " is sleeping ");
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+                }
+                System.out.println(Thread.currentThread().getName() + " : " + i);
+            }
+        });
+
+        Thread t2 = new Thread(() -> {
+            for (int i = 0; i < 10; i++) {
+                System.out.println(Thread.currentThread().getName() + " : " + i);
+            }
+        });
+
+        t1.start();
+        t2.start();
+    }
 }
 ```
 
