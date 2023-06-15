@@ -3,6 +3,16 @@
 - [Types of variables in JS](#types-of-variables-in-js)
   - [Difference between let and var](#difference-between-let-and-var)
 - [What is hoisting ?](#what-is-hoisting-)
+- [Qustions based on Objects !](#qustions-based-on-objects-)
+  - [What are objects ?](#what-are-objects-)
+  - [What is the difference between object and array ?](#what-is-the-difference-between-object-and-array-)
+  - [What is the difference between object and map ?](#what-is-the-difference-between-object-and-map-)
+  - [Key with spaces in objects](#key-with-spaces-in-objects)
+  - [Add property to object dynamically](#add-property-to-object-dynamically)
+  - [`delete` operator in objects](#delete-operator-in-objects)
+  - [`in` operator in objects](#in-operator-in-objects)
+  - [Q1 Find output for this:](#q1-find-output-for-this)
+  - [Q2 Create a function called multiplyByTwo(obj) multiplies all the numeric property values of obj by two.](#q2-create-a-function-called-multiplybytwoobj-multiplies-all-the-numeric-property-values-of-obj-by-two)
 - [What is a promise ?](#what-is-a-promise-)
   - [How to use a promise, in terms of an API ?](#how-to-use-a-promise-in-terms-of-an-api-)
   - [What are `.then` and `.catch` ?](#what-are-then-and-catch-)
@@ -21,7 +31,11 @@
   - [What is the difference between useRef and useState ?](#what-is-the-difference-between-useref-and-usestate-)
   - [Explain useMemo and why it is used ?](#explain-usememo-and-why-it-is-used-)
   - [Explain useCallback and why it is used ?](#explain-usecallback-and-why-it-is-used-)
-- [useReducer Hook](#usereducer-hook)
+  - [useReducer Hook](#usereducer-hook)
+- [What is a HOC in react ?](#what-is-a-hoc-in-react-)
+  - [How does hooks replace Higher order components ?](#how-does-hooks-replace-higher-order-components-)
+- [What is a render prop in react ?](#what-is-a-render-prop-in-react-)
+  - [How did it get replaced in mordern day react ?](#how-did-it-get-replaced-in-mordern-day-react-)
 
 <!-- /TOC -->
 # Types of variables in JS
@@ -70,6 +84,148 @@ In this example, the myVar variable is declared after the first console.log() st
 **Why does hoisting exist ?**
 
 Hoisting exists in JavaScript because it is a compiled language. This means that before JavaScript code is executed, it is first compiled into a format that is more suitable for execution. During this compilation process, variable and function declarations are moved to the top of their scope. This allows variables and functions to be used before they are declared.
+
+# Qustions based on Objects !
+
+## What are objects ? 
+
+Objects are one of the most important data types in JavaScript. They allow us to store keyed collections of various data and more complex entities. In JavaScript, objects penetrate almost every aspect of the language. So we must understand them first before going in-depth anywhere else. This is how object looks like: 
+
+```js
+
+const person = {
+  name: "John",
+  age: 20,
+  hobbies: ["reading", "coding"],
+  greet: function () {
+    console.log("Hello, I am " + this.name);
+  },
+};
+
+```
+
+## What is the difference between object and array ?
+
+Arrays are a special kind of objects, with numbered indexes. But we usually use arrays when we want the elements to be ordered.
+
+Objects are used when we want the elements to be named. But there are exceptions, for instance, when an array is used to store an ordered collection of objects.
+
+## What is the difference between object and map ?
+
+Maps are similar to Objects in that both let you set keys to values, retrieve those values, delete keys, and detect whether something is stored at a key. Because of this, Objects have been used as Maps historically; however, there are important differences between Objects and Maps that make using a Map better.
+
+- An Object has a prototype, so there are default keys in the map. However, this can be bypassed using map = Object.create(null). The keys of an Object are Strings and Symbols, whereas they can be any value for a Map, including functions, objects, and any primitive.
+
+## Key with spaces in objects
+
+```js
+
+const tamal={
+  "tamal is good": true
+}
+
+console.log(tamal["tamal is good"]); // true
+
+```
+
+## Add property to object dynamically
+
+```js
+
+const person = {
+  name: "John",
+  age: 20,
+  hobbies: ["reading", "coding"],
+  greet: function () {
+    console.log("Hello, I am " + this.name);
+  },
+};
+
+person["address"] = "Kolkata";
+
+console.log(person); // {name: "John", age: 20, hobbies: Array(2), greet: ƒ, address: "Kolkata"}
+
+```
+
+## `delete` operator in objects
+
+The delete operator removes a given property from an object. On successful deletion, it will return true, else false will be returned.
+
+```js
+
+const person = {
+  name: "John",
+  age: 20,
+  hobbies: ["reading", "coding"],
+  greet: function () {
+    console.log("Hello, I am " + this.name);
+  },
+};
+
+delete person.age;
+
+console.log(person); // {name: "John", hobbies: Array(2), greet: ƒ}
+
+```
+
+## `in` operator in objects
+
+The in operator returns true if the specified property is in the specified object or its prototype chain.
+
+```js
+
+const person = {
+  name: "John",
+  age: 20,
+  hobbies: ["reading", "coding"],
+  greet: function () {
+    console.log("Hello, I am " + this.name);
+  },
+};
+
+console.log("name" in person); // true
+
+for (let key in person) {
+  console.log(key); // name, age, hobbies, greet
+  console.log(person[key]); // John, 20, ["reading", "coding"], ƒ () { console.log("Hello, I am " + this.name); }
+}
+```
+
+
+## Q1 Find output for this: 
+
+```js
+const obj = {
+  a: 1,
+  b: 2,
+  a:3,
+}
+
+console.log(obj); // {a: 3, b: 2}
+```
+
+The reason is that the object keys are unique. So, if you have the same key twice, the second key will overwrite the first key.
+
+## Q2 Create a function called multiplyByTwo(obj) multiplies all the numeric property values of obj by two. 
+
+```js
+let nums:{
+  a:100,
+  b:200,
+  c:"hello world",
+}
+
+const multiplyByTwo = (obj) => {
+  for(let key in obj){
+    if(typeof obj[key] === "number"){
+      obj[key] = obj[key] * 2;
+    }
+  }
+}
+```
+
+
+
 
 # What is a promise ?
 
@@ -364,7 +520,7 @@ function MyComponent({ value1, value2 }) {
 
 In this example, the handleClick function is memoized using useCallback. This means that the function will only be re-created when the onClick prop changes.
 
-# useReducer Hook
+## useReducer Hook
 
 useReducer is a hook for state management, much like useState, and relies upon a kind of function called a reducer.
 
@@ -403,3 +559,127 @@ function Counter({ initialCount }) {
 ```
 
 In this example, the useReducer hook is used to manage the state of the count variable. The reducer function is passed to the useReducer hook as the first argument, and the initial state is passed as the second argument.
+
+# What is a HOC in react ?
+
+A higher-order component (HOC) is a function that takes a component as an argument and returns a new component. HOCs are commonly used to implement cross-cutting concerns such as logging, error handling, and authentication.
+
+These are not much used in react now a days as we have hooks to do the same.
+
+```js
+import React from 'react';
+
+function withLogging(WrappedComponent) {
+  return function WithLogging(props) {
+    console.log('Component render');
+    return <WrappedComponent {...props} />;
+  };
+}
+
+function MyComponent() {
+  return <div>Hello</div>;
+}
+
+export default withLogging(MyComponent);
+```
+
+## How does hooks replace Higher order components ?
+
+In React, Higher Order Components (HOCs) have been a popular way to share behavior between components or enhance component functionality. However, with the introduction of React Hooks, there is an alternative and more flexible approach to achieve similar results without the need for HOCs.
+
+React Hooks allow you to add state and other React features to functional components, which were previously only possible with class components. Hooks are functions that let you "hook into" React state and lifecycle features from function components. The most commonly used hook is the useState hook, which allows you to add state to a functional component.
+
+By using hooks, you can achieve the same functionality as HOCs, but with a simpler and more concise syntax. Hooks provide a way to reuse stateful logic between components without introducing unnecessary complexity. Hooks also promote a more functional programming style, making it easier to reason about the component's behavior and test it in isolation.
+
+For example, let's say you have a component that needs to manage a local state and handle some side effects, such as fetching data from an API. With HOCs, you might need to create separate HOCs for state management and side effects and then wrap your component with those HOCs. This can lead to a higher level of nesting and harder-to-read code.
+
+With hooks, you can achieve the same result using the useState and useEffect hooks directly within your functional component. The state can be managed using the useState hook, and side effects can be handled using the useEffect hook. This approach keeps the code self-contained and eliminates the need for extra layers of abstraction.
+
+Here's an example to demonstrate how hooks can replace HOCs:
+
+```js
+// Higher Order Component (HOC) approach
+const withDataFetching = (WrappedComponent) => {
+  class WithDataFetching extends React.Component {
+    // HOC manages state and side effects
+    state = {
+      data: null,
+      isLoading: true,
+      error: null,
+    };
+
+    componentDidMount() {
+      // Fetch data and update state accordingly
+      fetchData()
+        .then(data => this.setState({ data, isLoading: false }))
+        .catch(error => this.setState({ error, isLoading: false }));
+    }
+
+    render() {
+      const { data, isLoading, error } = this.state;
+
+      // Renders the wrapped component with the fetched data, loading state, and error
+      return (
+        <WrappedComponent data={data} isLoading={isLoading} error={error} />
+      );
+    }
+  }
+
+  return WithDataFetching;
+};
+
+// Usage of the HOC
+const MyComponent = ({ data, isLoading, error }) => {
+  // Render the component based on the fetched data, loading state, and error
+  return (
+    // JSX rendering here
+  );
+};
+
+const WrappedComponent = withDataFetching(MyComponent);
+
+// Functional Component with Hooks approach
+const MyComponent = () => {
+  const [data, setData] = useState(null);
+  const [isLoading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // Fetch data and update state accordingly
+    fetchData()
+      .then(data => {
+        setData(data);
+        setLoading(false);
+      })
+      .catch(error => {
+        setError(error);
+        setLoading(false);
+      });
+  }, []);
+
+  // Render the component based on the fetched data, loading state, and error
+  return (
+    // JSX rendering here
+  );
+};
+```
+
+As you can see, the hooks approach eliminates the need for a separate HOC and provides a more straightforward way to manage state and side effects directly within the functional component. This simplification and encapsulation of logic make hooks a powerful replacement for HOCs in many cases.
+
+
+# What is a render prop in react ?
+
+Render props in React is a technique where a component accepts a function as a prop and uses that function to render its content. The function (render prop) is called by the component, passing it the necessary data and behavior, allowing the component's content to be dynamically generated by the function. It provides a flexible way to share code and pass behavior between components.
+
+## How did it get replaced in mordern day react ?
+
+In modern-day React, render props have been largely replaced by other patterns, such as React hooks and component composition. Render props were a popular technique in earlier versions of React to share behavior between components, but they can lead to complex nesting and boilerplate code.
+
+With the introduction of React hooks, specifically the useContext and useReducer hooks, and the increased emphasis on component composition, developers now have more elegant and scalable alternatives to achieve similar results without relying on render props.
+
+React hooks allow for encapsulating stateful logic and reusing it across components using custom hooks. This promotes a more modular and composable approach, where functionality can be encapsulated in custom hooks and easily shared between components.
+
+Additionally, component composition patterns, such as the use of higher-order components (HOCs), renderless components, or even just plain function composition, offer cleaner and more flexible ways to share behavior and achieve code reuse compared to the render props pattern.
+
+While render props are still a valid technique in React, the shift towards hooks and component composition patterns provides more concise and expressive alternatives that have become the preferred choices for code organization and sharing behavior in modern React applications.
+
