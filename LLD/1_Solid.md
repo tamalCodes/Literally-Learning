@@ -1,0 +1,405 @@
+<!-- TOC -->
+
+- [What is SOLID](#what-is-solid)
+- [Single Responsibility Principle](#single-responsibility-principle)
+  - [Refactoring](#refactoring)
+- [Open/Closed Principle](#openclosed-principle)
+  - [Refactoring](#refactoring-1)
+- [Liskov Substitution Principle](#liskov-substitution-principle)
+  - [Refactoring](#refactoring-2)
+- [Interface Segmented Principle](#interface-segmented-principle)
+  - [Refactoring](#refactoring-3)
+- [Dependency Inversion Principle](#dependency-inversion-principle)
+  - [Refactoring](#refactoring-4)
+
+<!-- /TOC -->
+
+
+# What is SOLID
+
+- `S` --> Single Responsibility Principle
+- `O` --> Open/Closed Principle
+- `L` --> Liskov Substitution Principle
+- `I` --> Interface Segmented Principle
+- `D` --> Dependency Inversion Principle
+
+# Single Responsibility Principle
+
+- A class should have one and only one reason to change, meaning that a class should have only one job/ responsibility.
+
+```java
+
+class Marker{
+    String name;
+    String color;
+    int price;
+    int year;
+
+    public Marker(String name, String color, int price, int year) {
+        this.name = name;
+        this.color = color;
+        this.price = price;
+        this.year = year;
+    }
+}
+
+class Invoice{
+    private Marker marker;
+    private int quantity;
+
+    public Invoice(Marker marker, int quantity) {
+        this.marker = marker;
+        this.quantity = quantity;
+    }
+
+    public int getTotalPrice(){
+        return marker.price * this.quantity;
+    }
+
+    public void printInvoice(){
+        System.out.println("Name: " + marker.name);
+        System.out.println("Color: " + marker.color);
+        System.out.println("Price: " + marker.price);
+        System.out.println("Quantity: " + this.quantity);
+        System.out.println("Total Price: " + this.getTotalPrice());
+    }
+
+    public void saveInvoice(){
+        // save invoice to database
+    }
+}
+
+```
+
+The above class `Invoice` has two responsibilities, one is to print the invoice and another is to save the invoice to database. So it does not follow the single responsibility principle. 
+
+The class has `MORE than one` reason to change. If the invoice format changes, then the class has to change. If the database changes, then the class has to change. So the class has `MORE than one` reason to change.
+
+## Refactoring
+
+So we can split the class into two classes, one is `InvoicePrinter` and another is `InvoiceSaver`. So the `Invoice` class will have only one responsibility, that is to create the invoice.
+
+```java
+
+class InvoicePrinter{
+    private Invoice invoice;
+
+    public InvoicePrinter(Invoice invoice) {
+        this.invoice = invoice;
+    }
+
+    public void printInvoice(){
+        System.out.println("Name: " + invoice.marker.name);
+        System.out.println("Color: " + invoice.marker.color);
+        System.out.println("Price: " + invoice.marker.price);
+        System.out.println("Quantity: " + invoice.quantity);
+        System.out.println("Total Price: " + invoice.getTotalPrice());
+    }
+}
+
+class InvoiceSaver{
+    private Invoice invoice;
+
+    public InvoiceSaver(Invoice invoice) {
+        this.invoice = invoice;
+    }
+
+    public void saveInvoice(){
+        // save invoice to database
+    }
+}
+
+```
+
+Thus with the `S` the code becomes more maintainable and flexible.
+
+# Open/Closed Principle
+
+- Objects or entities should be open for extension, but closed for modification.
+
+- If our class is already tested and if it is in live in production or deployment it is a very nice approach to make extreme modifications to wait for example if I add a new function to wait it is very prone to producing bugs maybe new errors and glitches and so on.  
+
+- So the best thing to do in such scenarios is to extend that classes and make whatever changes you want to do instead of adding modifications to that same class and that is exactly what open closed principle is all about.
+
+```java
+
+public class Shape {
+    private String type;
+
+    public Shape(String type) {
+        this.type = type;
+    }
+
+    public void draw() {
+        if (type.equalsIgnoreCase("circle")) {
+            // Drawing logic for a circle
+        } else if (type.equalsIgnoreCase("rectangle")) {
+            // Drawing logic for a rectangle
+        }
+    }
+}
+
+// Existing code that uses the Shape class
+public void drawShapes(List<Shape> shapes) {
+    for (Shape shape : shapes) {
+        shape.draw();
+    }
+}
+``` 
+
+This is a very simple example of a shape class that has a draw method and it takes a string type and based on that type it draws a circle or a rectangle. This does not follow the open closed principle because if you want to add a new shape for example a triangle you have to modify the shape class and add a new if else block to the draw method. This is not a good approach because you are modifying the existing class and it is prone to errors and bugs.
+
+## Refactoring
+
+`Abstraction and Inheritance` --> Define abstract base classes or interfaces that provide a contract for behavior, and let subclasses implement specific variations. This allows you to add new behavior by creating new subclasses without modifying existing code. Existing code can work with the abstract base class or interface, providing flexibility for future extensions.
+
+```java
+public abstract class Shape {
+    public abstract void draw();
+}
+
+public class Circle extends Shape {
+    public void draw() {
+        // Drawing logic for a circle
+    }
+}
+
+public class Rectangle extends Shape {
+    public void draw() {
+        // Drawing logic for a rectangle
+    }
+}
+
+// Existing code that uses the Shape class/interface
+public void drawShapes(List<Shape> shapes) {
+    for (Shape shape : shapes) {
+        shape.draw();
+    }
+}
+```
+
+So in the above code, we have an abstract class called shape and it has an abstract method called draw. So we have two subclasses called circle and rectangle and they extend the shape class and they implement the draw method. So now if you want to add a new shape for example a triangle you can just create a new class called `triangle` and extend the shape class and implement the draw method. So now you can add a new shape without modifying the existing code. So this is a very good approach and it follows the open closed principle.
+
+# Liskov Substitution Principle
+
+- Every subclass/derived class should be substitutable for their base/parent class.
+- If Class B is a subtype of Class A, then we should be able to replace object of A with an object of B without breaking the application.
+
+```java
+
+interface Bike{
+    void turnOnEngine();
+    void accelerate();
+}
+
+class Motorcycle implements Bike
+{
+    boolean isEngineOn;
+    int speed;
+
+    public void turnOnEngine() {
+        isEngineOn = true;
+    }
+
+    public void accelerate() {
+        speed += 10;
+    }
+}
+
+class Bicycle implements Bike
+{
+    int speed;
+
+    public void turnOnEngine() {
+        throw new AssertionError("I don't have an engine!");
+    }
+
+    public void accelerate() {
+        speed += 5;
+    }
+}
+
+```
+
+So this will break if someone who was used to the motorcycle class tries to use the bicycle class and then runs `Object.turnOnEngine()`. So this is not a good approach and it does not follow the Liskov substitution principle.
+
+## Refactoring
+
+```java
+interface Bike{
+    void turnOnEngine();
+    void accelerate();
+}
+
+class Motorcycle implements Bike
+{
+    boolean isEngineOn;
+    int speed;
+
+    public void turnOnEngine() {
+        isEngineOn = true;
+    }
+
+    public void accelerate() {
+        speed += 10;
+    }
+}
+
+class Bicycle implements Bike
+{
+    int speed;
+
+    public void accelerate() {
+        speed += 5;
+    }
+}
+
+```
+
+
+# Interface Segmented Principle
+
+- Interfaces should be such, that client shuld not be forced to implement the methods that it does not use.
+
+```java
+
+interface ResturantEmployee{
+    void washDishes();
+    void serveCustomers();
+    void cookFood();
+}
+
+class Waiter implements ResturantEmployee
+{
+    public void washDishes() {
+        throw new AssertionError("I don't wash dishes!");
+    }
+
+    public void serveCustomers() {
+        // Serving customers
+    }
+
+    public void cookFood() {
+        throw new AssertionError("I don't cook food!");
+    }
+}
+```
+
+## Refactoring
+
+So the goal is to divide interfaces in such small interfaces that the client should not be forced to implement the methods that it does not use.
+
+```java
+interface ResturantEmployee{
+    void serveCustomers();
+    void takeOrder();
+}
+
+interface Cook{
+    void cookFood();
+}
+
+interface DishWasher{
+    void washDishes();
+}
+
+class Waiter implements ResturantEmployee
+{
+    public void serveCustomers() {
+        // Serving customers
+    }
+
+    public void takeOrder() {
+        // Taking order
+    }
+}
+```
+
+# Dependency Inversion Principle
+
+- High-level modules should not depend on low-level modules. Both should depend on abstractions. Class should depend on interface rather than concrete class
+
+```java
+
+interface keyboard{
+    void wiredKeyboard();
+    void wirelessKeyboard();
+}
+
+interface mouse{
+    void wiredMouse();
+    void wirelessMouse();
+}
+
+class MacBook{
+    private final wiredKeyboard keyboard;
+    private final wiredMouse mouse;
+
+    public MacBook()
+    {
+        keyboard = new WiredKeyboard();
+        mouse = new WiredMouse();
+    }
+}
+```
+
+So this is wrong, as instead of depending on abstraction we are depending on concrete classes. So this is not a good approach and it does not follow the dependency inversion principle. We are not using the interfaces.
+
+So now if i needed wireless keyboard and mouse, i have to change the code in the MacBook class. So this is not a good approach.
+
+## Refactoring
+
+```java
+
+interface keyboard{
+    void wiredKeyboard();
+    void wirelessKeyboard();
+}
+
+interface mouse{
+    void wiredMouse();
+    void wirelessMouse();
+}
+
+class MacBook{
+    private final keyboard keyboard;
+    private final mouse mouse;
+
+    public MacBook(keyboard keyboard, mouse mouse)
+    {
+        this.keyboard = keyboard;
+        this.mouse = mouse;
+    }
+}
+```
+
+So now we are depending on abstraction. So now if i needed wireless keyboard and mouse, i can just pass the wireless keyboard and mouse objects to the constructor of the MacBook class. So this is a good approach and it follows the dependency inversion principle.
+
+If i needed a wired keyboard and mouse
+
+```java
+
+public class Main {
+    public static void main(String[] args) {
+        keyboard keyboard = new wiredKeyboard();
+        mouse mouse = new wiredMouse();
+        MacBook macBook = new MacBook(keyboard, mouse);
+    }
+}
+
+```
+
+If i needed wireless keyboard and mouse
+
+
+```java
+
+public class Main {
+    public static void main(String[] args) {
+        keyboard keyboard = new wirelessKeyboard();
+        mouse mouse = new wirelessMouse();
+        MacBook macBook = new MacBook(keyboard, mouse);
+    }
+}
+
+```
