@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+.hompage_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+  gap: 3rem;
+  font-family: "Poppins", sans-serif;
+}
+
+.comment_box {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.comment_box_textarea {
+  min-height: 10vh;
+  min-width: 400px;
+  border-radius: 10px;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  padding: 10px;
+}
+
+.comment_box_submitbtn {
+  height: 2rem;
+  border-radius: 6px;
+  width: 40%;
+  font-family: "Poppins", sans-serif;
+  margin: auto;
+  cursor: pointer;
+  background-color: darkgray;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+
+.homepage_comments_container {
+  max-width: 40rem;
+  min-width: 40rem;
+}
+
+.singlecomment_parent {
+  margin-bottom: 3rem;
+}
+
+.singlecomment_body {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+
+  border: 1px solid black;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.haschild {
+  padding-left: 2rem;
+}
+
+.singlecomment_avatar {
+  width: 60px;
+  height: 60px;
+}
+
+.singlecomment_content > p {
+  margin: 0;
+  padding: 0;
+  word-wrap: break-word;
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+}
+
+.singlecomment_contentparent > textarea {
+  min-height: 1rem;
+  margin-top: 10px;
+}
+
+.singlecomment_buttons > p {
+  margin: 0;
+  margin-top: 1.5rem;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+}
