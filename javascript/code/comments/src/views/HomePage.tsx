@@ -3,29 +3,7 @@ import { SingleComment as SingleCommentType } from "../types/CommentTypes";
 import SingleComment from "../components/SingleComment";
 
 const HomePage = () => {
-  // const [comments, setComments] = useState<SingleCommentType[]>([
-  //   {
-  //     id: 1,
-  //     content: "This is a comment",
-  //     children: [
-  //       {
-  //         id: 2,
-  //         content: "This is a reply",
-  //         children: [
-  //           {
-  //             id: 3,
-  //             content: "This is a reply to a reply",
-  //             children: [],
-  //           },
-  //         ],
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     id: 4,
-  //     content: "This is a comment 2",
-  //   },
-  // ]);
+
 
   const [comments, setComments] = useState<SingleCommentType[]>([]);
 

@@ -20,32 +20,6 @@ The first thing that we see here registration that's about adding an observer in
 
 And also it's a one to many kind of relationship because one particular observable can be observed by a lot of other observers.
 
-And in the concreete class for the Observavle we would have:
-
-```java
-
-addObserver(Observer observer) {
-    observers.add(observer);
-}
-
-removeObserver(Observer observer) {
-    observers.remove(observer);
-}
-
-notifyObservers() {
-    for(Observer observer : observers) {
-        observer.update();
-    }
-}
-
-
-setData() {
-    this.data = data;
-    notifyObservers();
-}
-
-```
-
 # Now that you understand ...
 
 ![ALT](https://i.ibb.co/Q7gmRyR/Screenshot-5.png)
@@ -54,112 +28,11 @@ The goal is simple we do have an weather station which will have a current tempe
 
 ## Solution ?
 
-Let's make out observable
+So let's take a look at the project where we have two things one will be the observable and another one will be the observer. 
 
-```java
-
-public interface NotificationAlertObserver{
-    public void update();
-}
-
-public class MobileNotificationAlert implements NotificationAlertObserver {
-    public int stockCount;
-    public MobileNotificationAlert(int stockCount) {
-        this.stockCount = stockCount;
-    }
-
-    @Override
-    public void update() {
-        System.out.println("Mobile Notification Alert: " + stockCount);
-    }
-}
-
-public class EmailNotificationAlert implements NotificationAlertObserver {
-    String emailID;
-    StockObservable observable;
-
-    public EmailNotificationAlert(String emailID, StockObservable observable) {
-        this.emailID = emailID;
-        this.observable = observable;
-    }
-
-    @Override
-    public void update() {
-        System.out.println("Email Notification Alert: " + emailID + " " + observable.getStockCount());
-    }
-
-    
-}
-
-public interface StockObservable {
-   public void add(NotificationAlertObserver observer);
-
-   public void remove(NotificationAlertObserver observer);
-
-   public void notifySubscribers();
-
-   public void setStockData(int newStockAdded);
-
-   public int getStockCount();
-}
-
-public class IPhoneObservable implements StockObservable{
-    public List <NotificationAlertObserver> observerList = new ArrayList<>();
-    public int stockCount;
-
-    @Override
-    public void add(NotificationAlertObserver observer) {
-        observerList.add(observer);
-    }
-
-    @Override
-    public void remove(NotificationAlertObserver observer) {
-        observerList.remove(observer);
-    }
-
-    @Override
-    public void notifySubscribers() {
-        for(NotificationAlertObserver observer : observerList) {
-            observer.update();
-        }
-    }
-
-    @Override
-    public void setStockData(int newStockAdded) {
-        this.stockCount = newStockAdded;
-        notifySubscribers();
-    }
-
-    @Override
-    public void setStockCount(int stockCount) {
-        if(stockCount==0) {
-            notifySubscribers();
-        }
-        stockCount+= newStockAdded;
-    }
-
-    public int getStockCount() {
-        return stockCount;
-    }
-}
-
-
-public class Store{
-    public static void main(String[] args) {
-        StocksObservable iphonestockObservable = new IPhoneObservable();
-
-        NotificationAlertObserver observer1 = new EmailNotificationAlert(emailid:"tamalcodes@gmail.com", iphonestockObservable);
-        NotificationAlertObserver observer1 = new EmailNotificationAlert(emailid:"tamalcodes2@gmail.com", iphonestockObservable);
-        NotificationAlertObserver observer1 = new EmailNotificationAlert(emailid:"tamalcodes3@gmail.com", iphonestockObservable);
-
-        iphonestockObservable.add(observer1);
-        iphonestockObservable.add(observer2);
-        iphonestockObservable.add(observer3);
-
-        iphonestockObservable.setStockData(10);
-    }
-}
-
-
-
-```
+- Inside of the observable we might have an interface known as talk observable where we will be having functions for adding an observer removing an observer notifying subscribers setting these stock count and so on
+- inside of the iphone observable we will be implementing this stock observable interface.  we have a list the list will be for an observer list where we will be basically adding the name of the customers uh or the observers to which we need to observe.
+- Basically for this purpose inside of the iphone observable we can add different kinds of observer to the list and also work with them and add some business logics to make them work.
+- Then we have a notification alert interface which basically has a function known as update the purpose of that function is to obviously update the stuff whenever we will be manually calling them
+- The e-mail interface for the notification takes in the string and also it takes in the observable that we were basically you know that has a lot of observers inside of them and then it actually has the update function how do we get the observable so how do we get the e-mail id everything is called from the observable.
+- Inside of the iphone observable we have notifies subscribers and also these top data inside of that notify subscribers we basically loop through all the observers that are inside the observer list,  and we basically notify them that hey the stock is now out you can do whatever you want.
