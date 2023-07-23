@@ -1,8 +1,5 @@
 <!-- TOC -->
 
-- [Types of variables in JS](#types-of-variables-in-js)
-  - [Difference between let and var](#difference-between-let-and-var)
-- [What is hoisting ?](#what-is-hoisting-)
 - [Qustions based on Objects !](#qustions-based-on-objects-)
   - [What are objects ?](#what-are-objects-)
   - [What is the difference between object and array ?](#what-is-the-difference-between-object-and-array-)
@@ -39,52 +36,9 @@
   - [How did it get replaced in mordern day react ?](#how-did-it-get-replaced-in-mordern-day-react-)
 
 <!-- /TOC -->
-# Types of variables in JS
 
-- Const : Constant variables. Cannot be changed once declared.
-- Let : Block scoped variables. Can be changed once declared.
-- Var : Function scoped variables. Can be changed once declared.
 
-## Difference between let and var
 
-Var is function scoped and let is block scoped. This means that a variable declared with the var keyword can be accessed anywhere within the function containing it. On the other hand, a variable declared with the let keyword can be accessed only within the block in which it is defined.
-
-```js
-function myFunction() {
-  var myVar = "Hello";
-  let myLet = "World";
-
-  console.log(myVar); // "Hello"
-  console.log(myLet); // "World"
-}
-
-console.log(myVar); // ReferenceError: myVar is not defined
-
-console.log(myLet); // ReferenceError: myLet is not defined
-```
-
-In this example, the myVar variable is declared using the var keyword, so it can be accessed anywhere within the myFunction() function. On the other hand, the myLet variable is declared using the let keyword, so it can only be accessed within the block in which it is defined.
-
-# What is hoisting ?
-
-Hoisting is a JavaScript mechanism where variables and function declarations are moved to the top of their scope before code execution. This means that if a variable is declared anywhere in a function, it is moved to the top of the function for execution regardless of whether the declaration is at the top of the function or not.
-
-```js
-
-function myFunction() {
-  console.log(myVar); // undefined
-  var myVar = "Hello";
-  console.log(myVar); // "Hello"
-}
-
-myFunction();
-```
-
-In this example, the myVar variable is declared after the first console.log() statement, but it is still accessible within the function. This is because the declaration is hoisted to the top of the function before execution.
-
-**Why does hoisting exist ?**
-
-Hoisting exists in JavaScript because it is a compiled language. This means that before JavaScript code is executed, it is first compiled into a format that is more suitable for execution. During this compilation process, variable and function declarations are moved to the top of their scope. This allows variables and functions to be used before they are declared.
 
 # Qustions based on Objects !
 
