@@ -18,10 +18,14 @@
   - [Advantages of pure functions](#advantages-of-pure-functions)
 - [Impure Functions](#impure-functions)
   - [Advantages of impure functions](#advantages-of-impure-functions)
-- [What is a callback function ?](#what-is-a-callback-function-)
+- [What is a callback  ?](#what-is-a-callback--)
+  - [Callback Hell](#callback-hell)
+  - [How to avoid callback hell ?](#how-to-avoid-callback-hell-)
 - [Event Listners in Javascript](#event-listners-in-javascript)
   - [Closures along with Event Listners](#closures-along-with-event-listners)
   - [Why do we need to remove event listners ?](#why-do-we-need-to-remove-event-listners-)
+- [`Array.map()` in javascript](#arraymap-in-javascript)
+- [`Array.filter()` in javascript](#arrayfilter-in-javascript)
 
 <!-- /TOC -->
 
@@ -356,9 +360,9 @@ In general, it’s ideal to keep the impure elements of your programs distinct f
 - In impure functions, the state can be modified to use the parent variable and call for the function compiling.
 
 
-# What is a callback function ? 
+# What is a callback  ? 
 
-A callback function is a function passed into another function as an argument, which is then invoked inside the outer function to complete some kind of routine or action. This kinda gives us the abilty to make javascript work in an asynchronous manner. 
+A callback  is a function passed into another function as an argument, which is then invoked inside the outer function to complete some kind of routine or action. This kinda gives us the abilty to make javascript work in an asynchronous manner. 
 
 ```js
 setTimeout(function() {
@@ -367,6 +371,30 @@ setTimeout(function() {
 ```
 
 Since javascript is an syncronous language, it will execute the code line by line. It will not be waiting for `5000` milliseconds and then execute the tasks after `5000 ms`. That's where Callback function comes into play, we achieve this kind of async behaviour such that after `5000` milliseconds the Callback function's task  will be executed. 
+
+## Callback Hell
+
+Callback hell is a phenomenon that afflicts a JavaScript developer when he tries to execute multiple asynchronous operations one after the other. The code becomes unreadable and difficult to maintain. It is also known as pyramid of doom.
+
+```js
+
+apiCall1(function() {
+    apiCall2(function() {
+        apiCall3(function() {
+            apiCall4(function() {
+                // ...
+            });
+        });
+    });
+});
+
+```
+
+In such a case, we donot know if `apiCall1()` is gonna work properly, that might cause issues later. Basically it is the responsibiity of `apiCall1` to execute the other functions. So if `apiCall1` fails then the other functions will not be executed. That's called `inversion of control`, where you are giving the control to the `apiCall1` function to execute the other functions.
+
+## How to avoid callback hell ?
+
+We can avoid callback hell by using promises or async/await. 
 
 # Event Listners in Javascript
 
@@ -421,3 +449,25 @@ function removeEventListners()
     document.getElementById("myBtn").removeEventListener("click", shoutAtuser);
 }
 ```
+
+# `Array.map()` in javascript
+
+Suppose i have an array , and i want to find their double or triple. I can use `Array.map()` for the same.
+
+```js
+function double(x)
+{
+    return x*2;
+}
+
+const arr = [1,2,3,4,5];
+const output = arr.map(double);
+
+// Or if we wanted triple values
+
+const tripleOutput = arr.map((x)=>x*3);
+
+```
+
+# `Array.filter()` in javascript
+
