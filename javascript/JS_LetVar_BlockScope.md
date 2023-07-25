@@ -5,6 +5,8 @@
 - [Types of variables in JS](#types-of-variables-in-js)
   - [Difference between let and var](#difference-between-let-and-var)
   - [Hoisting `let` VS `var`](#hoisting-let-vs-var)
+  - [Can I redeclare `let` and `const` variables](#can-i-redeclare-let-and-const-variables)
+  - [Does `const` variable makes the value immutable](#does-const-variable-makes-the-value-immutable)
   - [Temporal dead zone](#temporal-dead-zone)
   - [Hoisting `let` VS `const`](#hoisting-let-vs-const)
 - [Explaining blocks](#explaining-blocks)
@@ -61,6 +63,53 @@ var b = 20;
 ```
 
 For `a` we would get `ReferenceError: Cannot access 'a' before initialization` and for `b` we would get a special placeholder of  `undefined`. This is because of hoisting. 
+
+## Can I redeclare `let` and `const` variables
+
+No, you cannot redeclare let and const variables. If you do, it throws below error
+
+ ```bash
+ Uncaught SyntaxError: Identifier 'someVariable' has already been declared
+ ```
+
+**Explanation:** The variable declaration with `var` keyword refers to a function scope and the variable is treated as if it were declared at the top of the enclosing scope due to hoisting feature. So all the multiple declarations contributing to the same hoisted variable without any error. Let's take an example of re-declaring variables in the same scope for both var and let/const variables.
+
+```javascript
+var name = "John";
+function myFunc() {
+  var name = "Nick";
+  var name = "Abraham"; // Re-assigned in the same function block
+  alert(name); // Abraham
+}
+myFunc();
+alert(name); // John
+```
+
+The block-scoped multi-declaration throws syntax error,
+
+```javascript
+let name = "John";
+function myFunc() {
+  let name = "Nick";
+  let name = "Abraham"; // Uncaught SyntaxError: Identifier 'name' has been declared
+  alert(name);
+}
+
+myFunc();
+alert(name);
+```
+
+    
+
+## Does `const` variable makes the value immutable
+
+No, the const variable doesn't make the value immutable. But it disallows subsequent assignments(i.e, You can declare with assignment but can't assign another value later)
+
+ ```javascript
+ const userList = [];
+ userList.push("John"); // Can mutate even though it can't re-assign
+ console.log(userList); // ['John']
+ ```
 
 ## Temporal dead zone
 

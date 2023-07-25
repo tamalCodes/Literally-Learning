@@ -7,6 +7,9 @@
   - [Callbacks vs Promises](#callbacks-vs-promises)
   - [Promise chaining](#promise-chaining)
   - [Understanding `Promise.all` and `Promise.race`](#understanding-promiseall-and-promiserace)
+  - [How do you prevent promises swallowing errors](#how-do-you-prevent-promises-swallowing-errors)
+  - [How do you check an object is a promise or not](#how-do-you-check-an-object-is-a-promise-or-not)
+  - [Promises VS Observable](#promises-vs-observable)
 - [What is async/await ?](#what-is-asyncawait-)
   - [Difference between promise and async/await](#difference-between-promise-and-asyncawait)
 
@@ -193,6 +196,121 @@ Promise.race([promise1, promise2]).then((value) => {
 
 In the example above, Promise.race takes an array containing two promises. Since `promise2` resolves faster than `promise1`, the then block is executed with the value `'two'`.
 
+
+## How do you prevent promises swallowing errors
+
+While using asynchronous code, JavaScript’s ES6 promises can make your life a lot easier without having callback pyramids and error handling on every second line. But Promises have some pitfalls and the biggest one is swallowing errors by default.
+
+Let's say you expect to print an error to the console for all the below cases,
+
+```javascript
+Promise.resolve("promised value").then(function () {
+  throw new Error("error");
+});
+
+Promise.reject("error value").catch(function () {
+  throw new Error("error");
+});
+
+new Promise(function (resolve, reject) {
+  throw new Error("error");
+});
+```
+
+But there are many modern JavaScript environments that won't print any errors. You can fix this problem in different ways,
+
+1. **Add catch block at the end of each chain:** You can add catch block to the end of each of your promise chains
+
+```javascript
+Promise.resolve("promised value")
+  .then(function () {
+    throw new Error("error");
+  })
+  .catch(function (error) {
+    console.error(error.stack);
+  });
+```
+
+But it is quite difficult to type for each promise chain and verbose too.
+
+ 2. **Add done method:** You can replace first solution's then and catch blocks with done method
+
+```javascript
+Promise.resolve("promised value").done(function () {
+  throw new Error("error");
+});
+```
+
+Let's say you want to fetch data using HTTP and later perform processing on the resulting data asynchronously. You can write `done` block as below,
+
+```javascript
+getDataFromHttp()
+  .then(function (result) {
+    return processDataAsync(result);
+  })
+  .done(function (processed) {
+    displayData(processed);
+  });
+```
+
+In future, if the processing library API changed to synchronous then you can remove `done` block as below,
+
+```javascript
+getDataFromHttp().then(function (result) {
+  return displayData(processDataAsync(result));
+});
+```
+
+and then you forgot to add `done` block to `then` block leads to silent errors.
+    
+
+## How do you check an object is a promise or not
+
+If you don't know if a value is a promise or not, wrapping the value as `Promise.resolve(value)` which returns a promise
+
+```javascript
+function isPromise(object) {
+  if (Promise && Promise.resolve) {
+    return Promise.resolve(object) == object;
+  } else {
+    throw "Promise not supported in your environment";
+  }
+}
+
+var i = 1;
+var promise = new Promise(function (resolve, reject) {
+  resolve();
+});
+
+console.log(isPromise(i)); // false
+console.log(isPromise(promise)); // true
+```
+
+Another way is to check for `.then()` handler type
+
+```javascript
+function isPromise(value) {
+  return Boolean(value && typeof value.then === "function");
+}
+var i = 1;
+var promise = new Promise(function (resolve, reject) {
+  resolve();
+});
+
+console.log(isPromise(i)); // false
+console.log(isPromise(promise)); // true
+```
+
+## Promises VS Observable
+
+
+| Promises                                                           | Observables                                                                              |
+| ------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- |
+| Emits only a single value at a time                                | Emits multiple values over a period of time(stream of values ranging from 0 to multiple) |
+| Eager in nature; they are going to be called immediately           | Lazy in nature; they require subscription to be invoked                                  |
+| Promise is always asynchronous even though it resolved immediately | Observable can be either synchronous or asynchronous                                     |
+| Doesn't provide any operators                                      | Provides operators such as map, forEach, filter, reduce, retry, and retryWhen etc        |
+| Cannot be canceled                                                 | Canceled by using unsubscribe() method                                                   |
 
 
 # What is async/await ?

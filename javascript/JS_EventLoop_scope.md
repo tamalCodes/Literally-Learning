@@ -3,16 +3,22 @@
 
 - [Understand the call stack](#understand-the-call-stack)
   - [So how are code executed ?](#so-how-are-code-executed-)
+  - [What is global execution context?](#what-is-global-execution-context)
+  - [What is function execution context?](#what-is-function-execution-context)
 - [The super powers](#the-super-powers)
   - [So how do we access these super powers ?](#so-how-do-we-access-these-super-powers-)
 - [Callback queue and event loop](#callback-queue-and-event-loop)
   - [Event Loop](#event-loop)
+    - [What are different event loops](#what-are-different-event-loops)
   - [Behind the scenes of `setTimeout()`](#behind-the-scenes-of-settimeout)
   - [`setTimeout()` breaks trust](#settimeout-breaks-trust)
+  - [How do you implement zero timeout in modern browsers](#how-do-you-implement-zero-timeout-in-modern-browsers)
   - [`setTimeout(0)` is not 0](#settimeout0-is-not-0)
   - [Behind the scenes of DOM api](#behind-the-scenes-of-dom-api)
 - [MicroTask Queue](#microtask-queue)
+  - [What is microtask ?](#what-is-microtask-)
   - [Behind the scenes of `fetch()`](#behind-the-scenes-of-fetch)
+  - [What is the purpose of queueMicrotask](#what-is-the-purpose-of-queuemicrotask)
 - [Why do we even need callback queue ?](#why-do-we-even-need-callback-queue-)
 - [Starvation of callback queue](#starvation-of-callback-queue)
 - [The scope chain, scope \& lexical environment 🔥](#the-scope-chain-scope--lexical-environment-)
@@ -33,6 +39,15 @@ So this call stack is actually present inside the javascript engine,  and whenev
  - Then suppose we have a function so anything for that function will be pushed into the call stack and that function will be executed and popped out from the call stack
 
  - And once that is done then we pop out the global execution context from the call stack.
+
+
+## What is global execution context?
+
+The global execution context is the default or first execution context that is created by the JavaScript engine before any code is executed(i.e, when the file first loads in the browser). All the global code that is not inside a function or object will be executed inside this global execution context. Since JS engine is single threaded there will be only one global environment and there will be only one global execution context.
+
+## What is function execution context?
+
+Whenever a function is invoked, the JavaScript engine creates a different type of Execution Context known as a Function Execution Context (FEC) within the Global Execution Context (GEC) to evaluate and execute the code within that function.
 
 
 # The super powers
@@ -66,6 +81,17 @@ The task of the callback queue is to store all the callback functions that are r
 ## Event Loop
 
 The event loop is a continuous loop that runs in the background of the JavaScript runtime environment. The main task of it is to first of all check the microtask queue , then the callback queue and when the callstack is empty it will push stuffs from the queue into the callstack.
+
+### What are different event loops
+
+In JavaScript, there are multiple event loops that can be used depending on the context of your application. The most common event loops are:
+
+1. The Browser Event Loop
+2. The Node.js Event Loop
+
+- Browser Event Loop: The Browser Event Loop is used in client-side JavaScript applications and is responsible for handling events that occur within the browser environment, such as user interactions (clicks, keypresses, etc.), HTTP requests, and other asynchronous actions.
+
+- The Node.js Event Loop is used in server-side JavaScript applications and is responsible for handling events that occur within the Node.js runtime environment, such as file I/O, network I/O, and other asynchronous actions.
 
 ## Behind the scenes of `setTimeout()`
 
@@ -108,6 +134,10 @@ People there is a million lines of code that is being executed in the call stack
 
 Now here's the trick inside of our timeout we set a timer for five seconds but it will be executed after 10 seconds because the call stack was super busy in executing other things so that is the reason why it seems that the set timeout is breaking our trust.
 
+## How do you implement zero timeout in modern browsers
+
+You can't use setTimeout(fn, 0) to execute the code immediately due to minimum delay of greater than 0ms. But you can use window.postMessage() to achieve this behavior.
+
 ## `setTimeout(0)` is not 0
 
 So we have seen that the `setTimeout()` is breaking our trust but what about the `setTimeout(0)` ?
@@ -147,10 +177,14 @@ console.log('3');
 
 So we have seen that the callback queue is used to store all the callback functions that are ready to be executed. But there is another queue called the `Micro Task queue` which is used to store all the promises and mutation observers.
 
-Introduced with ECMAScript 6, this queue is used to store microtasks. Microtasks are tasks with higher priority than regular tasks in the task queue. Promises (created using the Promise constructor or async/await syntax) and certain APIs like process.nextTick (in Node.js) are executed as microtasks. Microtasks are processed before the next rendering or UI update, making them suitable for critical updates that need to happen before the browser repaints.
+Introduced with ECMAScript 6, this queue is used to store microtasks. 
 
-It's important to note that JavaScript is a single-threaded language, so these queues, especially the task queue, play a crucial role in handling asynchronous operations and maintaining responsiveness in web applications. The event loop continuously checks the task queue, executing tasks one by one in a non-blocking manner.
+## What is microtask ?
 
+Microtasks are tasks with higher priority than regular tasks in the task queue. Promises (created using the Promise constructor or async/await syntax) and certain APIs like process.nextTick (in Node.js) are executed as microtasks. Microtasks are processed before the next rendering or UI update, making them suitable for critical updates that need to happen before the browser repaints.
+
+They are kind of blocking in nature. i.e, The main thread will be blocked until the microtask queue is empty.
+The main sources of microtasks are Promise.resolve, Promise.reject, MutationObservers, IntersectionObservers etc
 
 ## Behind the scenes of `fetch()`
 
@@ -176,6 +210,22 @@ Everything works the same, except the fact that anything that come through the p
 
 So here, `cbF()` will be pushed into the `Micro Task queue` and then the event loop will push it into the call stack and execute it and pop it out from the call stack and after that `cbT()` will be pushed into the `callback queue` and then the event loop will push it into the call stack and execute it and pop it out from the call stack.
 
+## What is the purpose of queueMicrotask
+    
+The `queueMicrotask` function is used to schedule a microtask, which is a function that will be executed asynchronously in the microtask queue. The purpose of `queueMicrotask` is to ensure that a function is executed after the current task has finished, but before the browser performs any rendering or handles user events.
+
+Example:
+
+```javascript
+console.log('Start'); //1
+
+queueMicrotask(() => {
+  console.log('Inside microtask'); // 3
+});
+
+console.log('End'); //2
+```
+By using queueMicrotask, you can ensure that certain tasks or callbacks are executed at the earliest opportunity during the JavaScript event loop, making it useful for performing work that needs to be done asynchronously but with higher priority than regular `setTimeout` or `setInterval` callbacks.
 
 # Why do we even need callback queue ?
 

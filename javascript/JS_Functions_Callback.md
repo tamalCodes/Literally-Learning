@@ -5,6 +5,7 @@
   - [What is a function expression ?](#what-is-a-function-expression-)
   - [So what is the difference between the two ?](#so-what-is-the-difference-between-the-two-)
   - [What is a function declaration ?](#what-is-a-function-declaration-)
+  - [What is the difference between Function constructor and function declaration](#what-is-the-difference-between-function-constructor-and-function-declaration)
   - [What is anonymous function ?](#what-is-anonymous-function-)
   - [Named function expression ?](#named-function-expression-)
   - [Difference between Parameters and Arguments ?](#difference-between-parameters-and-arguments-)
@@ -18,12 +19,10 @@
   - [Advantages of pure functions](#advantages-of-pure-functions)
 - [Impure Functions](#impure-functions)
   - [Advantages of impure functions](#advantages-of-impure-functions)
+  - [How to detect if a function is called as constructor](#how-to-detect-if-a-function-is-called-as-constructor)
 - [What is a callback  ?](#what-is-a-callback--)
   - [Callback Hell](#callback-hell)
   - [How to avoid callback hell ?](#how-to-avoid-callback-hell-)
-- [Event Listners in Javascript](#event-listners-in-javascript)
-  - [Closures along with Event Listners](#closures-along-with-event-listners)
-  - [Why do we need to remove event listners ?](#why-do-we-need-to-remove-event-listners-)
 - [`Array.map()` in javascript](#arraymap-in-javascript)
 - [`Array.filter()` in javascript](#arrayfilter-in-javascript)
 
@@ -90,6 +89,37 @@ function name(parameter1, parameter2, parameter3) {
   // code to be executed
 }
 ```
+
+## What is the difference between Function constructor and function declaration
+
+The functions which are created with `Function constructor` do not create closures to their creation contexts but they are always created in the global scope. i.e, the function can access its own local variables and global scope variables only. Whereas function declarations can access outer function variables(closures) too.
+
+
+
+**Function Constructor:**
+
+```javascript
+var a = 100;
+function createFunction() {
+  var a = 200;
+  return new Function("return a;");
+}
+console.log(createFunction()()); // 100
+```
+
+**Function declaration:**
+
+```javascript
+var a = 100;
+function createFunction() {
+  var a = 200;
+  return function func() {
+    return a;
+  };
+}
+console.log(createFunction()()); // 200
+```
+
 
 ## What is anonymous function ?
 
@@ -360,6 +390,29 @@ In general, it’s ideal to keep the impure elements of your programs distinct f
 - In impure functions, the state can be modified to use the parent variable and call for the function compiling.
 
 
+
+## How to detect if a function is called as constructor
+
+You can use `new.target` pseudo-property to detect whether a function was called as a constructor(using the new operator) or as a regular function call.
+
+1. If a constructor or function invoked using the new operator, new.target returns a reference to the constructor or function.
+2. For function calls, new.target is undefined.
+
+```javascript
+function Myfunc() {
+   if (new.target) {
+      console.log('called with new');
+   } else {
+      console.log('not called with new');
+   }
+}
+
+new Myfunc(); // called with new
+Myfunc(); // not called with new
+Myfunc.call({}); // not called with new
+```
+
+
 # What is a callback  ? 
 
 A callback  is a function passed into another function as an argument, which is then invoked inside the outer function to complete some kind of routine or action. This kinda gives us the abilty to make javascript work in an asynchronous manner. 
@@ -396,59 +449,7 @@ In such a case, we donot know if `apiCall1()` is gonna work properly, that might
 
 We can avoid callback hell by using promises or async/await. 
 
-# Event Listners in Javascript
 
-```js
-
-document.getElementById("myBtn").addEventListener("click", function shoutAtuser() {
-    console.log("Hello World!")
-});
-
-```
-
-Here we are adding an event listner to the button with the id `myBtn` and we are adding a callback function to it. So when the button is clicked the callback function will be put inside the event queue and will be executed when the call stack is empty.
-
-## Closures along with Event Listners
-
-Suppose in Javascript we wanna make something such that we are keeping a track of how many times a button was clicked. Well one solution could have been to simply use a global variable and increment it everytime the button is clicked. But that's not a good solution because we are using a global variable and we know that global variables can be acessed all throughout.
-
-So we can use closures to do so.
-
-```javascript
-function attachEventListners()
-{
-    let count = 0;
-    document.getElementById("myBtn").addEventListener("click", function shoutAtuser() {
-        console.log("Hello World!", ++count);
-    });
-}
-```
-
-Here the `shoutAtuser` function has access to the `count` variable and everytime the button is clicked the `count` variable will be incremented.
-
-
-## Why do we need to remove event listners ?
-
-Well event listners are heavy, so it  form closures whenever we are attaching an event listners, it consumes some memory.
-
-It cannot free up the `count`, that's why we need to remove them too. Imagine having 1000s of buttons, with so many listners. It will be a huge memory leak.
-
-If we remove the event listners then the garbage collector will be able to free up the memory.
-
-```javascript
-function attachEventListners()
-{
-    let count = 0;
-    document.getElementById("myBtn").addEventListener("click", function shoutAtuser() {
-        console.log("Hello World!", ++count);
-    });
-}
-
-function removeEventListners()
-{
-    document.getElementById("myBtn").removeEventListener("click", shoutAtuser);
-}
-```
 
 # `Array.map()` in javascript
 

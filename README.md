@@ -6,11 +6,13 @@
 
 Here's a summary if anyone's interested: 
 
-- [LLD Folder](https://github.com/tamalCodes/unGod-complex/tree/main/LLD) consists of some Low level design concepts.
-- [OOPS Folder](https://github.com/tamalCodes/unGod-complex/tree/main/OOPS) consists of Object Oriented Programming concepts.
-- [Javascript Folder](https://github.com/tamalCodes/unGod-complex/tree/main/javascript) will be having stuffs related to JS.
-  - [Challenges Folder](https://github.com/tamalCodes/unGod-complex/tree/main/javascript/challenges) has some challenges that i think are good to know.
-  - [Code Folder](https://github.com/tamalCodes/unGod-complex/tree/main/javascript/code/comments) will probably consist of some machine coding-related stuffs (js).
+- [LLD Folder](/LLD) consists of some Low level design concepts.
+- [OOPS Folder](/OOPS) consists of Object Oriented Programming concepts.
+- [Javascript Folder](/javascript) will be having stuffs related to JS.
+  - [Challenges Folder](/javascript/challenges) has some challenges that i think are good to know.
+  - [Code Folder](/javascript/code) will probably consist of some machine coding-related stuffs (js).
+
+- [React Folder](/React) will be having stuffs related to JS.
  
-- [Projects Folder](https://github.com/tamalCodes/unGod-complex/tree/main/projects) actually has some basic Java projects, based on different design patterns and so on.
-- [SQL Folder](https://github.com/tamalCodes/unGod-complex/tree/main/sql) has literally some SQL concepts.
+- [Projects Folder](/projects) actually has some basic Java projects, based on different design patterns and so on.
+- [SQL Folder](/sql) has literally some SQL concepts.

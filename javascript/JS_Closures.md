@@ -7,6 +7,9 @@
   - [What are the advantages of closures](#what-are-the-advantages-of-closures)
   - [Disadvantages of closures ?](#disadvantages-of-closures-)
   - [What is a garbage collector ? What does it do ?](#what-is-a-garbage-collector--what-does-it-do-)
+- [Event Listners in Javascript](#event-listners-in-javascript)
+  - [Closures along with Event Listners](#closures-along-with-event-listners)
+  - [Why do we need to remove event listners ?](#why-do-we-need-to-remove-event-listners-)
 
 <!-- /TOC -->
 
@@ -250,3 +253,58 @@ It might also lead to memory leaks.
 ## What is a garbage collector ? What does it do ? 
 
 So this is a part of the javascript engine that is responsible for memory management. Whenever it finds out that some variablesa are not longer needed it simply clears out the memory.
+
+
+# Event Listners in Javascript
+
+```js
+
+document.getElementById("myBtn").addEventListener("click", function shoutAtuser() {
+    console.log("Hello World!")
+});
+
+```
+
+Here we are adding an event listner to the button with the id `myBtn` and we are adding a callback function to it. So when the button is clicked the callback function will be put inside the event queue and will be executed when the call stack is empty.
+
+## Closures along with Event Listners
+
+Suppose in Javascript we wanna make something such that we are keeping a track of how many times a button was clicked. Well one solution could have been to simply use a global variable and increment it everytime the button is clicked. But that's not a good solution because we are using a global variable and we know that global variables can be acessed all throughout.
+
+So we can use closures to do so.
+
+```javascript
+function attachEventListners()
+{
+    let count = 0;
+    document.getElementById("myBtn").addEventListener("click", function shoutAtuser() {
+        console.log("Hello World!", ++count);
+    });
+}
+```
+
+Here the `shoutAtuser` function has access to the `count` variable and everytime the button is clicked the `count` variable will be incremented.
+
+
+## Why do we need to remove event listners ?
+
+Well event listners are heavy, so it  form closures whenever we are attaching an event listners, it consumes some memory.
+
+It cannot free up the `count`, that's why we need to remove them too. Imagine having 1000s of buttons, with so many listners. It will be a huge memory leak.
+
+If we remove the event listners then the garbage collector will be able to free up the memory.
+
+```javascript
+function attachEventListners()
+{
+    let count = 0;
+    document.getElementById("myBtn").addEventListener("click", function shoutAtuser() {
+        console.log("Hello World!", ++count);
+    });
+}
+
+function removeEventListners()
+{
+    document.getElementById("myBtn").removeEventListener("click", shoutAtuser);
+}
+```
