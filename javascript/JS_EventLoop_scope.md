@@ -6,10 +6,12 @@
 - [The super powers](#the-super-powers)
   - [So how do we access these super powers ?](#so-how-do-we-access-these-super-powers-)
 - [Callback queue and event loop](#callback-queue-and-event-loop)
+  - [Event Loop](#event-loop)
   - [Behind the scenes of `setTimeout()`](#behind-the-scenes-of-settimeout)
   - [`setTimeout()` breaks trust](#settimeout-breaks-trust)
   - [`setTimeout(0)` is not 0](#settimeout0-is-not-0)
   - [Behind the scenes of DOM api](#behind-the-scenes-of-dom-api)
+- [MicroTask Queue](#microtask-queue)
   - [Behind the scenes of `fetch()`](#behind-the-scenes-of-fetch)
 - [Why do we even need callback queue ?](#why-do-we-even-need-callback-queue-)
 - [Starvation of callback queue](#starvation-of-callback-queue)
@@ -59,9 +61,11 @@ As soon as we would write `console.log()` we are actually using the `console.log
 
 # Callback queue and event loop
 
-The task of the event loop is to check if the call stack is empty and if it is empty then it will check if there is anything in the callback queue and if there is anything in the callback queue then it will push it into the call stack.
-
 The task of the callback queue is to store all the callback functions that are ready to be executed.
+
+## Event Loop
+
+The event loop is a continuous loop that runs in the background of the JavaScript runtime environment. The main task of it is to first of all check the microtask queue , then the callback queue and when the callstack is empty it will push stuffs from the queue into the callstack.
 
 ## Behind the scenes of `setTimeout()`
 
@@ -139,6 +143,14 @@ console.log('3');
 
 - Now as soon as we click the button the event listener will be pushed into the callback queue and then the event loop will push it into the call stack and execute it and pop it out from the call stack.
 
+# MicroTask Queue
+
+So we have seen that the callback queue is used to store all the callback functions that are ready to be executed. But there is another queue called the `Micro Task queue` which is used to store all the promises and mutation observers.
+
+Introduced with ECMAScript 6, this queue is used to store microtasks. Microtasks are tasks with higher priority than regular tasks in the task queue. Promises (created using the Promise constructor or async/await syntax) and certain APIs like process.nextTick (in Node.js) are executed as microtasks. Microtasks are processed before the next rendering or UI update, making them suitable for critical updates that need to happen before the browser repaints.
+
+It's important to note that JavaScript is a single-threaded language, so these queues, especially the task queue, play a crucial role in handling asynchronous operations and maintaining responsiveness in web applications. The event loop continuously checks the task queue, executing tasks one by one in a non-blocking manner.
+
 
 ## Behind the scenes of `fetch()`
 
@@ -206,7 +218,7 @@ a();
 
 The output will be 10.
 
-- Here `c()` is lexically inside of `a()` and `a()` is lexically inside of the global execution context.
+- Here `c()` is lexically inside of `a()`, so `c()'s` lexical environment is whatever we have inside of `a()` plus a reference to the lexical environment of the global execution context which is `a()`'s parent.
 
 
 - So when the execution stack is created for the function `c()` then the lexical environment will be created for the function `c()` and the lexical environment will contain the local memory of the function `c()` and a reference to the lexical environment of the function `a()` which is it's parent.

@@ -32,7 +32,11 @@ function outer()
 outer()();
 ```
 
-In the above code, the function `inner` is able to access the variable `outerVar` even though it is not in its lexical scope. This is because of closures. The function `inner` is able to remember its lexical scope.
+In the above code, the function `inner` is a closure as it is able to access the variable `outerVar`  even though we donot have the `outerVar` in the function `inner`. 
+
+**Why is this happening ?**
+
+Because of lexical scopes. As we studied, closure is a function along with it's lexical scope bundled together. Lexical scope of `inner()` is basically whatever the variables are defined in the parent function `outer()`. 
 
 **What is `outer()()` ?**
 
