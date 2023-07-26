@@ -1,6 +1,5 @@
 <!-- TOC -->
 
-- [How do you flatten multi dimensional arrays](#how-do-you-flatten-multi-dimensional-arrays)
 - [What is the easiest multi condition checking](#what-is-the-easiest-multi-condition-checking)
 - [How do you capture browser back button](#how-do-you-capture-browser-back-button)
 - [How do you disable right click in the web page](#how-do-you-disable-right-click-in-the-web-page)
@@ -9,46 +8,9 @@
 - [What is the difference between shim and polyfill](#what-is-the-difference-between-shim-and-polyfill)
 - [What is babel](#what-is-babel)
 - [Is Node.js completely single threaded](#is-nodejs-completely-single-threaded)
-- [What is the easiest way to resize an array](#what-is-the-easiest-way-to-resize-an-array)
-- [What are the differences between arguments object and rest parameter](#what-are-the-differences-between-arguments-object-and-rest-parameter)
-- [What are the differences between spread operator and rest parameter](#what-are-the-differences-between-spread-operator-and-rest-parameter)
 
 <!-- /TOC -->
 
-# How do you flatten multi dimensional arrays
-
-Flattening bi-dimensional arrays is trivial with Spread operator.
-
-```javascript
-const biDimensionalArr = [11, [22, 33], [44, 55], [66, 77], 88, 99];
-const flattenArr = [].concat(...biDimensionalArr); // [11, 22, 33, 44, 55, 6677, 88, 99]
-```
-
-But you can make it work with multi-dimensional arrays by recursive calls,
-
-```javascript
-function flattenMultiArray(arr) {
-  const flattened = [].concat(...arr);
-  return flattened.some((item) => Array.isArray(item))
-    ? flattenMultiArray(flattened)
-    : flattened;
-}
-const multiDimensionalArr = [11, [22, 33], [44, [55, 66, [77, [88]], 99]]];
-const flatArr = flattenMultiArray(multiDimensionalArr); // [11, 22, 33, 44, 66, 77, 88, 99]
-```
-     
-Also you can use the `flat` method of Array.
-     
-```javascript
-const arr = [1, [2,3], 4, 5, [6,7]];
-const fllattenArr = arr.flat(); // [1, 2, 3, 4, 5, 6, 7]
-     
-// And for multiDemensional arrays
-const multiDimensionalArr = [11, [22, 33], [44, [55, 66, [77, [88]], 99]]];
-const oneStepFlat = multiDimensionalArr.flat(1); // [11, 22, 33, 44, [55, 66, [77, [88]], 99]]
-const towStep = multiDimensionalArr.flat(2); // [11, 22, 33, 44, 55, 66, [77, [88]], 99]
-const fullyFlatArray = multiDimensionalArr.flat(Infinity); // [11, 22, 33, 44, 55, 66, 77, 88, 99]
-```
 
     
 
@@ -142,36 +104,3 @@ Node is a single thread, but some of the functions included in the Node.js stand
 
  
 
-# What is the easiest way to resize an array
-
-The length property of an array is useful to resize or empty an array quickly. Let's apply length property on number array to resize the number of elements from 5 to 2,
-
-```javascript
-var array = [1, 2, 3, 4, 5];
-console.log(array.length); // 5
-
-array.length = 2;
-console.log(array.length); // 2
-console.log(array); // [1,2]
-```
-
-and the array can be emptied too
-
-```javascript
-var array = [1, 2, 3, 4, 5];
-array.length = 0;
-console.log(array.length); // 0
-console.log(array); // []
-```
-
-# What are the differences between arguments object and rest parameter
-
-There are three main differences between arguments object and rest parameters
-
-1. The arguments object is an array-like but not an array. Whereas the rest parameters are array instances.
-2. The arguments object does not support methods such as sort, map, forEach, or pop. Whereas these methods can be used in rest parameters.
-3. The rest parameters are only the ones that haven’t been given a separate name, while the arguments object contains all arguments passed to the function
-
-# What are the differences between spread operator and rest parameter
-
-Rest parameter collects all remaining elements into an array. Whereas Spread operator allows iterables( arrays / objects / strings ) to be expanded into single arguments/elements. i.e, Rest parameter is opposite to the spread operator.

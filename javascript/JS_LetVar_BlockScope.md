@@ -9,6 +9,7 @@
   - [Does `const` variable makes the value immutable](#does-const-variable-makes-the-value-immutable)
   - [Temporal dead zone](#temporal-dead-zone)
   - [Hoisting `let` VS `const`](#hoisting-let-vs-const)
+  - [How do you assign default values to variables](#how-do-you-assign-default-values-to-variables)
 - [Explaining blocks](#explaining-blocks)
   - [Block scope, lexical scope and global scope](#block-scope-lexical-scope-and-global-scope)
   - [Variables without Block Scope (Using var or Function Declarations in Non-Strict Mode):](#variables-without-block-scope-using-var-or-function-declarations-in-non-strict-mode)
@@ -144,6 +145,14 @@ const b;
 
 This is because const is meant to be initialized at the time of declaration. We can't do it later on.
 
+## How do you assign default values to variables
+You can use the logical or operator `||` in an assignment expression to provide a default value. The syntax looks like as below,
+
+```javascript
+var a = b || c;
+```
+
+As per the above expression, variable 'a 'will get the value of 'c' only if 'b' is falsy (if is null, false, undefined, 0, empty string, or NaN), otherwise 'a' will get the value of 'b'.
 
 # Explaining blocks
 

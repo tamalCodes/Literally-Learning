@@ -10,6 +10,14 @@
 - [Event Listners in Javascript](#event-listners-in-javascript)
   - [Closures along with Event Listners](#closures-along-with-event-listners)
   - [Why do we need to remove event listners ?](#why-do-we-need-to-remove-event-listners-)
+  - [What is an event flow](#what-is-an-event-flow)
+  - [What is event bubbling](#what-is-event-bubbling)
+  - [What is event capturing](#what-is-event-capturing)
+  - [What is the use of preventDefault method](#what-is-the-use-of-preventdefault-method)
+- [What is memoization](#what-is-memoization)
+  - [How Does Memoization Work?](#how-does-memoization-work)
+  - [Importance of Memoization](#importance-of-memoization)
+  - [When to Use Memoization?](#when-to-use-memoization)
 
 <!-- /TOC -->
 
@@ -308,3 +316,103 @@ function removeEventListners()
     document.getElementById("myBtn").removeEventListener("click", shoutAtuser);
 }
 ```
+## What is an event flow
+
+Event flow is the order in which event is received on the web page. When you click an element that is nested in various other elements, before your click actually reaches its destination, or target element, it must trigger the click event for each of its parent elements first, starting at the top with the global window object.
+    
+
+1. Top to Bottom(Event Capturing)
+2. Bottom to Top (Event Bubbling)
+## What is event bubbling
+
+Event bubbling is a type of event propagation where the event first triggers on the innermost target element, and then successively triggers on the ancestors (parents) of the target element in the same nesting hierarchy till it reaches the outermost DOM element.
+## What is event capturing
+
+Event capturing is a type of event propagation where the event is first captured by the outermost element, and then successively triggers on the descendants (children) of the target element in the same nesting hierarchy till it reaches the innermost DOM element.
+
+## What is the use of preventDefault method
+
+The preventDefault() method cancels the event if it is cancelable, meaning that the default action or behaviour that belongs to the event will not occur. For example, prevent form submission when clicking on submit button and prevent opening the page URL when clicking on hyperlink are some common use cases.
+
+```javascript
+document
+.getElementById("link")
+.addEventListener("click", function (event) {
+event.preventDefault();
+});
+```
+
+# What is memoization
+
+Memoization in javascript is an optimization technique, to reduce the complexity of the application, runtime of the application, and proper utilization of resources (Time and Memory). The process consists of using an extra space (cache) for the reduction of expensive function calls (a function that recursively calls itself and it has some overlapping problem). By using memoization, we store the values that were calculated in the previously called subproblems. Then if the same subproblem is raised, we again use the stored value which reduces the time complexity as it removes the extra effort to calculate again and again for the same problem.
+
+
+
+## How Does Memoization Work?
+
+Imagine this kind of system:
+
+```js
+
+const initApp = ()=>{
+    console.log(multiplyBy10(10));
+    console.log(multiplyBy10(10));
+    console.log(multiplyBy10(10));
+    console.log(multiplyBy10(10));
+}
+
+const multiplyBy10 = (n)=>{
+    console.log("Multiplied by 10");
+    return n*10;
+}
+
+initApp();
+```
+
+Here technically we are actually calculating the value of `multiplyBy10(10)` 4 times. But we can use memoization to store the value of `multiplyBy10(10)` in a cache and then use it whenever we need it provided that the input was same. How do we do that of magic?
+
+We use closures, to store our cache and have the ability to get it's value.
+
+
+```js
+
+const memoizedParent = ()=>{
+    const cache = {};
+
+    return (num)=>{
+        if(num in cache)
+        {
+            console.log("From Cache");
+            return cache[num];
+        }
+
+        console.log("Calculated");
+        cache[num] = num*10;
+        return cache[num];
+    }
+}
+
+const memoizedMultiplyBy10 = memoizedParent();
+
+console.log(memoizedMultiplyBy10(10));
+console.log(memoizedMultiplyBy10(10));
+console.log(memoizedMultiplyBy10(10));
+console.log(memoizedMultiplyBy10(10));
+
+```
+The first time we will have it calculated from scratch and the next time we will have it from the cache.
+
+
+
+## Importance of Memoization
+
+- Memoization in javascript is an optimization technique that stores the results of function calls in a temporary data structure and then retrieves the results whenever the stored result is needed in the program. By doing this, the execution time is reduced and the CPU performance is increased
+
+- Using Javascript Memoization we can reduce the time complexity of an application and by which the response time of the webpage will decreases (for eg. API call)
+
+
+## When to Use Memoization?
+
+- When the function is calling itself. i.e. for the recursive functions.
+- When the function is pure (a function that returns the same value every time it is called). As if the value is different in each function call, then there will not be any use in storing such value. So, we can't use memoization in javascript when the function is impure.
+- When the function is very complex in time(Heavy computation function). In this case, storing the results in a cache will increase the performance by reducing the time complexity, as re-computation for functions will not be performed.
