@@ -3,6 +3,7 @@
 - [The `this` keyword in Java](#the-this-keyword-in-java)
   - [Can this keyword be used to refer static members??](#can-this-keyword-be-used-to-refer-static-members)
   - [How can constructor chaining be done using this keyword?](#how-can-constructor-chaining-be-done-using-this-keyword)
+- [The `new` keyword](#the-new-keyword)
 - [Use of `super` keyword](#use-of-super-keyword)
   - [How can constructor chaining be done by using the super keyword?](#how-can-constructor-chaining-be-done-by-using-the-super-keyword)
 - [`super` VS `this`](#super-vs-this)
@@ -140,6 +141,20 @@ ID: 105 Name:Vikas age:22 address: Delhi
 
 ```
 
+# The `new` keyword
+
+```java
+StudentType student1
+```
+
+This runs at **compile** time. It allocates memory for the object and returns a reference to the object. The reference is stored in the `student1` variable. Compile time is the time when the code is compiled.
+
+```java
+new StudentType();
+```
+
+This runs at **runtime**. It allocates memory for the object and returns a reference to the object. The reference is stored in the `student1` variable. Runtime is the time when the code is executed.
+
 
 # Use of `super` keyword
 
@@ -224,9 +239,9 @@ The `super` keyword in Java is a reference variable that is used to refer to the
 
 The `this` keyword in Java is a reference variable that refers to the current object. It can be used to refer to any member of the current object from within an instance method or a constructor.
 
-| super keyword | this keyword |
-| --- | --- |
-| The super keyword is used to refer to the immediate parent class object. | The this keyword is used to refer to the current object. |
+| super keyword                                                              | this keyword                                                                  |
+| -------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| The super keyword is used to refer to the immediate parent class object.   | The this keyword is used to refer to the current object.                      |
 | The super keyword can be used to invoke the immediate parent class method. | The this keyword can be used to invoke the current class method (implicitly). |
 
 ## Example of super keyword

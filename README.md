@@ -7,7 +7,7 @@
 Here's a summary if anyone's interested: 
 
 - [LLD Folder](/LLD) consists of some Low level design concepts.
-- [OOPS Folder](/OOPS) consists of Object Oriented Programming concepts.
+- [OOPS Folder](/OOPS_JAVA) consists of Object Oriented Programming concepts.
 - [Javascript Folder](/javascript) will be having stuffs related to JS.
   - [Challenges Folder](/javascript/challenges) has some challenges that i think are good to know.
   - [Code Folder](/javascript/code) will probably consist of some machine coding-related stuffs (js).

@@ -8,7 +8,6 @@
   - [Example](#example)
   - [Understanding Objects](#understanding-objects)
   - [How to use this class using object ?](#how-to-use-this-class-using-object-)
-  - [Understanding the `new` keyword](#understanding-the-new-keyword)
   - [How to manipulate the state of an object ?](#how-to-manipulate-the-state-of-an-object-)
 - [Java constructor](#java-constructor)
   - [Explain the usage of constructor in Java ?](#explain-the-usage-of-constructor-in-java-)
@@ -240,19 +239,7 @@ public class Main {
 }
 ```
 
-## Understanding the `new` keyword
 
-```java
-StudentType student1
-```
-
-This runs at **compile** time. It allocates memory for the object and returns a reference to the object. The reference is stored in the `student1` variable. Compile time is the time when the code is compiled.
-
-```java
-new StudentType();
-```
-
-This runs at **runtime**. It allocates memory for the object and returns a reference to the object. The reference is stored in the `student1` variable. Runtime is the time when the code is executed.
 
 ## How to manipulate the state of an object ?
 
