@@ -1,0 +1,12 @@
+{
+  "reporterEnabled": "spec, mocha-junit-reporter",
+  "mochaJunitReporterReporterOptions": {
+    "rootSuiteTitle": "Calculator",
+    "testSuitesTitle": "Calculator",
+    "testCaseSwitchClassnameAndName": true
+  }
+}
+
+----------------------------------------------------------------
+
+

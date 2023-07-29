@@ -1,0 +1,46 @@
+node_modules/
+test-results.xml
+
+### *** required entries below ***
+###
+### Please do not add anything below this line, your changes will be overwritten
+###
+*.iml
+*.iws
+*.launch
+.externalToolBuilders/
+.DS_Store
+.DS.d74cb6fe
+__MACOSX/
+.idea/
+.nb-gradle/
+.project
+.settings/
+.history/
+atlassian-ide-plugin.xml
+nbactions.xml
+nbbuild/
+nbdist/
+nbproject/private/
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/4f51c
+!.vscode/extensions.json
+*.code-workspace
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
+node_modules
+.npm-debug.log
+tmp
+
+
+
+
+###
+###                                                                                                                                                                                                                                  git#324892
+###
