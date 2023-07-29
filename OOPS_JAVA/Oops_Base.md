@@ -1,6 +1,5 @@
 <!-- TOC -->
 
-- [Datatypes in Java](#datatypes-in-java)
 - [PolyMorphism in Java](#polymorphism-in-java)
   - [Compile Time Polymorphism](#compile-time-polymorphism)
   - [Run Time Polymorphism](#run-time-polymorphism)
@@ -19,11 +18,6 @@
   - [Can you use abstract and final both with a method?](#can-you-use-abstract-and-final-both-with-a-method)
 
 <!-- /TOC -->
-
-
-# Datatypes in Java
-
-
 
 # PolyMorphism in Java
 
