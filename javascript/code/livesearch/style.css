@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&family=Lexend+Deca:wght@100;200;300;400;500;600;700&family=Poppins:wght@300;400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&family=Lexend+Deca:wght@100;200;300;400;500;600;700&family=Poppins:wght@300;400;600&display=swap");
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -24,15 +24,15 @@ body {
   justify-content: center;
 }
 
-p{
+p {
   line-height: 1.6;
 }
 
-li{
+li {
   list-style: none;
 }
 
-.live-filter{
+.live-filter {
   width: 35rem;
   box-shadow: 1rem 1rem 2rem 1rem rgba(0, 0, 0, 0.3);
   border-radius: 2rem;
@@ -40,7 +40,7 @@ li{
   background-color: #fff;
 }
 
-.search{
+.search {
   background-color: #432c7a;
   border-top-right-radius: 1rem;
   border-top-left-radius: 1rem;
@@ -48,44 +48,44 @@ li{
   color: #fff;
 }
 
-.search p:first-child{
+.search p:first-child {
   font-weight: bold;
   font-size: 1.8rem;
 }
 
-.search p:last-of-type{
+.search p:last-of-type {
   font-weight: lighter;
   margin: 0.4rem 0 1.6rem 0;
 }
 
-.search input{
+.search input {
   width: 50%;
   border: none;
-  padding: .8rem .5rem;
+  padding: 0.8rem 0.5rem;
   font-family: "poppins";
- outline: none;
- border-radius: .5rem;
+  outline: none;
+  border-radius: 0.5rem;
 }
 
-::placeholder{
+::placeholder {
   font-family: "poppins";
   font-weight: bold;
   text-transform: capitalize;
 }
 
-.user-info{
+.user-info {
   padding: 2rem;
   height: 40rem;
   overflow-y: auto;
 }
 
-.user-list{
+.user-list {
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
 
-.user-data{
+.user-data {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -95,21 +95,21 @@ li{
   border-radius: 1rem;
 }
 
-.user-data img{
+.user-data img {
   max-width: 100%;
   height: auto;
   width: 6rem;
   border-radius: 50%;
 }
 
-.user-data div{
+.user-data div {
   text-align: start;
 }
 
-.user-data p{
+.user-data p {
   text-transform: capitalize;
 }
 
-.hide{
+.hide {
   display: none;
 }

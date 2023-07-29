@@ -3,8 +3,6 @@ import { SingleComment as SingleCommentType } from "../types/CommentTypes";
 import SingleComment from "../components/SingleComment";
 
 const HomePage = () => {
-
-
   const [comments, setComments] = useState<SingleCommentType[]>([]);
 
   const [singleComment, setSingleComment] = useState<SingleCommentType>({
