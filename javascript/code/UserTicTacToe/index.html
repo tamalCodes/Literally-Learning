@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tic Tac Toe</title>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+
+    td {
+      width: 50px;
+      height: 50px;
+      border: 1px solid black;
+      text-align: center;
+      font-size: 36px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Tic Tac Toe</h1>
+  <table>
+    <tr>
+      <td onclick="makeMove(0, 0)"></td>
+      <td onclick="makeMove(0, 1)"></td>
+      <td onclick="makeMove(0, 2)"></td>
+    </tr>
+    <tr>
+      <td onclick="makeMove(1, 0)"></td>
+      <td onclick="makeMove(1, 1)"></td>
+      <td onclick="makeMove(1, 2)"></td>
+    </tr>
+    <tr>
+      <td onclick="makeMove(2, 0)"></td>
+      <td onclick="makeMove(2, 1)"></td>
+      <td onclick="makeMove(2, 2)"></td>
+    </tr>
+  </table>
+  <p id="message"></p>
+
+  <script>
+    let board = [
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', ''],
+    ];
+
+    let currentPlayer = 'X';
+    let gameOver = false;
+
+    function checkWin() {
+      // Check for a crisscross win
+      if (
+        (board[0][0] === currentPlayer && board[1][1] === currentPlayer && board[2][2] === currentPlayer) ||
+        (board[0][2] === currentPlayer && board[1][1] === currentPlayer && board[2][0] === currentPlayer)
+      ) {
+        return true;
+      }
+
+      // Check for a vertical win
+      for (let i = 0; i < 3; i++) {
+        if (board[0][i] === currentPlayer && board[1][i] === currentPlayer && board[2][i] === currentPlayer) {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    function checkDraw() {
+      for (let row of board) {
+        for (let cell of row) {
+          if (cell === '') {
+            return false;
+          }
+        }
+      }
+      return true;
+    }
+
+    function showErrorMessage() {
+      document.getElementById('message').textContent = 'Invalid Move! You cannot win horizontally.';
+      setTimeout(() => {
+        document.getElementById('message').textContent = '';
+      }, 2000);
+    }
+
+    function makeMove(row, col) {
+      if (!gameOver && board[row][col] === '') {
+        board[row][col] = currentPlayer;
+        document.getElementsByTagName('td')[row * 3 + col].textContent = currentPlayer;
+
+        if (checkWin()) {
+          document.getElementById('message').textContent = `Player ${currentPlayer} wins!`;
+          gameOver = true;
+        } else if (checkDraw()) {
+          document.getElementById('message').textContent = 'It\'s a draw!';
+          gameOver = true;
+        } else {
+          currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        }
+      } else if (!gameOver) {
+        showErrorMessage();
+      }
+    }
+
+    // Reset the game
+    function resetGame() {
+      board = [
+        ['', '', ''],
+        ['', '', ''],
+        ['', '', ''],
+      ];
+      currentPlayer = 'X';
+      gameOver = false;
+
+      let cells = document.getElementsByTagName('td');
+      for (let i = 0; i < cells.length; i++) {
+        cells[i].textContent = '';
+      }
+
+      document.getElementById('message').textContent = '';
+    }
+  </script>
+</body>
+</html>

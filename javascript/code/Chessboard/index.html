@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Chessboard Generator</title>
+    <style>
+        .chessboard {
+            border-collapse: collapse;
+            border: 2px solid black;
+        }
+
+        .chessboard td {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            font-size: 24px;
+            border: 1px solid black;
+        }
+
+        .white {
+            background-color: white;
+        }
+
+        .black {
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Chessboard Generator</h2>
+    <label for="size">Enter board size:</label>
+    <input type="number" id="size" min="1" max="10" value="8">
+    <button onclick="generateChessboard()">Generate</button>
+    <br>
+    <table id="chessboard" class="chessboard">
+    </table>
+
+    <script>
+        function generateChessboard() {
+            const size = document.getElementById("size").value;
+            const chessboard = document.getElementById("chessboard");
+            let html = '';
+
+            for (let i = 0; i < size; i++) {
+                html += '<tr>';
+                for (let j = 0; j < size; j++) {
+                    const cellColor = (i + j) % 2 === 0 ? 'white' : 'black';
+                    html += `<td class="${cellColor}"></td>`;
+                }
+                html += '</tr>';
+            }
+
+            chessboard.innerHTML = html;
+        }
+    </script>
+</body>
+
+</html>

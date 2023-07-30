@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animate Progressbar In Queue</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .btn-add {
+            padding: 5px 10px;
+            margin-bottom: 10px;
+        }
+
+        .container {
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .progress-bar {
+            height: 20px;
+            width: 0;
+            background: red;
+            transition: width 3s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Animate Progressbar In Queue</h1>
+    <button type="button" class="btn-add">Add</button>
+    <div class="container"></div>
+    <script defer src="./script.js"></script>
+</body>
+
+</html>

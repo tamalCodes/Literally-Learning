@@ -1,0 +1,54 @@
+html, .viewport, body {
+    width: 100%;
+    height: 100%;
+}
+
+#app {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#scroll-box {
+    overflow-y: scroll;
+    border: 1px solid black;
+    padding: 0 1rem;
+}
+
+.header {
+    width: inherit;
+    position: absolute;
+    align-items: center;
+    display: flex;
+    box-sizing: border-box;
+    background-color: white;
+    z-index: 1;
+    border-bottom: 1px solid black;
+}
+
+.header > span {
+    flex: 0.25;
+    text-transform: capitalize;
+    text-align: center;
+}
+
+#container {
+    width: 100%;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.row {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+}
+
+.row > span {
+    flex: 0.25;
+}

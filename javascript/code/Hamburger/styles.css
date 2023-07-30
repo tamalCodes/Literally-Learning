@@ -1,0 +1,64 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+.navbar {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+}
+
+.hamburger-icon {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.bar {
+  width: 30px;
+  height: 4px;
+  background-color: #fff;
+  margin: 6px 0;
+  transition: transform 0.2s; /* Add transition for smooth rotation animation */
+}
+
+.menu {
+  list-style: none;
+  display: none;
+  padding: 0;
+}
+
+.menu li {
+  padding: 10px;
+}
+
+.menu a {
+  text-decoration: none;
+  color: #fff;
+}
+
+/* Media query to show the menu on larger screens */
+@media (min-width: 768px) {
+  .menu {
+    display: flex;
+  }
+}
+
+/* Class for cross shape */
+.cross {
+  transform: rotate(45deg);
+}
+
+/* Styling each bar for cross shape */
+.cross .bar:nth-child(1) {
+  transform: rotate(45deg) translate(8px, 8px);
+}
+
+.cross .bar:nth-child(2) {
+  display: none; /* Hide the middle bar for cross shape */
+}
+
+.cross .bar:nth-child(3) {
+  transform: rotate(-45deg) translate(8px, -8px);
+}

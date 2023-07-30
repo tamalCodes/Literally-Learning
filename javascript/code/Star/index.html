@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Rating</title>
+    <style>
+        .star-container {
+            display: flex;
+            gap: 0px;
+            margin-top: 10vh;
+        }
+
+        .star {
+            cursor: pointer;
+        }
+
+        .active-star {
+            color: orange;
+            filter: invert(80%) sepia(34%) saturate(548%) hue-rotate(344deg) brightness(99%) contrast(95%);
+        }
+
+        .inactive-star {
+            color: lightgray;
+            filter: invert(80%);
+        }
+
+        .showrating-field {
+            padding-left: 15px;
+        }
+
+        .showrating-container {
+            font-size: 30px;
+        }
+
+        /*Hover Effect*/
+        .star-container:hover .star {
+            filter: invert(80%) sepia(34%) saturate(548%) hue-rotate(344deg) brightness(99%) contrast(95%);
+        }
+
+        .star:hover~.star {
+            filter: invert(80%);
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .flip {
+            transform: scale(-1, 1);
+        }
+
+        .left-half {
+            position: relative;
+            right: -1px;
+        }
+
+        .right-half {
+            position: relative;
+            left: -1px;
+            transform: scale(-1, 1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="star-container" onclick="updateRating(event)"></div>
+    <div>
+        <h4 class=" showrating-container">Current Rating :<span class="showrating-field">0</span></h4>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
