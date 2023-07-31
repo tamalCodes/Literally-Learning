@@ -5,24 +5,26 @@
 - [What is the difference between == and === operators](#what-is-the-difference-between--and--operators)
 - [What is a service worker](#what-is-a-service-worker)
 - [DOM/HTML Related 👇🏻](#domhtml-related-)
-  - [How do you manipulate DOM using a service worker](#how-do-you-manipulate-dom-using-a-service-worker)
-  - [How do you reuse information across service worker restarts](#how-do-you-reuse-information-across-service-worker-restarts)
-  - [How do I modify the url without reloading the page](#how-do-i-modify-the-url-without-reloading-the-page)
-  - [How to get the value from get parameters](#how-to-get-the-value-from-get-parameters)
-  - [Is JavaScript faster than server side script](#is-javascript-faster-than-server-side-script)
-  - [Is it possible to debug HTML elements in console](#is-it-possible-to-debug-html-elements-in-console)
-  - [How do you change the style of a HTML element using JS](#how-do-you-change-the-style-of-a-html-element-using-js)
-  - [How do you create custom HTML element?](#how-do-you-create-custom-html-element)
-  - [What are the properties used to get size of window](#what-are-the-properties-used-to-get-size-of-window)
-  - [What is the difference between document load and DOMContentLoaded events](#what-is-the-difference-between-document-load-and-domcontentloaded-events)
-  - [What is the difference between an attribute and a property](#what-is-the-difference-between-an-attribute-and-a-property)
-  - [How do you redirect new page in javascript](#how-do-you-redirect-new-page-in-javascript)
+    - [Why do you think React is faster than HTML/JS ?](#why-do-you-think-react-is-faster-than-htmljs-)
+    - [Any case where this is not true ?](#any-case-where-this-is-not-true-)
+    - [How do you manipulate DOM using a service worker](#how-do-you-manipulate-dom-using-a-service-worker)
+    - [How do you reuse information across service worker restarts](#how-do-you-reuse-information-across-service-worker-restarts)
+    - [How do I modify the url without reloading the page](#how-do-i-modify-the-url-without-reloading-the-page)
+    - [How to get the value from get parameters](#how-to-get-the-value-from-get-parameters)
+    - [Is JavaScript faster than server side script](#is-javascript-faster-than-server-side-script)
+    - [Is it possible to debug HTML elements in console](#is-it-possible-to-debug-html-elements-in-console)
+    - [How do you change the style of a HTML element using JS](#how-do-you-change-the-style-of-a-html-element-using-js)
+    - [How do you create custom HTML element?](#how-do-you-create-custom-html-element)
+    - [What are the properties used to get size of window](#what-are-the-properties-used-to-get-size-of-window)
+    - [What is the difference between document load and DOMContentLoaded events](#what-is-the-difference-between-document-load-and-domcontentloaded-events)
+    - [What is the difference between an attribute and a property](#what-is-the-difference-between-an-attribute-and-a-property)
+    - [How do you redirect new page in javascript](#how-do-you-redirect-new-page-in-javascript)
 - [What is the difference between java and javascript](#what-is-the-difference-between-java-and-javascript)
 - [What is a void operator](#what-is-a-void-operator)
 - [How do you create an infinite loop](#how-do-you-create-an-infinite-loop)
 - [ES6 👇🏻](#es6-)
-  - [What is ES6](#what-is-es6)
-  - [List down some of the features of ES6](#list-down-some-of-the-features-of-es6)
+    - [What is ES6](#what-is-es6)
+    - [List down some of the features of ES6](#list-down-some-of-the-features-of-es6)
 - [What is destructuring assignment](#what-is-destructuring-assignment)
 - [What are default values in destructuring assignment](#what-are-default-values-in-destructuring-assignment)
 - [How do you swap variables in destructuring assignment](#how-do-you-swap-variables-in-destructuring-assignment)
@@ -46,12 +48,12 @@
 - [What are the possible side-effects in javascript?](#what-are-the-possible-side-effects-in-javascript)
 - [What are regular expression patterns](#what-are-regular-expression-patterns)
 - [How do you search a string for a pattern](#how-do-you-search-a-string-for-a-pattern)
-- [What would be the result of `1+2+'3'`](#what-would-be-the-result-of-123)
+- [What would be the result of 1+2+'3'](#what-would-be-the-result-of-123)
 - [Dates in JS 👇🏻](#dates-in-js-)
-  - [How do you convert date to another timezone in javascript](#how-do-you-convert-date-to-another-timezone-in-javascript)
-  - [What is the `toLocaleString()` method ?](#what-is-the-tolocalestring-method-)
-  - [How do you display the current date in javascript](#how-do-you-display-the-current-date-in-javascript)
-  - [How do you compare two date objects](#how-do-you-compare-two-date-objects)
+    - [How do you convert date to another timezone in javascript](#how-do-you-convert-date-to-another-timezone-in-javascript)
+    - [What is the toLocaleString method ?](#what-is-the-tolocalestring-method-)
+    - [How do you display the current date in javascript](#how-do-you-display-the-current-date-in-javascript)
+    - [How do you compare two date objects](#how-do-you-compare-two-date-objects)
 - [What are the ways to execute javascript after page load](#what-are-the-ways-to-execute-javascript-after-page-load)
 - [What is a freeze method](#what-is-a-freeze-method)
 - [What is the purpose of freeze method](#what-is-the-purpose-of-freeze-method)
@@ -69,30 +71,30 @@
 - [What are the two types of loops in javascript](#what-are-the-two-types-of-loops-in-javascript)
 - [How do you perform language specific date and time formatting](#how-do-you-perform-language-specific-date-and-time-formatting)
 - [JS vs TS 👇🏻](#js-vs-ts-)
-  - [What are the differences between javascript and typescript](#what-are-the-differences-between-javascript-and-typescript)
-  - [What are the advantages of typescript over javascript](#what-are-the-advantages-of-typescript-over-javascript)
+    - [What are the differences between javascript and typescript](#what-are-the-differences-between-javascript-and-typescript)
+    - [What are the advantages of typescript over javascript](#what-are-the-advantages-of-typescript-over-javascript)
 - [Minification 👇🏻](#minification-)
-  - [What is Minification](#what-is-minification)
-  - [What are the advantages of minification](#what-are-the-advantages-of-minification)
+    - [What is Minification](#what-is-minification)
+    - [What are the advantages of minification](#what-are-the-advantages-of-minification)
 - [JSON 👇🏻](#json-)
-  - [What is JSON](#what-is-json)
-  - [What are the syntax rules of JSON](#what-are-the-syntax-rules-of-json)
-  - [What is the purpose JSON stringify](#what-is-the-purpose-json-stringify)
-  - [How do you parse JSON string](#how-do-you-parse-json-string)
-  - [Why do you need JSON](#why-do-you-need-json)
-  - [How do you define JSON arrays](#how-do-you-define-json-arrays)
+    - [What is JSON](#what-is-json)
+    - [What are the syntax rules of JSON](#what-are-the-syntax-rules-of-json)
+    - [What is the purpose JSON stringify](#what-is-the-purpose-json-stringify)
+    - [How do you parse JSON string](#how-do-you-parse-json-string)
+    - [Why do you need JSON](#why-do-you-need-json)
+    - [How do you define JSON arrays](#how-do-you-define-json-arrays)
 - [What is NaN property](#what-is-nan-property)
 - [What is the purpose of isFinite function](#what-is-the-purpose-of-isfinite-function)
 - [How do you submit a form using JavaScript](#how-do-you-submit-a-form-using-javascript)
 - [What is the difference between native, host and user objects](#what-is-the-difference-between-native-host-and-user-objects)
 - [What is same-origin policy](#what-is-same-origin-policy)
 - [JS Basics 👇🏻](#js-basics-)
-  - [Is JavaScript a compiled or interpreted language](#is-javascript-a-compiled-or-interpreted-language)
-  - [Is JavaScript a case-sensitive language](#is-javascript-a-case-sensitive-language)
-  - [Why is JavaScript treated as Single threaded](#why-is-javascript-treated-as-single-threaded)
-  - [Is there any relation between Java and JavaScript](#is-there-any-relation-between-java-and-javascript)
-  - [What is jQuery](#what-is-jquery)
-  - [Why do we call javascript as dynamic language](#why-do-we-call-javascript-as-dynamic-language)
+    - [Is JavaScript a compiled or interpreted language](#is-javascript-a-compiled-or-interpreted-language)
+    - [Is JavaScript a case-sensitive language](#is-javascript-a-case-sensitive-language)
+    - [Why is JavaScript treated as Single threaded](#why-is-javascript-treated-as-single-threaded)
+    - [Is there any relation between Java and JavaScript](#is-there-any-relation-between-java-and-javascript)
+    - [What is jQuery](#what-is-jquery)
+    - [Why do we call javascript as dynamic language](#why-do-we-call-javascript-as-dynamic-language)
 - [What is BOM](#what-is-bom)
 - [What is the use of setInterval](#what-is-the-use-of-setinterval)
 - [What are PWAs](#what-are-pwas)
@@ -146,6 +148,50 @@ A Service worker is basically a script (JavaScript file) that runs in the backgr
 
    
 # DOM/HTML Related 👇🏻
+
+## Why do you think React is faster than HTML/JS ? 
+
+
+React is often perceived as faster than traditional HTML/JS approaches due to several key reasons:
+
+- Virtual DOM: React employs a Virtual DOM (Document Object Model), which is a lightweight copy of the actual DOM. When there are changes to the state or data, React calculates the minimal changes required in the Virtual DOM and efficiently updates the real DOM. This reduces the number of actual DOM manipulations, resulting in improved performance.
+
+- Efficient Reconciliation: React's reconciliation process ensures that only the necessary components are updated when data changes occur. This smart diffing algorithm helps avoid unnecessary re-renders of unchanged components, optimizing the rendering process.
+
+- Component-based Architecture: React's component-based architecture promotes modularity and reusability. Components encapsulate their logic and rendering, enabling faster development and better code organization. This modular approach allows for easier optimization of specific components without affecting the entire application.
+
+- One-Way Data Flow: React follows a one-way data flow, meaning data flows unidirectionally from parent components to child components. This predictable data flow helps in understanding how data changes propagate, reducing bugs and making the application easier to reason about.
+
+- Virtual DOM Batch Updates: React batches multiple updates to the Virtual DOM and performs them in a single batch. This reduces the number of renders and updates to the actual DOM, enhancing performance.
+
+- React Fiber: React introduced Fiber, a reimplementation of its core algorithm, to improve its ability to pause, abort, or resume rendering as needed. Fiber's asynchronous rendering capabilities allow React to prioritize more important tasks, leading to smoother user experiences.
+
+- Performance Tools: React provides developers with powerful performance tools like React DevTools and Profiler. These tools enable developers to analyze the application's performance, identify bottlenecks, and make targeted optimizations.
+
+- Community and Ecosystem: React's popularity has led to a vast community and ecosystem of third-party libraries and tools. Many of these are built with performance in mind, helping developers create faster and more efficient applications.
+
+While React provides excellent performance out of the box, it's crucial to note that performance can still be affected by how developers write their code. Properly optimizing components, avoiding unnecessary re-renders, and using performance best practices will contribute to even faster React applications.
+
+## Any case where this is not true ?
+
+Yes, there are specific scenarios where traditional HTML/JS can be faster or more appropriate than using React:
+
+- Simple Static Websites: For simple static websites with limited interactivity and static content, using plain HTML, CSS, and JavaScript without the overhead of a framework like React can be more efficient and result in faster load times.
+
+- Performance-Critical Animations: In cases where highly performant animations are required, directly manipulating the DOM with optimized vanilla JavaScript or using specialized animation libraries can outperform React's Virtual DOM approach.
+
+- Minimal Interactivity: If a website or web application requires minimal interactivity and does not have complex user interfaces or data manipulation, using React may introduce unnecessary complexity, and vanilla JavaScript may be more straightforward and faster.
+
+- Small Codebases: For small projects or one-off pages that do not require extensive UI components or complex state management, React's overhead might not be justified, and writing plain HTML/JS can be more lightweight and faster.
+
+- Server-Side Rendering: In some cases, server-side rendering (SSR) without React might be faster for initial page load, especially for static content or content that does not require client-side interactivity.
+
+- Legacy Systems: When working with legacy systems or projects built using older technology stacks, integrating React might not be feasible or practical. In such cases, sticking with the existing HTML/JS code might be the more suitable option.
+
+- SEO and Page Load Speed: For certain SEO-focused websites or pages that prioritize fast initial page load times, using plain HTML/JS can result in faster rendering, as it avoids the overhead of client-side rendering.
+
+It's important to note that the choice between React and traditional HTML/JS depends on various factors, including project requirements, development team expertise, performance goals, and the complexity of the application. React's strength lies in its component-based architecture, state management, and developer-friendly ecosystem, making it an excellent choice for most modern web applications. However, for specific use cases with specific performance or project constraints, traditional HTML/JS solutions can still be a viable and efficient option.
+
 ## How do you manipulate DOM using a service worker
 
 Service worker can't access the DOM directly. But it can communicate with the pages it controls by responding to messages sent via the `postMessage` interface, and those pages can manipulate the DOM.
