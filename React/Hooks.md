@@ -3,18 +3,18 @@
 - [What are even hooks ?](#what-are-even-hooks-)
 - [How did hooks help us ?](#how-did-hooks-help-us-)
 - [What are states in component ?](#what-are-states-in-component-)
-    - [Before hooks did the components have state ?](#before-hooks-did-the-components-have-state-)
-    - [If we have const x = 10; is that a state too ?](#if-we-have-const-x--10-is-that-a-state-too-)
+  - [Before hooks did the components have state ?](#before-hooks-did-the-components-have-state-)
+  - [If we have `const x = 10;` is that a state too ?](#if-we-have-const-x--10-is-that-a-state-too-)
 - [What is lifecycle ?](#what-is-lifecycle-)
-    - [Mounting Phase:](#mounting-phase)
-    - [Updating Phase:](#updating-phase)
-    - [Error Handling Phase:](#error-handling-phase)
-- [UseMemo hook](#usememo-hook)
-- [UseCallback hook](#usecallback-hook)
-- [useReducer Hook](#usereducer-hook)
-- [useContext Hook](#usecontext-hook)
+  - [Mounting Phase:](#mounting-phase)
+  - [Updating Phase:](#updating-phase)
+  - [Error Handling Phase:](#error-handling-phase)
+- [`UseMemo()` hook](#usememo-hook)
+- [`UseCallback()` hook](#usecallback-hook)
+  - [A more detailed explanation](#a-more-detailed-explanation)
+- [`useContext()` Hook](#usecontext-hook)
 - [What is the difference between useRef and useState ?](#what-is-the-difference-between-useref-and-usestate-)
-- [Difference between useMemo and useCallback ?](#difference-between-usememo-and-usecallback-)
+- [Difference between `useMemo()` and `useCallback()` ?](#difference-between-usememo-and-usecallback-)
 
 <!-- /TOC -->
 
@@ -152,6 +152,13 @@ function MyComponent({ value1, value2 }) {
 
 In this example, the handleClick function is memoized using useCallback. This means that the function will only be re-created when the onClick prop changes.
 
+## A more detailed explanation 
+
+See everytime a component re-renders, all of its functions are re-created. This is because functions are objects in JavaScript, and objects are created every time they are referenced. 
+
+UseCallback will preserve the identity of the function between re-renders, so that it is only re-created when one of its dependencies changes. This can be useful when you have a function that is expensive to create, such as a function that performs a complex calculation or a database query.
+
+```js
 # `useReducer()` Hook
 
 useReducer is a hook for state management, much like useState, and relies upon a kind of function called a reducer.
