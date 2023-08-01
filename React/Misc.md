@@ -4,13 +4,14 @@
 - [Now forget react, if we want to change props like mutate regardless of the state in parent, how can we do it , let's say in Js ?](#now-forget-react-if-we-want-to-change-props-like-mutate-regardless-of-the-state-in-parent-how-can-we-do-it--lets-say-in-js-)
 - [Are objects passed by reference or by value ?](#are-objects-passed-by-reference-or-by-value-)
 - [What is the difference between a controlled and uncontrolled component ?](#what-is-the-difference-between-a-controlled-and-uncontrolled-component-)
-- [What is lazy loading (in depth) ?](#what-is-lazy-loading-in-depth-)
+- [What is lazy loading in depth ?](#what-is-lazy-loading-in-depth-)
 - [What is DOM ?](#what-is-dom-)
-  - [Virtual DOM in react](#virtual-dom-in-react)
+    - [Virtual DOM in react](#virtual-dom-in-react)
 - [What is a HOC in react ?](#what-is-a-hoc-in-react-)
-  - [How does hooks replace Higher order components ?](#how-does-hooks-replace-higher-order-components-)
+    - [How does hooks replace Higher order components ?](#how-does-hooks-replace-higher-order-components-)
+- [Define pure and impure components](#define-pure-and-impure-components)
 - [What is a render prop in react ?](#what-is-a-render-prop-in-react-)
-  - [How did it get replaced in mordern day react ?](#how-did-it-get-replaced-in-mordern-day-react-)
+    - [How did it get replaced in mordern day react ?](#how-did-it-get-replaced-in-mordern-day-react-)
 
 <!-- /TOC -->
 
@@ -109,25 +110,66 @@ Overall, the Virtual DOM is a key part of what makes React a high-performance an
 
 # What is a HOC in react ?
 
-A higher-order component (HOC) is a function that takes a component as an argument and returns a new component. HOCs are commonly used to implement cross-cutting concerns such as logging, error handling, and authentication.
-
-These are not much used in react now a days as we have hooks to do the same.
+In React, a Higher Order Component (HOC) is a pattern that allows you to reuse component logic by wrapping a component with a function. The HOC takes a component as an argument and returns a new component with additional props or behavior.
 
 ```js
 import React from 'react';
 
-function withLogging(WrappedComponent) {
-  return function WithLogging(props) {
-    console.log('Component render');
-    return <WrappedComponent {...props} />;
+const Message = ({ text }) => {
+  return <div>{text}</div>;
+};
+
+export default Message;
+
+```
+
+Now, we want to create a Higher Order Component that adds a timestamp to the message and passes it as a prop to the original Message component.
+
+```jsx
+import React from 'react';
+
+const withTimestamp = (WrappedComponent) => {
+  return (props) => {
+    const timestamp = new Date().toLocaleString();
+    return <WrappedComponent {...props} timestamp={timestamp} />;
   };
-}
+};
 
-function MyComponent() {
-  return <div>Hello</div>;
-}
+const Message = ({ text, timestamp }) => {
+  return (
+    <div>
+      <p>{text}</p>
+      <p>Timestamp: {timestamp}</p>
+    </div>
+  );
+};
 
-export default withLogging(MyComponent);
+const MessageWithTimestamp = withTimestamp(Message);
+
+export default MessageWithTimestamp;
+```
+
+In this example, we have created the withTimestamp Higher Order Component that takes the Message component as an argument and returns a new component. The new component has the original Message component as a child but with an additional timestamp prop.
+
+Now, wherever you want to use the Message component with the timestamp feature, you can use MessageWithTimestamp instead:
+
+```jsx
+import React from 'react';
+import MessageWithTimestamp from './MessageWithTimestamp';
+
+const App = () => {
+  return <MessageWithTimestamp text="Hello, world!" />;
+};
+
+export default App;
+```
+
+
+Now, when rendering the App component, it will display the message with the added timestamp:
+
+```jsx
+Hello, world!
+Timestamp: 7/31/2023, 12:34:56 PM
 ```
 
 ## How does hooks replace Higher order components ?
@@ -212,6 +254,14 @@ const MyComponent = () => {
 ```
 
 As you can see, the hooks approach eliminates the need for a separate HOC and provides a more straightforward way to manage state and side effects directly within the functional component. This simplification and encapsulation of logic make hooks a powerful replacement for HOCs in many cases.
+
+# Define pure and impure components
+
+<h4>Pure Components</h4>
+Pure components are components that always produce the same output for the same input props. They do not rely on or modify any external state and have no side effects. Pure components are easier to reason about and can lead to performance optimizations since they avoid unnecessary re-renders.
+
+<h4>Impure Components</h4>
+Impure components are components that may have side effects, such as modifying external state, interacting with the DOM directly, or making API calls. Their output may not solely depend on the input props, making them harder to predict and potentially leading to unexpected behavior and performance issues.
 
 
 # What is a render prop in react ?

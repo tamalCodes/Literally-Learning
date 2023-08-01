@@ -1,39 +1,140 @@
-# React & Javascript Questions
 
-### What is Hoisting ?
+<!-- TOC -->
 
-Hoisting is a behavior in JavaScript where variable and function declarations are moved to the top of their respective scopes during the code execution phase. This means that even if you declare a variable or function later in your code, it behaves as if it was declared at the beginning.
+- [What is Currying ?](#what-is-currying-)
+- [What is the Context API in React? How can it be used to manage global state in an application?](#what-is-the-context-api-in-react-how-can-it-be-used-to-manage-global-state-in-an-application)
+- [Difference between controlled v/s uncontrolled component ?](#difference-between-controlled-vs-uncontrolled-component-)
+- [Difference between arrow function and normal function](#difference-between-arrow-function-and-normal-function)
+- [Difference between relative and absolute in css](#difference-between-relative-and-absolute-in-css)
+- [Difference between foreach and map](#difference-between-foreach-and-map)
+- [Difference between event bubbling and event loop](#difference-between-event-bubbling-and-event-loop)
+- [Difference between let, var, and const](#difference-between-let-var-and-const)
+- [Why we don't use index as a key in a list](#why-we-dont-use-index-as-a-key-in-a-list)
+- [What is React Lifecycle ?](#what-is-react-lifecycle-)
+- [How React's Virtual DOM works and its advantages in rendering performance ?](#how-reacts-virtual-dom-works-and-its-advantages-in-rendering-performance-)
+- [What is jsx and use of it ?](#what-is-jsx-and-use-of-it-)
+- [Explain different state management solutions in React, such as local component state, Redux, or MobX.](#explain-different-state-management-solutions-in-react-such-as-local-component-state-redux-or-mobx)
+- [Explain the role of keys in React lists and why they are essential.](#explain-the-role-of-keys-in-react-lists-and-why-they-are-essential)
+- [What is the significance of React Fragments, and when should you use them?](#what-is-the-significance-of-react-fragments-and-when-should-you-use-them)
+- [Explain the difference between useState and useEffect.](#explain-the-difference-between-usestate-and-useeffect)
+- [What are React render props? How do they enable component composition and code reusability?](#what-are-react-render-props-how-do-they-enable-component-composition-and-code-reusability)
+- [How can you optimize performance in a React application? Discuss techniques like memoization, code splitting, and lazy loading.](#how-can-you-optimize-performance-in-a-react-application-discuss-techniques-like-memoization-code-splitting-and-lazy-loading)
+- [What is server-side rendering SSR in React? Discuss its advantages and challenges compared to client-side rendering.](#what-is-server-side-rendering-ssr-in-react-discuss-its-advantages-and-challenges-compared-to-client-side-rendering)
+- [What is the role of React Router in a single-page application? How does it handle dynamic routing and nested routes?](#what-is-the-role-of-react-router-in-a-single-page-application-how-does-it-handle-dynamic-routing-and-nested-routes)
+- [How would you test a React component? Discuss different testing approaches, such as unit testing, integration testing, and snapshot testing.](#how-would-you-test-a-react-component-discuss-different-testing-approaches-such-as-unit-testing-integration-testing-and-snapshot-testing)
+- [How can you handle forms in React? Explain techniques like controlled components, form validation, and handling form submission.](#how-can-you-handle-forms-in-react-explain-techniques-like-controlled-components-form-validation-and-handling-form-submission)
+- [How does React handle prop drilling and what are the solutions to mitigate it ?](#how-does-react-handle-prop-drilling-and-what-are-the-solutions-to-mitigate-it-)
+- [What are the differences between React's server-side rendering SSR and client-side rendering CSR? When would you use each approach ?](#what-are-the-differences-between-reacts-server-side-rendering-ssr-and-client-side-rendering-csr-when-would-you-use-each-approach-)
+- [Explain the concept of code splitting in React. How can it enhance performance and improve user experience ?](#explain-the-concept-of-code-splitting-in-react-how-can-it-enhance-performance-and-improve-user-experience-)
+- [What is the role of error boundaries in React? How can they help catch and handle errors in component trees ?](#what-is-the-role-of-error-boundaries-in-react-how-can-they-help-catch-and-handle-errors-in-component-trees-)
+- [Explain the concept of reconciliation in React. How does it determine when and how to update the DOM ?](#explain-the-concept-of-reconciliation-in-react-how-does-it-determine-when-and-how-to-update-the-dom-)
+- [What is Lifting State Up in React?](#what-is-lifting-state-up-in-react)
+- [What is React context?](#what-is-react-context)
+- [What are different ways to add CSS in your app?](#what-are-different-ways-to-add-css-in-your-app)
+- [What is Hot Module Replacement?](#what-is-hot-module-replacement)
+- [What is the use of Parcel, Vite, Webpack?](#what-is-the-use-of-parcel-vite-webpack)
+- [What is Tree Shaking?](#what-is-tree-shaking)
+- [Difference b/w dependency and devDependency](#difference-bw-dependency-and-devdependency)
+- [What is npx and npm?](#what-is-npx-and-npm)
+- [Difference b/w package .json and package-lock .json](#difference-bw-package-json-and-package-lock-json)
+- [Difference between console .log< HeaderComponent/> and console .logHeaderComponent](#difference-between-console-log-headercomponent-and-console-logheadercomponent)
+- [What is React.Fragment?](#what-is-reactfragment)
+- [What is the purpose of dependency array in useEffect? What is the difference when it is used and when it is not used?](#what-is-the-purpose-of-dependency-array-in-useeffect-what-is-the-difference-when-it-is-used-and-when-it-is-not-used)
+- [What if 2 components are given will the state change in one component will effect the other component’s state child?](#what-if-2-components-are-given-will-the-state-change-in-one-component-will-effect-the-other-components-state-child)
+- [What is the use of return in useEffect ?](#what-is-the-use-of-return-in-useeffect-)
+- [How does React handle routing and navigation?](#how-does-react-handle-routing-and-navigation)
+- [How to managing data inside React ?](#how-to-managing-data-inside-react-)
+- [New features in ES6](#new-features-in-es6)
+- [Common pseudo code with set time interval function](#common-pseudo-code-with-set-time-interval-function)
+- [Implementation of promises and async- await.](#implementation-of-promises-and-async--await)
+- [Reverse an Array:](#reverse-an-array)
+- [Remove Duplicates from an Array](#remove-duplicates-from-an-array)
+- [Reverse a String:](#reverse-a-string)
+- [Flatten a Multidimensional Array:](#flatten-a-multidimensional-array)
+- [Use Filter, Map, and Reduce Methods:](#use-filter-map-and-reduce-methods)
+- [Merge Arrays](#merge-arrays)
+- [Sort an Array](#sort-an-array)
+- [Check Palindrome](#check-palindrome)
+- [Fibonacci Series](#fibonacci-series)
+- [Find Longest Word in a String](#find-longest-word-in-a-string)
+- [Find Longest Common String from Array of Strings](#find-longest-common-string-from-array-of-strings)
+- [Count Characters Occurring in an Array](#count-characters-occurring-in-an-array)
+- [Find First Pair Whose Sum is Zero](#find-first-pair-whose-sum-is-zero)
+- [Unique Values in Two Arrays](#unique-values-in-two-arrays)
+- [Objects and Classes in JavaScript](#objects-and-classes-in-javascript)
+- [Difference between Class-based and Functional-based Components](#difference-between-class-based-and-functional-based-components)
+- [How to Write Custom Hooks:\*\*](#how-to-write-custom-hooks%5C%5C)
+- [Pagination:\*\*](#pagination%5C%5C)
+- [Where to use Context and where to use Redux](#where-to-use-context-and-where-to-use-redux)
+- [Redux Thunk, Redux Saga, RTK Redux Toolkit](#redux-thunk-redux-saga-rtk-redux-toolkit)
+- [Demonstrate Use of State and Props Using Examples](#demonstrate-use-of-state-and-props-using-examples)
+- [Output of arr = new Array3;](#output-of-arr--new-array3)
+- [Event Bubbling and Capturing](#event-bubbling-and-capturing)
+- [Deep Copy and Shallow Copy](#deep-copy-and-shallow-copy)
+- [Call, Apply, and Bind](#call-apply-and-bind)
+- [Recursion](#recursion)
+- [Prototypical Inheritance](#prototypical-inheritance)
+- [What is 'this' mean in JavaScript?](#what-is-this-mean-in-javascript)
+- [What is the data structure of the DOM?](#what-is-the-data-structure-of-the-dom)
+- [Stack and Queue in JavaScript](#stack-and-queue-in-javascript)
+- [Checking if an image element is loaded on a page](#checking-if-an-image-element-is-loaded-on-a-page)
+- [Event delegation](#event-delegation)
+- [Worker in JavaScript](#worker-in-javascript)
+- [What is “use strict “ and why do we need it.](#what-is-use-strict--and-why-do-we-need-it)
+- [Why is "use strict" a string and not a reserved keyword](#why-is-use-strict-a-string-and-not-a-reserved-keyword)
+- [What is eval with "use strict](#what-is-eval-with-use-strict)
+- [What happens when I delete some object or variables in strict mode ?](#what-happens-when-i-delete-some-object-or-variables-in-strict-mode-)
+- [Write a polyfill for bind function](#write-a-polyfill-for-bind-function)
+- [Given an expression string exp , write a program to examine whether the pairs and the orders of “{“,”}”,”“,””,”[“,”]” are correct in exp.](#given-an-expression-string-exp--write-a-program-to-examine-whether-the-pairs-and-the-orders-of--are-correct-in-exp)
+- [What is the output of below program and Explain about your output](#what-is-the-output-of-below-program-and-explain-about-your-output)
+- [Write a program for debounce function](#write-a-program-for-debounce-function)
+- [How many types of storage are there in Web Application?](#how-many-types-of-storage-are-there-in-web-application)
+- [If there is a for loop running over some time and your browser is not responding on that particular time. What will you do to make browser available and always responding to the user?](#if-there-is-a-for-loop-running-over-some-time-and-your-browser-is-not-responding-on-that-particular-time-what-will-you-do-to-make-browser-available-and-always-responding-to-the-user)
+- [What is Service Worker ?](#what-is-service-worker-)
+- [What is Defer and async ?](#what-is-defer-and-async-)
+- [What is the difference between inline vs inline-block ?](#what-is-the-difference-between-inline-vs-inline-block-)
+- [What is the difference between svg vs canvas ?](#what-is-the-difference-between-svg-vs-canvas-)
+- [What is pseudo-class ?](#what-is-pseudo-class-)
+- [What is difference between function expression and function declaration ?](#what-is-difference-between-function-expression-and-function-declaration-)
+- [Write a program for sum12 ?](#write-a-program-for-sum12-)
+- [What the multiple ways to create object ?](#what-the-multiple-ways-to-create-object-)
+- [What is the difference between Object.create vs new ?](#what-is-the-difference-between-objectcreate-vs-new-)
+- [Write a program for shallow compare vs deep compare ?](#write-a-program-for-shallow-compare-vs-deep-compare-)
+- [What is the difference between **proto ** vs prototype ?](#what-is-the-difference-between-proto--vs-prototype-)
+- [What is the prototype chain ?](#what-is-the-prototype-chain-)
+- [What is Prototype inheritance ?](#what-is-prototype-inheritance-)
+- [What is Promise, Why we should have to use it instead of call back ?](#what-is-promise-why-we-should-have-to-use-it-instead-of-call-back-)
+- [What is the difference between prevent default vs stop propagation ?](#what-is-the-difference-between-prevent-default-vs-stop-propagation-)
+- [Since both promise and setTimeout is async function which will execute first if both is available in queue at time T.](#since-both-promise-and-settimeout-is-async-function-which-will-execute-first-if-both-is-available-in-queue-at-time-t)
+- [What is Job Queue](#what-is-job-queue)
+- [What is CORS issue ?](#what-is-cors-issue-)
+- [Explain about Redux architecture](#explain-about-redux-architecture)
+- [What is Middleware](#what-is-middleware)
+- [Difference between task and microtask queue ?](#difference-between-task-and-microtask-queue-)
+- [How to stop an fetch request ?](#how-to-stop-an-fetch-request-)
+- [How to destroy setTimeout call ?](#how-to-destroy-settimeout-call-)
+- [How will you implement denounce or throttle function for a search field ?](#how-will-you-implement-denounce-or-throttle-function-for-a-search-field-)
+- [How will you get result of two promises in onetime ?](#how-will-you-get-result-of-two-promises-in-onetime-)
+- [Difference between this binding in regular function vs. Arrow function ?](#difference-between-this-binding-in-regular-function-vs-arrow-function-)
+- [Difference between mobile first and desktop first approach ?](#difference-between-mobile-first-and-desktop-first-approach-)
+- [What is stringify?](#what-is-stringify)
+- [State the difference between == and ===?](#state-the-difference-between--and-)
+- [Immediately Invoked Function Expression IIFE](#immediately-invoked-function-expression-iife)
+- [How does priority queue works](#how-does-priority-queue-works)
+- [Web APIs - SOAP, REST API, Rate Limiting](#web-apis---soap-rest-api-rate-limiting)
+- [Explain the concept of RESTful API versioning.](#explain-the-concept-of-restful-api-versioning)
+- [Redux vs. Flux](#redux-vs-flux)
+- [Redux Saga](#redux-saga)
+- [mapStateToProps vs. mapDispatchToProps](#mapstatetoprops-vs-mapdispatchtoprops)
+- [Is javascript a statically typed or a dynamically typed language?](#is-javascript-a-statically-typed-or-a-dynamically-typed-language)
+- [Explain passed by value and passed by reference.](#explain-passed-by-value-and-passed-by-reference)
+- [What is a Temporal Dead Zone?](#what-is-a-temporal-dead-zone)
+- [Write a polyfill of map function ?](#write-a-polyfill-of-map-function-)
+- [How will I check whether the response of an API is an integer Not Number ?](#how-will-i-check-whether-the-response-of-an-api-is-an-integer-not-number-)
 
-```javascript
-console.log(a); // Output: undefined
-var a = 5;
-```
+<!-- /TOC -->
 
----
-
-### Define Closure ?
-
-A closure in JavaScript is a powerful and unique feature that allows a function to remember and access its outer (enclosing) scope even after the function has finished executing. It's like a function's "memory" that preserves the environment in which it was created.
-
-```javascript
-function outerFunction() {
-  let outerVariable = "I'm from the outer function!";
-
-  function innerFunction() {
-    console.log(outerVariable);
-  }
-
-  return innerFunction; // Return the inner function from the outer function
-}
-
-const closureExample = outerFunction(); // closureExample now holds the inner function
-
-closureExample(); // Output: "I'm from the outer function!"
-```
-
----
-
-### What is Currying ?
+# What is Currying ?
 
 Currying is a functional programming concept in JavaScript (and other programming languages) that involves transforming a function that takes multiple arguments into a series of functions, each taking a single argument. The currying process allows you to partially apply the arguments and create specialized functions.
 
@@ -59,192 +160,9 @@ const curriedAdd = curryAdd(2);
 
 console.log(curriedAdd(3)(4)); // Output: 9
 ```
-
 ---
 
-### Difference between useSelector and useDispatch
-
-<h4>useSelector </h4>
-
-Used to extract data from the Redux store and subscribe to changes in that data. It allows components to access and read data from the store without directly connecting them using `connect` from the older Redux API.
-
-   <br>
-
-<b> Example: </b>
-
-```javascript
-import { useSelector } from "react-redux";
-
-const MyComponent = () => {
-  const count = useSelector((state) => state.counter); // 'counter' is a property in the Redux store
-  // ...
-};
-```
-
-<h4>useDispatch</h4>
-
-Used to obtain the reference to the Redux store's `dispatch` function, which is responsible for sending actions to the store. It allows components to dispatch actions without having to import the `store` directly or manually create action objects.
-
-   <br>
-
-<b> Example: </b>
-
-```javascript
-import { useDispatch } from "react-redux";
-
-const MyComponent = () => {
-  const dispatch = useDispatch();
-
-  const handleButtonClick = () => {
-    dispatch({ type: "INCREMENT" }); // Dispatching an action to increment the counter
-  };
-
-  // ...
-};
-```
-
----
-
-### Difference between useMemo and useCallback ?
-
-<h4>useMemo</h4>
-   Used to memorize the result of a computation and only recompute it when its dependencies change. It's useful when you have a costly calculation or an expensive function call that you don't want to re-run on every render.
- 
-   <br>
-
-<b> Example: </b>
-
-```javascript
-import { useMemo } from "react";
-
-const MyComponent = ({ data }) => {
-  const expensiveResult = useMemo(() => {
-    // Expensive computation based on data
-    // Only recompute if 'data' changes
-    return computeExpensiveValue(data);
-  }, [data]);
-
-  // ...
-};
-```
-
-<h4>useCallback</h4>
-    Used to memoize functions, particularly event handlers or any function that is passed down to child components as a prop. It ensures that the function reference remains stable across renders, preventing unnecessary re-creation of the function and potential re-rendering of child components.
-   
-   <br>
-
-<b> Example: </b>
-
-```javascript
-import { useCallback } from "react";
-
-const MyComponent = ({ onClick }) => {
-  const handleClick = useCallback(() => {
-    // Handle click logic
-  }, []); // No dependencies, function remains the same
-
-  return <button onClick={handleClick}>Click Me</button>;
-};
-```
-
-In summary, `useMemo` is used to memoize the result of a computation, while `useCallback` is used to memoize functions.
-
----
-
-### Difference between useState and useRef ?
-
-<h4>useState</h4>
-   Used to add state to functional components. It allows you to declare and manage state variables, which trigger re-renders when their values change.
-   
-   <br>
-
-<b> Example: </b>
-
-```javascript
-import { useState } from "react";
-
-const Counter = () => {
-  const [count, setCount] = useState(0);
-
-  const handleIncrement = () => {
-    setCount(count + 1);
-  };
-
-  return (
-    <div>
-      <p>Count: {count}</p>
-      <button onClick={handleIncrement}>Increment</button>
-    </div>
-  );
-};
-```
-
-<h4>useRef</h4>
-   Used to create a mutable reference that persists between renders. Unlike state variables managed by `useState`, changes to `useRef` do not trigger re-renders. It is mainly used for accessing and managing DOM elements, holding references to values that don't cause re-renders, or preserving values between renders.
-   
-   <br>
-
-<b> Example: </b>
-
-```javascript
-import { useRef, useEffect } from "react";
-
-const InputComponent = () => {
-  const inputRef = useRef(null);
-
-  useEffect(() => {
-    // Focus on the input element when the component mounts
-    inputRef.current.focus();
-  }, []);
-
-  return <input type="text" ref={inputRef} />;
-};
-```
-
-In summary, `useState` is used to manage state variables that trigger re-renders and should be used for rendering dynamic content, while `useRef` is used to hold mutable references or preserve values between renders without causing re-renders.
-
----
-
-### Define useReducer ?
-
-The useReducer hook takes in a reducer function and an initial state value, and it returns an array containing the current state and a dispatch function. The reducer function is responsible for updating the state based on the dispatched actions.
-
-```javascript
-import React, { useReducer } from "react";
-
-const initialState = {
-  count: 0,
-};
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "INCREMENT":
-      return { count: state.count + 1 };
-    case "DECREMENT":
-      return { count: state.count - 1 };
-    default:
-      return state;
-  }
-};
-
-const Counter = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
-
-  return (
-    <div>
-      <p>Count: {state.count}</p>
-      <button onClick={() => dispatch({ type: "INCREMENT" })}>Increment</button>
-      <button onClick={() => dispatch({ type: "DECREMENT" })}>Decrement</button>
-    </div>
-  );
-};
-
-export default Counter;
-```
-
----
-
-### What is the Context API in React? How can it be used to manage global state in an application?
+# What is the Context API in React? How can it be used to manage global state in an application?
 
 Context API is a feature in React that provides a way to share data (state) between components without the need to pass props down through the component tree manually. It allows you to create global state accessible to any component in the application hierarchy without having to explicitly pass the state as props through intermediate components.
 
@@ -291,7 +209,7 @@ export default App;
 
 ---
 
-### Difference between controlled v/s uncontrolled component ?
+# Difference between controlled v/s uncontrolled component ?
 
 <h4>Controlled Components:</h4>
 
@@ -360,7 +278,7 @@ class UncontrolledComponent extends React.Component {
 
 ---
 
-### Difference between arrow function and normal function
+# Difference between arrow function and normal function
 
 The main difference between arrow functions and normal functions in JavaScript is how they handle the "this" keyword.
 
@@ -393,23 +311,7 @@ In summary, arrow functions are more concise and capture the "this" value from t
 
 ---
 
-### Define pure and impure components
-
-<h4>Pure Components</h4>
-Pure components are components that always produce the same output for the same input props. They do not rely on or modify any external state and have no side effects. Pure components are easier to reason about and can lead to performance optimizations since they avoid unnecessary re-renders.
-
-<h4>Impure Components</h4>
-Impure components are components that may have side effects, such as modifying external state, interacting with the DOM directly, or making API calls. Their output may not solely depend on the input props, making them harder to predict and potentially leading to unexpected behavior and performance issues.
-
----
-
-### Define Higher Order Component
-
-A Higher Order Component (HOC) is a design pattern in React (and other component-based frameworks) that allows you to enhance or modify the behavior of a component by wrapping it with another component. HOCs are functions that take a component as input and return a new component with additional functionalities or props. They are used to reuse component logic, implement cross-cutting concerns, and improve code reusability.
-
----
-
-### Difference between relative and absolute in css
+# Difference between relative and absolute in css
 
 <h4>Relative</h4>
 "Relative" positioning moves an element from its original position in the document flow while maintaining its space in the layout
@@ -419,7 +321,7 @@ A Higher Order Component (HOC) is a design pattern in React (and other component
 
 ---
 
-### Difference between foreach and map
+# Difference between foreach and map
 
 <b>forEach :</b> an array method that iterates through each element of the array and executes a provided callback function for each element. It doesn't return a new array but modifies the existing array in place.
 
@@ -443,7 +345,7 @@ const doubledNumbers = numbers.map((num) => num * 2);
 
 ---
 
-### Difference between event bubbling and event loop
+# Difference between event bubbling and event loop
 
 <b>Event Bubbling:</b> It is a behavior in which an event that occurs on a nested or child element is first handled by the innermost element and then propagated or "bubbled up" through its parent elements in the DOM hierarchy. This means that if an event occurs on a deeply nested element, the event handlers of its ancestors will also be triggered.
 
@@ -451,7 +353,7 @@ const doubledNumbers = numbers.map((num) => num * 2);
 
 ---
 
-### Difference between let, var, and const
+# Difference between let, var, and const
 
 <b>var</b>: Traditionally used. If declared outside any function, they become globally scoped. allows variables to be re-declared and updated within the same scope.
 
@@ -481,13 +383,13 @@ function example() {
 
 ---
 
-### Why we don't use index as a key in a list
+# Why we don't use index as a key in a list
 
 We don't use the index as a key in a list in React because it can lead to unpredictable behavior, performance issues, and state management problems. The index as a key might work when the list is static, but it fails when the list is dynamically modified. Changing the order of elements can cause unexpected behavior and performance degradation due to complete re-renders. Additionally, using the index as a key can result in stale data in components when the list changes, leading to incorrect updates and rendering bugs. To ensure proper rendering and efficient updates, it's best to use a unique identifier associated with each item in the list as the key.
 
 ---
 
-### What is React Lifecycle ?
+# What is React Lifecycle ?
 
 Mounting (phase occurs when a new component is being created and inserted into the DOM )
 
@@ -509,19 +411,19 @@ Unmounting(phase occurs when a component is being removed from the DOM)
 
 ---
 
-### How React's Virtual DOM works and its advantages in rendering performance ?
+# How React's Virtual DOM works and its advantages in rendering performance ?
 
 React's Virtual DOM is a lightweight copy of the actual DOM. When state changes, React creates a new Virtual DOM representation and compares it with the previous one. Only the differences are updated in the real DOM, reducing the need for expensive DOM manipulations.
 
 ---
 
-### What is jsx and use of it ?
+# What is jsx and use of it ?
 
 JSX stands for JavaScript XML. It is a syntax extension for JavaScript used primarily with React to describe the structure of user interfaces. JSX allows you to write HTML-like code directly within JavaScript, making it easier to define and visualize the component's structure, especially when dealing with complex user interface hierarchies.
 
 ---
 
-### Explain different state management solutions in React, such as local component state, Redux, or MobX.
+# Explain different state management solutions in React, such as local component state, Redux, or MobX.
 
 <b>Local Component State:</b> using the useState hook or the this.state approach with class components.
 
@@ -531,7 +433,7 @@ JSX stands for JavaScript XML. It is a syntax extension for JavaScript used prim
 
 ---
 
-### Explain the role of keys in React lists and why they are essential.
+# Explain the role of keys in React lists and why they are essential.
 
 Keys help React identify each list item uniquely and efficiently update and re-render components when the list changes. They improve performance by minimizing re-renders and avoiding issues like incorrect component recycling.
 
@@ -545,7 +447,7 @@ const itemsWithKeys = items.map((item, index) => <li key={index}>{item}</li>);
 
 ---
 
-### What is the significance of React Fragments, and when should you use them?
+# What is the significance of React Fragments, and when should you use them?
 
 React Fragments allow you to group multiple components without introducing an additional parent element in the DOM. They are useful when you need to return multiple elements from a component's render method.
 
@@ -565,7 +467,7 @@ const MyComponent = () => {
 
 ---
 
-### Explain the difference between useState and useEffect.
+# Explain the difference between useState and useEffect.
 
 - `useState` is a React hook used for managing state within a functional component. It allows you to create and update state variables, enabling components to re-render when the state changes.
 
@@ -573,13 +475,13 @@ const MyComponent = () => {
 
 ---
 
-### What are React render props? How do they enable component composition and code reusability?
+# What are React render props? How do they enable component composition and code reusability?
 
 React render props is a pattern in React where a component's functionality is passed to other components as a prop, allowing those components to render content or access functionality dynamically. This enables component composition and code reusability by promoting a flexible and decoupled approach.
 
 ---
 
-### How can you optimize performance in a React application? Discuss techniques like memoization, code splitting, and lazy loading.
+# How can you optimize performance in a React application? Discuss techniques like memoization, code splitting, and lazy loading.
 
 1. Memoization: Memoization is the process of caching expensive function calls to avoid redundant computations. In React, you can use the `React.memo` higher-order component or `useMemo` hook to memoize components and prevent unnecessary re-renders.
 
@@ -591,7 +493,7 @@ By employing these techniques, you can significantly improve the performance of 
 
 ---
 
-### What is server-side rendering (SSR) in React? Discuss its advantages and challenges compared to client-side rendering.
+# What is server-side rendering (SSR) in React? Discuss its advantages and challenges compared to client-side rendering.
 
 Server-side rendering (SSR) in React involves rendering React components on the server side and sending the pre-rendered HTML to the client's browser. This approach differs from client-side rendering (CSR) where the entire application is loaded in the browser, and React components are rendered there.
 
@@ -612,7 +514,7 @@ c. Development Complexity: Implementing SSR might require additional configurati
 
 ---
 
-### What is the role of React Router in a single-page application? How does it handle dynamic routing and nested routes?
+# What is the role of React Router in a single-page application? How does it handle dynamic routing and nested routes?
 
 React Router is used to handle navigation and routing in a single-page application (SPA) built with React. It allows developers to define multiple routes, associate them with specific components, and manage the rendering of those components based on the URL. React Router ensures that the UI updates and re-renders efficiently when the user navigates through different views without requiring a full page reload.
 
@@ -622,7 +524,7 @@ React Router supports dynamic routing by allowing parameters to be passed in the
 
 ---
 
-### How would you test a React component? Discuss different testing approaches, such as unit testing, integration testing, and snapshot testing.
+# How would you test a React component? Discuss different testing approaches, such as unit testing, integration testing, and snapshot testing.
 
 <b>1. Unit Testing:</b>
 
@@ -662,7 +564,7 @@ React Router supports dynamic routing by allowing parameters to be passed in the
 
 ---
 
-### How can you handle forms in React? Explain techniques like controlled components, form validation, and handling form submission.
+# How can you handle forms in React? Explain techniques like controlled components, form validation, and handling form submission.
 
 <b>1. Controlled Components:</b> React enables form handling through controlled components, where form elements are controlled by the component's state, giving you full control over data and behavior.
 
@@ -672,13 +574,13 @@ React Router supports dynamic routing by allowing parameters to be passed in the
 
 ---
 
-### How does React handle prop drilling and what are the solutions to mitigate it ?
+# How does React handle prop drilling and what are the solutions to mitigate it ?
 
 React handles prop drilling through the process of passing data from a parent component to a deeply nested child component, leading to cluttered and complex code. Solutions to mitigate prop drilling include using React Context API for global data sharing and employing state management libraries like Redux or MobX to centralize and simplify data access.
 
 ---
 
-### What are the differences between React's server-side rendering (SSR) and client-side rendering (CSR)? When would you use each approach ?
+# What are the differences between React's server-side rendering (SSR) and client-side rendering (CSR)? When would you use each approach ?
 
 Server-side rendering (SSR) renders the initial HTML content on the server and sends it to the client, allowing the page to be displayed faster and improving SEO.
 
@@ -686,19 +588,19 @@ Client-side rendering (CSR), renders the content on the client's browser using J
 
 ---
 
-### Explain the concept of code splitting in React. How can it enhance performance and improve user experience ?
+# Explain the concept of code splitting in React. How can it enhance performance and improve user experience ?
 
 Code splitting in React is the technique of breaking down a large JavaScript bundle into smaller, more manageable chunks, which are then loaded on-demand when needed. This enhances performance and improves the user experience by reducing the initial loading time of the application.
 
 ---
 
-### What is the role of error boundaries in React? How can they help catch and handle errors in component trees ?
+# What is the role of error boundaries in React? How can they help catch and handle errors in component trees ?
 
 Error boundaries in React are components that catch and handle errors that occur within their component tree and prevent those errors from crashing the entire application. They help improve the robustness of React applications by isolating errors and allowing graceful fallbacks or error messages to be displayed to users. When an error is thrown in a component tree, the error boundary component, if present, captures the error and can display a designated fallback UI. This way, the rest of the application continues to work unaffected by the error in the isolated component tree. Error boundaries are defined using the `componentDidCatch` lifecycle method or the static `getDerivedStateFromError` method.
 
 ---
 
-### Explain the concept of reconciliation in React. How does it determine when and how to update the DOM ?
+# Explain the concept of reconciliation in React. How does it determine when and how to update the DOM ?
 
 Reconciliation in React is the process of efficiently updating the Document Object Model (DOM) to reflect changes in a component's state or props. React's reconciliation algorithm compares the previous virtual DOM representation with the new one generated after a state or prop change. It then calculates the minimal set of changes required to update the real DOM.
 
@@ -706,61 +608,61 @@ React uses a technique called "diffing" to determine the minimum necessary updat
 
 ---
 
-### What is Lifting State Up in React?
+# What is Lifting State Up in React?
 
 Lifting State Up in React refers to the process of moving the state from a child component to its parent component to share and manage the state at a higher level.
 
 ---
 
-### What is React context?
+# What is React context?
 
 React context provides a way to share data between components without the need to pass it through props manually. It allows data to be accessed by any component within the context tree.
 
 ---
 
-### What are different ways to add CSS in your app?
+# What are different ways to add CSS in your app?
 
 Different ways to add CSS in your app include inline styles, external CSS files, CSS modules, and CSS-in-JS libraries like styled-components.
 
 ---
 
-### What is Hot Module Replacement?
+# What is Hot Module Replacement?
 
 Hot Module Replacement (HMR) is a feature in bundlers like Webpack that allows developers to update specific modules in the application without a full page reload, preserving the application state.
 
 ---
 
-### What is the use of Parcel, Vite, Webpack?
+# What is the use of Parcel, Vite, Webpack?
 
 Parcel, Vite, and Webpack are all module bundlers used in modern web development to bundle and optimize assets like JavaScript, CSS, and images for production.
 
 ---
 
-### What is Tree Shaking?
+# What is Tree Shaking?
 
 Tree Shaking is the process of removing unused code (dead code) from the final bundle during the production build, reducing the application's size and improving performance.
 
 ---
 
-### Difference b/w dependency and devDependency
+# Difference b/w dependency and devDependency
 
 In the context of npm packages, dependencies are required packages needed for the application to run, while devDependencies are packages needed only during development and testing.
 
 ---
 
-### What is npx and npm?
+# What is npx and npm?
 
 npx is a command-line tool that comes with npm and allows you to run Node.js executables without globally installing them. npm is the Node Package Manager used to install and manage packages in a Node.js project.
 
 ---
 
-### Difference b/w package .json and package-lock .json
+# Difference b/w package .json and package-lock .json
 
 package.json is used to specify metadata and dependencies for a project, while package-lock.json is automatically generated by npm to lock dependency versions for reproducible builds.
 
 ---
 
-### Difference between console .log(< HeaderComponent/>) and console .log(HeaderComponent())
+# Difference between console .log(< HeaderComponent/>) and console .log(HeaderComponent())
 
 console.log(<HeaderComponent/>) will log the actual JSX representation of the HeaderComponent
 
@@ -768,37 +670,37 @@ console.log(HeaderComponent()) will log the result of invoking the function Head
 
 ---
 
-### What is React.Fragment?
+# What is React.Fragment?
 
 React.Fragment is a built-in component that allows returning multiple elements without adding an additional DOM element to the output.
 
 ---
 
-### What is the purpose of dependency array in useEffect? What is the difference when it is used and when it is not used?
+# What is the purpose of dependency array in useEffect? What is the difference when it is used and when it is not used?
 
 The dependency array in useEffect specifies the dependencies that trigger the effect when they change. If the dependency array is empty, the effect runs only once after the initial render.
 
 ---
 
-### What if 2 components are given will the state change in one component will effect the other component’s state (child)?
+# What if 2 components are given will the state change in one component will effect the other component’s state (child)?
 
 No, the state change in one component will not directly affect another component's state unless the state is passed down through props and gets updated at the parent level.
 
 ---
 
-### What is the use of return in useEffect ?
+# What is the use of return in useEffect ?
 
 In useEffect, the return statement is used to perform cleanup tasks like cancelling subscriptions or removing event listeners when the component unmounts.
 
 ---
 
-### How does React handle routing and navigation?
+# How does React handle routing and navigation?
 
 React handles routing and navigation using libraries like React Router, which manages the application's URLs and renders different components based on the current URL.
 
 ---
 
-### How to managing data inside React ?
+# How to managing data inside React ?
 
 State is the core for managing data in React. It represents the current state of your component and can be updated using setState.
 
@@ -816,7 +718,7 @@ Debugging tools like React DevTools and Redux DevTools can greatly assist in man
 
 ---
 
-### New features in ES6
+# New features in ES6
 
 1. **Let and Const Declarations:**
 
@@ -836,7 +738,7 @@ Debugging tools like React DevTools and Redux DevTools can greatly assist in man
 
 ---
 
-### Common pseudo code with set time interval function
+# Common pseudo code with set time interval function
 
 Here's a common pseudo code with `setInterval` function, which executes a specified function at regular intervals:
 
@@ -868,7 +770,7 @@ const intervalId = setInterval(incrementCounter, 1000);
 
 ---
 
-### Implementation of promises and async- await.
+# Implementation of promises and async- await.
 
 **Promises:**
 
@@ -934,7 +836,7 @@ performAsyncOperation();
 
 ---
 
-### Reverse an Array:
+# Reverse an Array:
 
 ```javascript
 const originalArray = [1, 2, 3, 4, 5];
@@ -944,7 +846,7 @@ console.log(reversedArray);
 
 ---
 
-### Remove Duplicates from an Array
+# Remove Duplicates from an Array
 
 ```javascript
 const arrayWithDuplicates = [1, 2, 2, 3, 4, 4, 5];
@@ -954,7 +856,7 @@ console.log(uniqueArray);
 
 ---
 
-### Reverse a String:
+# Reverse a String:
 
 ```javascript
 const originalString = "hello";
@@ -964,7 +866,7 @@ console.log(reversedString);
 
 ---
 
-### Flatten a Multidimensional Array:
+# Flatten a Multidimensional Array:
 
 ```javascript
 const multidimensionalArray = [
@@ -978,7 +880,7 @@ console.log(flattenedArray);
 
 ---
 
-### Use Filter, Map, and Reduce Methods:
+# Use Filter, Map, and Reduce Methods:
 
 ```javascript
 const numbers = [1, 2, 3, 4, 5];
@@ -999,7 +901,7 @@ console.log(sum);
 
 ---
 
-### Merge Arrays
+# Merge Arrays
 
 ```javascript
 const array1 = [1, 2, 3];
@@ -1010,7 +912,7 @@ console.log(mergedArray);
 
 ---
 
-### Sort an Array
+# Sort an Array
 
 ```javascript
 const unsortedArray = [3, 1, 5, 2, 4];
@@ -1020,7 +922,7 @@ console.log(sortedArray);
 
 ---
 
-### Check Palindrome
+# Check Palindrome
 
 ```javascript
 function isPalindrome(str) {
@@ -1034,7 +936,7 @@ console.log(isPalindrome("hello")); // false
 
 ---
 
-### Fibonacci Series
+# Fibonacci Series
 
 ```javascript
 function fibonacci(n) {
@@ -1051,7 +953,7 @@ console.log(fibonacci(7)); // [0, 1, 1, 2, 3, 5, 8]
 
 ---
 
-### Find Longest Word in a String
+# Find Longest Word in a String
 
 ```javascript
 function longestWord(str) {
@@ -1067,7 +969,7 @@ console.log(longestWord("The quick brown fox jumps over the lazy dog")); // "jum
 
 ---
 
-### Find Longest Common String from Array of Strings
+# Find Longest Common String from Array of Strings
 
 ```javascript
 function longestCommonString(arr) {
@@ -1093,7 +995,7 @@ console.log(longestCommonString(stringArray)); // "app"
 
 ---
 
-### Count Characters Occurring in an Array
+# Count Characters Occurring in an Array
 
 ```javascript
 function countCharacters(arr) {
@@ -1113,7 +1015,7 @@ console.log(countCharacters(charArray)); // { a: 3, b: 2, c: 1, d: 1 }
 
 ---
 
-### Find First Pair Whose Sum is Zero
+# Find First Pair Whose Sum is Zero
 
 ```javascript
 function findPairWithZeroSum(arr) {
@@ -1134,7 +1036,7 @@ console.log(findPairWithZeroSum(numbersArray)); // [2, -2]
 
 ---
 
-### Unique Values in Two Arrays
+# Unique Values in Two Arrays
 
 ```javascript
 function uniqueValues(arr1, arr2) {
@@ -1149,7 +1051,7 @@ console.log(uniqueValues(array1, array2)); // [1, 2, 3, 4, 5]
 
 ---
 
-### Objects and Classes in JavaScript
+# Objects and Classes in JavaScript
 
 In JavaScript, objects are data structures that store properties and methods. They can be created using object literals or constructors.
 
@@ -1187,7 +1089,7 @@ john.sayHello();
 
 ---
 
-### Difference between Class-based and Functional-based Components
+# Difference between Class-based and Functional-based Components
 
 Class-based Components:
 
@@ -1217,7 +1119,7 @@ On the other hand, functional components are simpler and rely on React hooks (in
 
 ---
 
-### How to Write Custom Hooks:\*\*
+# How to Write Custom Hooks:\*\*
 
 Custom hooks are reusable functions that encapsulate stateful logic in React. They are created using the `use` prefix and typically leverage built-in hooks.
 
@@ -1259,7 +1161,7 @@ function MyComponent() {
 
 ---
 
-### Pagination:\*\*
+# Pagination:\*\*
 
 Pagination is a common UI pattern used to split a large dataset into smaller pages to improve user experience. In React, you can implement pagination by maintaining state for the current page number and using array slicing to display the relevant data.
 
@@ -1305,7 +1207,7 @@ function MyComponent({ itemsPerPage }) {
 
 ---
 
-### Where to use Context and where to use Redux
+# Where to use Context and where to use Redux
 
 Context is suitable for simple state sharing within a small part of your application.
 
@@ -1313,7 +1215,7 @@ Redux is more appropriate for handling larger-scale state management with a glob
 
 ---
 
-### Redux Thunk, Redux Saga, RTK (Redux Toolkit)
+# Redux Thunk, Redux Saga, RTK (Redux Toolkit)
 
 1. **Redux Thunk:** Redux Thunk is a middleware that allows you to write action creators that return functions instead of plain objects. These functions can perform asynchronous operations (e.g., API calls) and dispatch actions when the operations complete.
 
@@ -1329,7 +1231,7 @@ When to use each:
 
 ---
 
-### Demonstrate Use of State and Props Using Examples
+# Demonstrate Use of State and Props Using Examples
 
 State and Props are two essential concepts in React for managing and passing data.
 
@@ -1378,7 +1280,7 @@ In summary, state is used for managing component-specific data that can change o
 
 ---
 
-### Output of `arr = new Array(3);`
+# Output of `arr = new Array(3);`
 
 The code creates an array with a length of 3 but without any elements.
 
@@ -1389,7 +1291,7 @@ console.log(arr); // Output: [ <3 empty items> ]
 
 ---
 
-### Event Bubbling and Capturing
+# Event Bubbling and Capturing
 
 <b>Event Capturing:</b>
 
@@ -1401,7 +1303,7 @@ After the event reaches the target element, it "bubbles" up through its ancestor
 
 ---
 
-### Deep Copy and Shallow Copy
+# Deep Copy and Shallow Copy
 
 Deep Copy creates a new copy of an object with all its nested objects and properties. It means the copied object and its properties do not share any references with the original object.
 
@@ -1420,7 +1322,7 @@ const shallowCopy = Object.assign({}, obj);
 
 ---
 
-### Call, Apply, and Bind
+# Call, Apply, and Bind
 
 `call`, `apply`, and `bind` are methods available on all functions in JavaScript and are used to change the context (`this` value) of a function.
 
@@ -1460,7 +1362,7 @@ boundGreet("John"); // Output: "Hello, John! I am Mr."
 
 ---
 
-### Recursion
+# Recursion
 
 Recursion is a programming technique where a function calls itself to solve a problem. It is useful when a problem can be broken down into smaller, similar sub-problems.
 
@@ -1480,13 +1382,13 @@ console.log(factorial(5)); // Output: 120 (5! = 5 * 4 * 3 * 2 * 1 = 120)
 
 ---
 
-### Prototypical Inheritance
+# Prototypical Inheritance
 
 Prototypical inheritance is an object-oriented programming concept in JavaScript where objects can inherit properties and methods from other objects known as prototypes. Each object has a hidden property called the prototype, enabling inheritance from its prototype object. When accessing a property or method on an object, JavaScript first checks the object itself, then follows the prototype chain until it finds the property or reaches the end (null). This mechanism allows for code reuse, simplifying object creation and promoting a hierarchical structure of objects in JavaScript.
 
 ---
 
-### What is 'this' mean in JavaScript?
+# What is 'this' mean in JavaScript?
 
 In JavaScript, 'this' is a special keyword that refers to the context within which a function is executed. The value of 'this' depends on how the function is called, and it can have different meanings in different contexts:
 
@@ -1500,7 +1402,7 @@ In JavaScript, 'this' is a special keyword that refers to the context within whi
 
 ---
 
-### What is the data structure of the DOM?
+# What is the data structure of the DOM?
 
 The DOM is organized in the following way:
 
@@ -1516,7 +1418,7 @@ The DOM is organized in the following way:
 
 ---
 
-### Stack and Queue in JavaScript
+# Stack and Queue in JavaScript
 
 <b>Stack:</b> A stack is a linear data structure that follows the Last In, First Out (LIFO) principle. It means that the last element added to the stack will be the first one to be removed.
 
@@ -1550,7 +1452,7 @@ const firstElement = queue.shift(); // Removes and returns 1
 
 ---
 
-### Checking if an image element is loaded on a page
+# Checking if an image element is loaded on a page
 
 In JavaScript, you can check if an image element is loaded on a page by attaching an event listener to the 'load' event of the image. The 'load' event is triggered when the image has been successfully loaded.
 
@@ -1570,19 +1472,19 @@ if (imageElement.complete) {
 
 ---
 
-### Event delegation
+# Event delegation
 
 Event delegation is a JavaScript technique where a single event listener is attached to a parent element to handle events on its child elements, utilizing event bubbling to determine the target element. This optimizes event handling, especially when dealing with dynamic or numerous child elements.
 
 ---
 
-### Worker in JavaScript
+# Worker in JavaScript
 
 A Worker is a JavaScript feature for running background tasks in a separate thread, enabling concurrent processing without blocking the main UI thread, ensuring a responsive web application.
 
 ---
 
-### What is “use strict “ and why do we need it.
+# What is “use strict “ and why do we need it.
 
 "use strict" is a special pragma in JavaScript that enables strict mode. When you include "use strict" at the beginning of a script or a function, it enforces a stricter set of rules and error-checking in your code. It helps you write more reliable and secure JavaScript code by disallowing certain unsafe and error-prone practices.
 
@@ -1598,13 +1500,13 @@ Reasons for using "use strict":
 
 ---
 
-### Why is "use strict" a string and not a reserved keyword
+# Why is "use strict" a string and not a reserved keyword
 
 "use strict" is not a reserved keyword because it was introduced later in the ECMAScript 5 (ES5) standard.
 
 Making it a string was a design decision to maintain backward compatibility with older JavaScript engines that might not recognize the "use strict" pragma.
 
-### What is eval with "use strict
+# What is eval with "use strict
 
 When you use "use strict" in a script or a function, it affects the scope in which it is used. However, using eval in strict mode can introduce some complexities.
 
@@ -1621,7 +1523,7 @@ console.log(x); // Throws a ReferenceError: x is not defined
 
 ---
 
-### What happens when I delete some object or variables in strict mode ?
+# What happens when I delete some object or variables in strict mode ?
 
 In strict mode, deleting variables, function names, or function arguments using the 'delete' operator is not allowed, and it results in a TypeError.
 
@@ -1644,7 +1546,7 @@ delete foo; // Throws a TypeError: Cannot delete property 'foo' of [object Objec
 
 ---
 
-### Write a polyfill for bind function
+# Write a polyfill for bind function
 
 The 'bind' function in JavaScript is used to create a new function that, when called, has its 'this' keyword set to a specified value. Here's a basic polyfill for the 'bind' function:
 
@@ -1674,7 +1576,7 @@ boundGreet(); // Output: Hello John
 
 ---
 
-### Given an expression string exp , write a program to examine whether the pairs and the orders of “{“,”}”,”(“,”)”,”[“,”]” are correct in exp.
+# Given an expression string exp , write a program to examine whether the pairs and the orders of “{“,”}”,”(“,”)”,”[“,”]” are correct in exp.
 
 Example:
 Input: expz = “[()]{}{[()()]()}”m
@@ -1714,7 +1616,7 @@ console.log(isBalanced("[(])")); // Output: false
 
 ```
 
-### What is the output of below program and Explain about your output
+# What is the output of below program and Explain about your output
 
 for (var i = 1; i < 5; i++) {
 setTimeout(() => console.log(i), 1000 \* i);
@@ -1732,7 +1634,7 @@ Output
 
 ---
 
-### Write a program for debounce function
+# Write a program for debounce function
 
 A debounce function is used to control the frequency of calls to a particular function, especially in scenarios where the function may be called multiple times in quick succession (e.g., events like scrolling or resizin).
 
@@ -1749,7 +1651,7 @@ function debounce(func, delay) {
 
 ---
 
-### How many types of storage are there in Web Application?
+# How many types of storage are there in Web Application?
 
 - **LocalStorage:** Stores key-value pairs in the user's browser with no expiration date.
 - **SessionStorage:** Similar to LocalStorage, but data is cleared when the browser session ends.
@@ -1759,7 +1661,7 @@ function debounce(func, delay) {
 
 ---
 
-### If there is a for loop running over some time and your browser is not responding on that particular time. What will you do to make browser available and always responding to the user?
+# If there is a for loop running over some time and your browser is not responding on that particular time. What will you do to make browser available and always responding to the user?
 
 To keep the browser responsive during a long-running for loop, you can use "chunking" or "yielding." Break the loop into smaller chunks with a delay between each chunk using setTimeout. Here's an example:
 
@@ -1789,13 +1691,13 @@ function performLongRunningTask() {
 
 ---
 
-### What is Service Worker ?
+# What is Service Worker ?
 
 A service worker is a background script that acts as a proxy between web applications and the network. It enables offline caching, push notifications, and background synchronization. Service workers intercept network requests, allowing developers to create a better offline experience and improve web app performance.
 
 ---
 
-### What is Defer and async ?
+# What is Defer and async ?
 
 <b> Defer:</b> Scripts with the defer attribute are downloaded in the background while the HTML is parsed. They execute after HTML parsing but before DOMContentLoaded, in the order they appear.
 
@@ -1803,7 +1705,7 @@ A service worker is a background script that acts as a proxy between web applica
 
 ---
 
-### What is the difference between inline vs inline-block ?
+# What is the difference between inline vs inline-block ?
 
 <b> Inline:</b> Elements with `display: inline` are placed within the same line as text content, not starting on a new line. They only take up the space needed by their content and have no width or height properties.
 
@@ -1811,7 +1713,7 @@ A service worker is a background script that acts as a proxy between web applica
 
 ---
 
-### What is the difference between svg vs canvas ?
+# What is the difference between svg vs canvas ?
 
 <b> SVG (Scalable Vector Graphics): </b> XML-based format for precise and scalable graphics on the web. Ideal for icons and illustrations. Can be styled with CSS and easily manipulated using JavaScript.
 
@@ -1819,13 +1721,13 @@ A service worker is a background script that acts as a proxy between web applica
 
 ---
 
-### What is pseudo-class ?
+# What is pseudo-class ?
 
 In CSS, pseudo-classes are keywords prefixed with a colon (:) that select and style elements based on their state or specific characteristics. Examples include :hover, :active, and :focus.
 
 ---
 
-### What is difference between function expression and function declaration ?
+# What is difference between function expression and function declaration ?
 
 <b>Function Declaration:</b> Function declarations are hoisted to the top of their scope. They can be called before they appear in the code because they are available throughout the entire scope.
 
@@ -1847,7 +1749,7 @@ const myFunc = function () {
 
 ---
 
-### Write a program for sum(1)(2) ?
+# Write a program for sum(1)(2) ?
 
 ```javascript
 function sum(a) {
@@ -1862,7 +1764,7 @@ console.log(result); // Output: 3
 
 ---
 
-### What the multiple ways to create object ?
+# What the multiple ways to create object ?
 
 1. Object Literal:
 
@@ -1961,7 +1863,7 @@ const john = { ...personDefaults, name: "John", age: 30 };
 
 ---
 
-### What is the difference between Object.create vs new ?
+# What is the difference between Object.create vs new ?
 
 `Object.create`: Creates a new object with a specified prototype.
 
@@ -1982,7 +1884,7 @@ const obj = new MyClass();
 
 ---
 
-### Write a program for shallow compare vs deep compare ?
+# Write a program for shallow compare vs deep compare ?
 
 <b>Shallow compare:</b> Compares only the top-level properties of objects based on their memory references.
 
@@ -2006,7 +1908,7 @@ console.log(deepCompare(obj1, obj2)); // Deep comparison - true
 
 ---
 
-### What is the difference between **proto ** vs prototype ?
+# What is the difference between **proto ** vs prototype ?
 
 `__proto__`: A non-standard property in JavaScript (pre-ECMAScript 6) used to access an object's prototype. Not recommended due to potential lack of support.
 
@@ -2014,7 +1916,7 @@ console.log(deepCompare(obj1, obj2)); // Deep comparison - true
 
 ---
 
-### What is the prototype chain ?
+# What is the prototype chain ?
 
 The prototype chain in JavaScript is the mechanism of inheritance where properties and methods are looked up in an object's prototype and its chain of prototypes until the property is found or the end of the chain is reached (i.e., the prototype is null).
 
@@ -2026,7 +1928,7 @@ console.log(obj.toString()); // Inherits toString from Object.prototype
 
 ---
 
-### What is Prototype inheritance ?
+# What is Prototype inheritance ?
 
 Prototype inheritance is the mechanism through which objects in JavaScript inherit properties and methods from other objects. When an object is created, it inherits properties and methods from its prototype, forming a prototype chain.
 
@@ -2045,7 +1947,7 @@ john.sayHello(); // Outputs: Hello, my name is John.
 
 ---
 
-### What is Promise, Why we should have to use it instead of call back ?
+# What is Promise, Why we should have to use it instead of call back ?
 
 A Promise is a cleaner and more structured way to handle asynchronous operations compared to traditional callbacks.
 
@@ -2061,7 +1963,7 @@ Advantages :
 
 ---
 
-### What is the difference between prevent default vs stop propagation ?
+# What is the difference between prevent default vs stop propagation ?
 
 `preventDefault()`: Used in event handlers to stop the default behavior of an event, like preventing a link from navigating to its URL when clicked.
 
@@ -2083,7 +1985,7 @@ document.getElementById("myButton").addEventListener("click", function (event) {
 
 ---
 
-### Since both promise and setTimeout is async function which will execute first if both is available in queue at time T.
+# Since both promise and setTimeout is async function which will execute first if both is available in queue at time T.
 
 `Promises:` Promises are resolved/rejected asynchronously, and their callbacks are executed in the next iteration of the event loop after the current synchronous code has finished executing.
 
@@ -2093,19 +1995,19 @@ So, if both a promise and a setTimeout are in the event queue at the same time, 
 
 ---
 
-### What is Job Queue
+# What is Job Queue
 
 The Job Queue (or microtask queue) in the JavaScript event loop handles microtasks, which are tasks executed after the current task but before rendering or other tasks from the event queue. Promises, async/await, and MutationObserver use the job queue for their callbacks. After finishing the current task, the JavaScript engine executes all microtasks in the order they were added before moving on to the next task in the regular event queue. This prioritization ensures more predictable handling of asynchronous operations.
 
 ---
 
-### What is CORS issue ?
+# What is CORS issue ?
 
 CORS stands for Cross-Origin Resource Sharing, a security feature in web browsers to prevent unauthorized access to resources from a different domain. Browsers block such requests by default, and servers must include specific CORS headers to allow requests from other domains (e.g., Access-Control-Allow-Origin, Access-Control-Allow-Methods).
 
 ---
 
-### Explain about Redux architecture
+# Explain about Redux architecture
 
 Redux is a predictable state management library for JavaScript applications, commonly used with frameworks like React. It follows the Flux architecture pattern and provides a centralized store to manage the application state. The main components of Redux are:
 
@@ -2123,13 +2025,13 @@ The unidirectional data flow in Redux ensures that changes to the state are pred
 
 ---
 
-### What is Middleware
+# What is Middleware
 
 Middleware sits between the action dispatch and the reducer, allowing developers to intercept and modify actions before they reach the reducer. It is used for various purposes like logging, handling asynchronous actions (e.g., API requests), and caching. Each middleware can access the dispatched action and application state and can pass the action to the next middleware or prevent it from reaching the reducer.
 
 ---
 
-### Difference between task and microtask queue ?
+# Difference between task and microtask queue ?
 
 <b>Task Queue:</b> Contains asynchronous tasks like I/O operations, timers, DOM events. Lower priority than microtasks.
 
@@ -2137,7 +2039,7 @@ Middleware sits between the action dispatch and the reducer, allowing developers
 
 ---
 
-### How to stop an fetch request ?
+# How to stop an fetch request ?
 
 To stop a Fetch request, you can use the AbortController and AbortSignal interfaces, which allow you to signal the fetch request to abort. Here's an example:
 
@@ -2164,7 +2066,7 @@ controller.abort();
 
 ---
 
-### How to destroy setTimeout call ?
+# How to destroy setTimeout call ?
 
 To cancel a setTimeout call before it executes, you can use the clearTimeout function and pass the timer ID returned by the setTimeout function. Here's an example:
 
@@ -2179,7 +2081,7 @@ clearTimeout(timerId);
 
 ---
 
-### How will you implement denounce or throttle function for a search field ?
+# How will you implement denounce or throttle function for a search field ?
 
 Debouncing and throttling are techniques used to control the frequency of event execution, such as when handling search input to reduce unnecessary API calls. Here's an example of implementing debounce for a search field:
 
@@ -2204,7 +2106,7 @@ searchInput.addEventListener("input", debouncedSearchHandler);
 
 ---
 
-### How will you get result of two promises in onetime ?
+# How will you get result of two promises in onetime ?
 
 To get results from two promises simultaneously, you can use Promise.all. It takes an array of promises and returns a new promise that fulfills with an array of all resolved values or rejects with the reason of the first rejected promise. Here's an example:
 
@@ -2223,7 +2125,7 @@ Promise.all([promise1, promise2])
 
 ---
 
-### Difference between this binding in regular function vs. Arrow function ?
+# Difference between this binding in regular function vs. Arrow function ?
 
 In regular functions, the value of this is determined by how the function is called. It can change depending on the calling context. For example, when a function is called as a method of an object, this refers to the object. When called in the global scope, this typically refers to the global object (e.g., window in the browser, global in Node.js).
 
@@ -2231,7 +2133,7 @@ In contrast, arrow functions do not have their own this context. Instead, they i
 
 ---
 
-### Difference between mobile first and desktop first approach ?
+# Difference between mobile first and desktop first approach ?
 
 <b>Mobile First Approach:</b> Prioritizes mobile devices, with CSS styles written for mobile layouts first and then adapted for larger screens using media queries. Focuses on speed and simplicity for smooth mobile experiences.
 
@@ -2239,7 +2141,7 @@ In contrast, arrow functions do not have their own this context. Instead, they i
 
 ---
 
-### What is stringify?
+# What is stringify?
 
 IN a JSON method, stringify is used to transform a JavaScript object into a string.
 JSON is a common structure to receive and send data between the web server and
@@ -2248,7 +2150,7 @@ string
 
 ---
 
-### State the difference between == and ===?
+# State the difference between == and ===?
 
 == denotes abstract equality operator, and it inspects if two values are equal or not apart from their data types. Automatically, it transforms the type of both the operands and compares them.
 Example:
@@ -2271,13 +2173,13 @@ Example:
 
 ---
 
-### Immediately Invoked Function Expression (IIFE)
+# Immediately Invoked Function Expression (IIFE)
 
 An IIFE is a JavaScript design pattern that involves defining and immediately executing a function. It encapsulates code within its own scope, avoiding variable conflicts with other parts of the program. The function is invoked as soon as it's defined, making it a self-invoking anonymous function.
 
 ---
 
-### How does priority queue works
+# How does priority queue works
 
 A priority queue is a data structure that stores elements along with their associated priorities. It allows efficient retrieval and removal of the element with the highest (or lowest) priority. The basic idea of how a priority queue works can be summarized in the following steps:
 
@@ -2295,7 +2197,7 @@ In summary, a priority queue is designed to efficiently manage elements based on
 
 ---
 
-### Web APIs - SOAP, REST API, Rate Limiting
+# Web APIs - SOAP, REST API, Rate Limiting
 
 Web APIs (Application Programming Interfaces) are sets of rules and protocols that allow different software applications to communicate and interact with each other over the internet. They enable developers to access certain functionalities or data of a service or application without requiring direct access to the underlying code.
 
@@ -2307,25 +2209,25 @@ Web APIs (Application Programming Interfaces) are sets of rules and protocols th
 
 ---
 
-### Explain the concept of RESTful API versioning.
+# Explain the concept of RESTful API versioning.
 
 RESTful API versioning is a practice used to manage changes and updates to a web API while ensuring backward compatibility. It involves creating distinct versions of the API to handle different implementations and modifications without disrupting existing clients' functionality
 
 ---
 
-### Redux vs. Flux
+# Redux vs. Flux
 
 Flux is an architectural pattern for managing application state, and Redux is a specific implementation of that pattern. Redux is heavily influenced by Flux but has some differences, such as using a single store, immutable state, and pure reducers.
 
 ---
 
-### Redux Saga
+# Redux Saga
 
 Redux Saga is a middleware library for Redux that helps manage side effects, such as handling asynchronous actions, API calls, and more. It uses generator functions to make handling asynchronous actions more readable and maintainable.
 
 ---
 
-### mapStateToProps() vs. mapDispatchToProps()
+# mapStateToProps() vs. mapDispatchToProps()
 
 These are functions used to connect Redux state and actions to React component props.
 
@@ -2334,7 +2236,7 @@ These are functions used to connect Redux state and actions to React component p
 
 ---
 
-### Is javascript a statically typed or a dynamically typed language?
+# Is javascript a statically typed or a dynamically typed language?
 
 JavaScript is a dynamically typed language. In a dynamically typed language, the
 type of a variable is checked during run-time in contrast to a statically typed
@@ -2342,7 +2244,7 @@ language, where the type of a variable is checked during compile-time
 
 ---
 
-### Explain passed by value and passed by reference.
+# Explain passed by value and passed by reference.
 
 - **Passed by value:** In this method of parameter passing, a copy of the value is made, and the copy is sent to the function or method as an argument. Any changes made to the parameter inside the function do not affect the original variable outside the function.
 
@@ -2350,7 +2252,7 @@ language, where the type of a variable is checked during compile-time
 
 ---
 
-### What is a Temporal Dead Zone?
+# What is a Temporal Dead Zone?
 
 Temporal Dead Zone is a behaviour that occurs with variables declared using let and
 const keywords. It is a behaviour where we try to access a variable before it is
@@ -2358,7 +2260,7 @@ initialized.
 
 ---
 
-### Write a polyfill of map function ?
+# Write a polyfill of map function ?
 
 ```javascript
 // Check if the native map function is not available (polyfill only if needed)
@@ -2395,7 +2297,7 @@ This polyfill ensures that the `map` function behaves as expected and is availab
 
 ---
 
-### How will I check whether the response of an API is an integer (Not Number) ?
+# How will I check whether the response of an API is an integer (Not Number) ?
 
 ```javascript
 function isInteger(value) {
