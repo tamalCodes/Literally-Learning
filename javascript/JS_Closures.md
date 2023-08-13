@@ -353,56 +353,68 @@ Memoization in javascript is an optimization technique, to reduce the complexity
 Imagine this kind of system:
 
 ```js
-
-const initApp = ()=>{
-    console.log(multiplyBy10(10));
-    console.log(multiplyBy10(10));
-    console.log(multiplyBy10(10));
-    console.log(multiplyBy10(10));
+const multiply = (n) =>{
+    return normalFunction = () => {
+        console.log("This was executed");
+    }
 }
 
-const multiplyBy10 = (n)=>{
-    console.log("Multiplied by 10");
-    return n*10;
-}
+const m = multiply(10);
 
-initApp();
+m();
+m();
+m();
+m();
+m();
 ```
 
-Here technically we are actually calculating the value of `multiplyBy10(10)` 4 times. But we can use memoization to store the value of `multiplyBy10(10)` in a cache and then use it whenever we need it provided that the input was same. How do we do that of magic?
+The function is getting called every time. Bad use-case if we have expensive tasks inside the function. So we can use memoization to store the result of the function and return it if the function is called again with the same input.
 
 We use closures, to store our cache and have the ability to get it's value.
 
 
 ```js
+const multiply = (n) => {
+  const cache = {};
 
-const memoizedParent = ()=>{
-    const cache = {};
+    return (closureFunction = () => {
+      if (n in cache) 
+        console.log("We found it", cache[n]);
+      else {
+        console.log("Didn't find");
+        cache[n] = n * 10;
+      }
+    });
 
-    return (num)=>{
-        if(num in cache)
-        {
-            console.log("From Cache");
-            return cache[num];
-        }
+};
 
-        console.log("Calculated");
-        cache[num] = num*10;
-        return cache[num];
-    }
-}
+const m = multiply(10);
 
-const memoizedMultiplyBy10 = memoizedParent();
-
-console.log(memoizedMultiplyBy10(10));
-console.log(memoizedMultiplyBy10(10));
-console.log(memoizedMultiplyBy10(10));
-console.log(memoizedMultiplyBy10(10));
-
+m();
+m();
+m();
+m();
+m();
 ```
-The first time we will have it calculated from scratch and the next time we will have it from the cache.
 
 
+The output will be: 
+
+```js
+Didn't find
+We found it 100
+We found it 100
+We found it 100
+We found it 100
+```
+
+That's the beauty of closure, we can store the value of the free variable even after the function has finished executing. 
+
+We are returning a `closureFunction` which is literally a closure, and has acess to `cache` even after the function `multiply` has finished executing.
+
+So we remember the value of `cache` and then check if my key `n` is present in the cache, if it is present then we return the value of `cache[n]` else we store the value of `n * 10` in the cache and return it.
+
+    
 
 ## Importance of Memoization
 

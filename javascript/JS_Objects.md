@@ -13,10 +13,12 @@
 - [How browsers work](#how-browsers-work)
 - [Rest \& Spread Operators `...`](#rest--spread-operators-)
 - [`.call()` method](#call-method)
+  - [Example 1](#example-1)
+  - [Example 2](#example-2)
   - [What if i wanna pass more stuffs ?](#what-if-i-wanna-pass-more-stuffs-)
-- [`.apply()` method](#apply-method)
 - [`.bind()` method](#bind-method)
   - [Pollyfill for `.bind()` method](#pollyfill-for-bind-method)
+- [`.apply()` method](#apply-method)
 
 <!-- /TOC -->
 
@@ -226,37 +228,51 @@ console.log(obj3); // { name: 'John', age: 22, address: 'London', phone: '123456
 
 # `.call()` method
 
-The call() method is a predefined JavaScript method. Basically we use this method to borrow the functions from another place.
+The call() method is a predefined JavaScript method. Basically we use this method to borrow the functions/properties from another object.
 
-For example: 
+
+## Example 1
 
 ```js
 let arr = {
-    a: "Tamal",
-    b: "Das",
-    sumup: function(){
-        console.log(this.a + " " + this.b);
-    }
-}
+  a: "Tamal",
+  b: "Das",
+  sumup: function () {
+    console.log(this.a);
+  },
+};
 
 let brr = {
-    a: "Jeet",
-    b: "Roy",
-    sumup: function(){
-        console.log(this.a + " " + this.b);
-    }
-}
+  a: "Jeet",
+  b: "Roy",
+};
 
 arr.sumup.call(brr);
 ```
 
-Here inside of `arr` we have a function called `sumup` that basically takes in two arguments and prints them. Now we want to use this function inside of `brr` object. So we can use the `call()` method to do that.
+Here we have a function named `sumup` inside an object named `arr`. We want to borrow this function and use it with the **properties/values of another object** named `brr`. So we use the `call()` method to do that.
 
-To use the call method, first write the original function name, then write the `call()` method and inside of the `call()` method write the object name from where you want to borrow the details. 
+## Example 2
 
-In our case we wrote `.call(brr)` which borrows the details from `brr` object.
+```js
+const ob1 = {
+  message: "Hi",
+};
 
-**NOTE:** We can also take out the `sumup` function from the `arr` object and then use it like `sumup.call(arr)`.
+const ob2 = {
+  message: "Hello",
+};
+
+function logger() {
+  console.log(this.message);
+}
+
+logger.call(ob2);
+logger.call(ob2);
+```
+
+Similarly here we have a separate function here called `logger` and we want to borrow this function and use it with the **properties/values of another object** named `ob1` and then `ob2`. So we use the `call()` method to do that. 
+
 
 ## What if i wanna pass more stuffs ? 
 
@@ -276,23 +292,6 @@ function sumup(c, d){
 sumup.call(arr, "Jeet", "Roy");
 ```
 
-# `.apply()` method
-
-The only difference between the `call()` and `apply()` method is that, in `call()` method we pass the arguments one by one, but in `apply()` method we pass the arguments as an array. 
-
-```js
-let arr = {
-    a: "Tamal",
-    b: "Das",
-}
-
-function sumup(c, d){
-    console.log(this.a + " " + this.b + " " + c + " " + d);
-}
-
-sumup.apply(arr, ["Jeet", "Roy"]);
-```
-
 # `.bind()` method
 
 The `bind()` method is similar to the `call()` method. The only difference is that, the `call()` method executes the function immediately, but the `bind()` method returns the function with the reference to the object which can be called later on.
@@ -307,8 +306,8 @@ function sumup(c, d){
     console.log(this.a + " " + this.b + " " + c + " " + d);
 }
 
-let brr = sumup.bind(arr, "Jeet", "Roy");
-brr();
+let callLaterOn = sumup.bind(arr, "Jeet", "Roy");
+callLaterOn();
 ```
 
 ## Pollyfill for `.bind()` method
@@ -354,3 +353,24 @@ crr();
 - Then we do `let obj = this`. In JS, this refers to the context in which the function is called.SO if you `console.log(obj);` you will get `[Function: sumup]`.
 - The params are sliced versions, excluding the first one. You will get `[ 'Jeet', 'Roy' ]`
 - `obj.apply(args[0], [...params, ...args2]);` is basically the same as  `sumup.bind(arr, "Jeet", "Roy");`
+
+
+
+# `.apply()` method
+
+The only difference between the `call()` and `apply()` method is that, in `call()` method we pass the multiple arguments one by one, but in `apply()` method we pass the arguments as an array. 
+
+```js
+let arr = {
+    a: "Tamal",
+    b: "Das",
+}
+
+function sumup(c, d){
+    console.log(this.a + " " + this.b + " " + c + " " + d);
+}
+
+// sumup.call(arr, "Jeet", "Roy");  <-- This wont work
+sumup.apply(arr, ["Jeet", "Roy"]);
+```
+

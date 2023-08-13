@@ -12,6 +12,7 @@
   - [Promises VS Observable](#promises-vs-observable)
 - [What is async/await ?](#what-is-asyncawait-)
   - [Difference between promise and async/await](#difference-between-promise-and-asyncawait)
+  - [`async` vs `defer` attribute in script tag](#async-vs-defer-attribute-in-script-tag)
 
 <!-- /TOC -->
 
@@ -338,4 +339,12 @@ async function myFunction() {
 
 ```
 
+## `async` vs `defer` attribute in script tag
 
+In case of `async` tag while the parsing is going on, the script will be executed asynchronously. In case of `defer` tag, the script will be executed after the parsing of the document is completed.
+
+```html
+<script async src="script.js"></script>
+
+<script defer src="script.js"></script>
+```
