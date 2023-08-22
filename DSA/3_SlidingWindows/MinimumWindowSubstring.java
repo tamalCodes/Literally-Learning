@@ -1,141 +1,91 @@
-import java.util.*;
+import java.util.HashMap;
 
-public class MinimumWindowSubstring {
+class MinimumWindowSubstring {
+    public static String minWindow(String s, String t) {
 
-    static boolean includesT(String s, String t) {
+        if (s == null || t == null)
+            return "";
 
-        int[] counts_array = new int[52];
+        String potentialAnswer = "";
+        String finalAnswer = "";
 
-        for (int i = 0; i < s.length(); i++) {
-            counts_array[Math.abs(s.charAt(i) - 'a')]++;
-        }
+        // define maps
+        HashMap<Character, Integer> tmap = new HashMap<>();
+        HashMap<Character, Integer> smap = new HashMap<>();
 
-        for (int i = 0; i < t.length(); i++) {
-            counts_array[Math.abs(t.charAt(i) - 'a')]--;
-        }
+        // add all the character of t in the tmap Hashmap
+        for (char ch : t.toCharArray())
+            tmap.put(ch, tmap.getOrDefault(ch, 0) + 1);
 
-        for (int count : counts_array) {
-            if (count < 0)
-                return false;
-        }
-
-        return true;
-    }
-
-    static void findMinWindow(String s, String t) {
-
-        if (s.length() < t.length()) {
-            System.out.println("No window found");
-            return;
-        }
-
-        int left = 0, right = t.length() - 1;
-        String minimumWord = "";
-        int minimumLength = Integer.MAX_VALUE;
-
-        while (right < s.length()) {
-            String s2 = s.substring(left, right + 1);
-
-            if (s2.isEmpty() || !includesT(s2, t)) {
-                right++;
-            } else {
-                System.out.println("Found the word: " + s2);
-                if (s2.length() < minimumLength) {
-                    minimumWord = s2;
-                    minimumLength = s2.length();
-                }
-                left++;
-            }
-        }
-
-    }
-
-    static void findMinWindow_Optimized(String s, String t) {
-        if (s.length() < t.length()) {
-            System.out.println("No window found");
-            return;
-        }
-
-        HashMap<Character, Integer> required = new HashMap<>();
-        HashMap<Character, Integer> window = new HashMap<>();
-
-        // put the characters of t inside the required
-        for (int i = 0; i < t.length(); i++) {
-            required.put(t.charAt(i), required.getOrDefault(t.charAt(i), 0) + 1);
-        }
-
-        // have is the count of the needed characters that we currently have in the
-        // window AND need is the actual number of characters that we NEED in the window
+        int need = t.length();
+        int have = 0;
+        int current_characterfrequency = 0, needed_characterfrequency = 0;
 
         int left = 0, right = 0;
-        int have = 0, need = required.size();
-
-        // minimumLength is needed to track if the window is of minimum length,
-        // if it is we save the string !
-
-        int minimumLength = Integer.MAX_VALUE;
-        String minimumString = "";
 
         while (right < s.length()) {
 
-            // put the character inside the window
+            // take a character, update it's frequency in the hashmap
+            char ch = s.charAt(right);
+            smap.put(ch, smap.getOrDefault(ch, 0) + 1);
 
-            char c = s.charAt(right);
-            window.put(c, window.getOrDefault(c, 0) + 1);
+            // suppose we have t="ABC" and s="XGH"
+            // so current_characterfrequency ie frequency of X = 1
+            // and needed_characterfrequency ie frequency of X = 0
+            // as needed is 0, it is useless.
 
-            // if the current character is what we were looking for
-            // we can increase the count of have
-            // suppose t=ABC, and the character we get is A
-            // so now we have 1 character that we needed.
+            current_characterfrequency = smap.getOrDefault(ch, 0);
+            needed_characterfrequency = tmap.getOrDefault(ch, 0);
 
-            // what if we again get A
-            // we won't increase 1 this time.
-            // so we will increase the have only when, window and required Maps contains the
-            // EXACT amount of characters.
+            // if it is not useless, then we update the value
+            // if we have s=AAABC t=ABC
+            // even if we get 2 A, we won't increase the value of have
 
-            if (required.containsKey(c) && required.get(c).intValue() == window.get(c).intValue())
+            if (current_characterfrequency <= needed_characterfrequency)
                 have++;
 
-            // now suppose we needed ABC
-            // and we have XYZSABC
-            // So our HAVE and NEED are equal, but we have extra shit
-            // so we can increment our left pointer so that we get rid of extra shit
-
-            // but we also need to make sure that we HAVE what we need.
-            // If i remove X,Y,Z,S it will be fine
-            // but if i remove A, we don't HAVE what we need
+            // now we come here meaning that we have found a large string
+            // which contains the potential answer
+            // time to remove extra elements WHILE we have what we need
 
             while (left <= right && have == need) {
 
-                // check if the window is actually a minimum window
-                // if it is, then save it
-                if (right - left + 1 < minimumLength)
-                    minimumString = s.substring(left, right + 1);
+                potentialAnswer = s.substring(left, right + 1);
 
-                // saving the window is done, now let's remove the left character
-                char leftCharacter = s.charAt(left);
-                window.put(leftCharacter, window.get(leftCharacter) - 1);
+                // we store the minimum string as answer
+                if (finalAnswer.equals("") || potentialAnswer.length() < finalAnswer.length())
+                    finalAnswer = potentialAnswer;
 
-                // now check if what we just removed was actually important
-                // How do we check that ?
-                // we simply check frequency of both the characters in both the map
-                if (required.containsKey(leftCharacter)
-                        && window.get(leftCharacter).intValue() < required.get(leftCharacter).intValue())
+                // start removing the left element
+                // update it's frequency too
+                ch = s.charAt(left);
+                smap.put(ch, smap.getOrDefault(ch, 0) - 1);
+
+                // if we remove useless character ----------------------------------------> good
+                // if we remove a character with FREQ 3 and needed was 2 -----------------> good
+                // if we remove a character with FREQ 2 and needed was 2 -----------------> bad
+
+                current_characterfrequency = smap.getOrDefault(ch, 0);
+                needed_characterfrequency = tmap.getOrDefault(ch, 0);
+
+                // so if we have done a bad, we generally will reduce what we have
+                // if what we have is not equals to what we need we will break this while
+                if (current_characterfrequency < needed_characterfrequency)
                     have--;
 
                 left++;
-
             }
 
             right++;
         }
 
-        System.out.println(minimumString);
-        return;
+        return finalAnswer;
+
     }
 
     public static void main(String[] args) {
-        String s = "aahjsABsls", t = "AB";
-        findMinWindow_Optimized(s, t);
+
+        String s = "ADOBECODEBANC", t = "ABC";
+        System.out.println(minWindow(s, t));
     }
 }
