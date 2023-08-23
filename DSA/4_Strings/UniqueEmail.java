@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class UniqueEmail {
-    public int numUniqueEmails(String[] emails) {
+    public static int numUniqueEmails(String[] emails) {
 
         Set<String> set = new HashSet<>();
 
@@ -37,5 +37,11 @@ public class UniqueEmail {
         }
 
         return set.size();
+    }
+
+    public static void main(String[] args) {
+        String[] emails = { "test.email+alex@leetcode.com", "test.e.mail+bob.cathy@leetcode.com",
+                "testemail+david@lee.tcode.com" };
+        System.out.println(numUniqueEmails(emails));
     }
 }
