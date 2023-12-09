@@ -106,8 +106,6 @@ userButton.addEventListener("click", throttledClickHandler);
 -  We first have our `throttleHandler` function this is the function that will be called at every interval. We are just console logging you can do anything here. 
 -  Next we have our `throttle` function whis again returns us a very important function. This function takes two arguments, first is the `function that we want to call` and the second argument is the `delay after which we want to call that function`. I will talk more about this later. 
 
-</br>
-
 
 - Next we have `throttledClickHandler` function, we are now calling the `throttle(throttleHandler, 1000)` - remeber that the `throttle` function returns us a very important function, so we are storing that function in `throttledClickHandler` variable. 
 
