@@ -54,14 +54,29 @@ body {
     @apply text-yellow-600 font-bold font-poppins
   }
 
+  .h1 {
+    @apply font-poppins
+  }
+
   .md {
-    @apply prose-li:li prose-a:a prose-ul:ul w-full prose-p:p prose-headings:text-yellow-600 prose-headings:font-poppins prose-headings:my-[30px] prose-h1:text-[45px] prose-h2:text-[33px] prose-strong:strong
+    @apply prose-li:li prose-a:a prose-ul:ul w-full prose-p:p prose-headings:text-yellow-600 prose-headings:font-poppins prose-headings:my-[30px] prose-h1:h1 prose-strong:strong
   }
 
   .prose {
     @apply max-w-none
   }
+}
 
+h1>a {
+  text-decoration: none !important;
+  font-size: 45px !important;
+  font-weight: 800 !important;
+}
+
+h2>a {
+  text-decoration: none !important;
+  font-size: 33px !important;
+  font-weight: 700 !important;
 }
 
 .content>ul>li>a,
