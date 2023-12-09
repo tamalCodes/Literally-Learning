@@ -1,0 +1,70 @@
+@import "../styles/onedark.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+body {
+  /* @apply font-poppins p-20 text-[#f8f8f8] */
+
+  background-image: linear-gradient(135deg, #1e1e20, #0e0e11 32%);
+  min-height: 100vh;
+  padding: 3.5rem;
+  color: #f8f8f8;
+  width: 80%;
+  margin: auto;
+}
+
+
+
+@layer utilities {
+
+  .heading {
+    @apply text-[50px] font-extrabold font-poppins
+  }
+
+  .span {
+    @apply text-[#f8f8f8] text-[15px] font-normal
+  }
+
+  .card {
+    @apply bg-[#1c1c21] rounded-md p-5 border-2 border-[#ffffff5b] w-[300px] h-[300px] flex flex-col justify-center items-center text-center gap-3 cursor-pointer
+  }
+
+  .ul {
+    @apply w-full
+  }
+
+  .a {
+    @apply text-yellow-600
+  }
+
+  .li {
+    @apply text-[#f8f8f8] font-normal m-2 w-full
+  }
+
+
+
+  .p {
+    @apply text-[#f8f8f8] font-normal font-poppins
+  }
+
+  .strong {
+    @apply text-yellow-600 font-bold font-poppins
+  }
+
+  .md {
+    @apply prose-li:li prose-a:a prose-ul:ul w-full prose-p:p prose-headings:text-yellow-600 prose-headings:font-poppins prose-headings:my-[30px] prose-h1:text-[45px] prose-h2:text-[33px] prose-strong:strong
+  }
+
+  .prose {
+    @apply max-w-none
+  }
+
+}
+
+.content>ul>li>a,
+.content>ul>li>ul>li>a {
+  text-decoration: none !important;
+}

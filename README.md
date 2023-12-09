@@ -1,21 +1,36 @@
-## What even is this ?
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-**Whatever** you see here is what I THINK is essential, and I also wanted to document whatever I'm learning. There's gonna be alot of stuffs, it's quite less now, I'll keep adding whatever I learn! That's the only reason for this repo. My goal is to learn, not grind and rush through things.
+## Getting Started
 
-**Slow and steady progress is still progress, as far as i am concerned.**
+First, run the development server:
 
-## Contents ? 
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-Here's a summary if anyone's interested: 
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-- [LLD Folder](/LLD) consists of some Low level design concepts.
-- [OOPS Folder](/OOPS_JAVA) consists of Object Oriented Programming concepts.
-- [Javascript Folder](/Javascript) will be having stuffs related to JS.
-  - [Challenges Folder](/Javascript/challenges) has some challenges that i think are good to know.
-  - [Code Folder](/Javascript/code) will probably consist of some machine coding-related stuffs (js).
+You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
-- [React Folder](/React) will be having stuffs related to React.
- 
-- [Projects Folder](/Projects) actually has some basic Java projects, based on different design patterns and so on.
-- [SQL Folder](/SQL) has literally some SQL concepts.
-- [DSA Folder](/DSA) has all my DSA codes that i will practice from different sources.
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

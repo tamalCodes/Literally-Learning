@@ -1,0 +1,21 @@
+.maindiv {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.btn-div {
+  display: flex;
+}
+.btn-next {
+  margin: auto;
+  margin-top: 5rem;
+  width: 10%;
+  font-family: "Poppins", sans-serif !important;
+}
+
+.active {
+  background-color: #4caf50 !important;
+  color: white !important;
+}
