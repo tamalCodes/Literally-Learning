@@ -24,12 +24,12 @@ export default function Home() {
             Javascript fundamentals, machine coding, etc.
           </p>
         </Link>
-        <div className="card">
+        <Link href={"/oops"} className="card">
           <h1 className="heading text-[40px] text-yellow-600">OOPS</h1>
           <p className="text-[18px] ">
             Fundamentals of Object Oriented Programming that i must know.
           </p>
-        </div>
+        </Link>
         <div className="card">
           <h1 className="heading text-[40px] text-yellow-600">LLD</h1>
           <p className="text-[18px] ">

@@ -1,5 +1,6 @@
-<!-- TOC -->
+# Contents
 
+<div className="content">
 - [Introduction to process](#introduction-to-process)
 - [Threads in Java](#threads-in-java)
   - [Difference between process and thread](#difference-between-process-and-thread)
@@ -29,7 +30,7 @@
 - [Synchronization in Java Multithreading](#synchronization-in-java-multithreading)
 - [Thread Deadlock](#thread-deadlock)
 
-<!-- /TOC -->
+</div>
 
 
 # Introduction to process
@@ -510,3 +511,6 @@ public class ThreadDeadlockExample {
 In this example, we have two threads, thread1 and thread2, and two locks, lock1 and lock2. Each thread attempts to acquire the locks in a different order, leading to a potential deadlock situation.
 
 thread1 acquires lock1 and then attempts to acquire lock2, while thread2 acquires lock2 and then attempts to acquire lock1. If both threads start concurrently, there is a chance that thread1 acquires lock1 and thread2 acquires lock2 simultaneously. Then, both threads will be waiting for the other lock to be released, resulting in a deadlock where neither thread can proceed.
+
+
+export default ({children}) => <div className="prose md">{children}</div>
