@@ -73,21 +73,14 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground text-[#f8f8f8] min-h-screen m-auto p-6 pt-8 xl:p-16 xl:max-w-[1200px];
   }
 }
 
 
 
 body {
-  /* @apply font-poppins p-20 text-[#f8f8f8] */
-
   background-image: linear-gradient(135deg, #1e1e20, #0e0e11 32%);
-  min-height: 100vh;
-  padding: 3.5rem;
-  color: #f8f8f8;
-  width: 80%;
-  margin: auto;
 }
 
 
@@ -95,11 +88,19 @@ body {
 @layer utilities {
 
   .heading {
-    @apply text-[50px] font-extrabold font-poppins
+    @apply leading-none text-center text-[50px] font-extrabold font-poppins xl:text-start
+  }
+
+  .subheading {
+    @apply mt-4 text-[17px] text-yellow-600 font-poppins text-center xl:w-[60%] xl:text-start
   }
 
   .span {
     @apply text-[#f8f8f8] text-[15px] font-normal
+  }
+
+  .card_container {
+    @apply mt-14 font-poppins flex flex-wrap max-xl:justify-center gap-10
   }
 
   .card {

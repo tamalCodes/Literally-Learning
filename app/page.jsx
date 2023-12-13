@@ -4,10 +4,10 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main>
-      <div className="flex gap-3 items-center">
+      <div className="flex flex-col gap-3 items-center xl:flex-row xl:items-start">
         <div>
           <h1 className="heading">Tamal is still learning</h1>
-          <p className="w-[60%] mt-4 text-[20px] text-yellow-600 font-poppins">
+          <p className="subheading">
             Welcome to this mini site where i have structred alot of things in
             different tech stacks as i come across it and get asked in
             interviews and stuff.
@@ -23,7 +23,7 @@ export default function Home() {
         </Link>
       </div>
 
-      <div className="mt-14 font-poppins flex flex-wrap gap-10">
+      <div className="card_container">
         <Link href={"/css"} className="card">
           <h1 className="heading text-[40px] text-yellow-600">CSS</h1>
           <p className="text-[18px] ">
