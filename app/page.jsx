@@ -1,15 +1,27 @@
-import Image from "next/image";
+import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 
 export default function Home() {
   return (
     <main>
-      <h1 className="heading">Tamal is still learning</h1>
-      <p className="w-[60%] mt-4 text-[20px] text-yellow-600 font-poppins">
-        Welcome to this mini site where i have structred alot of things in
-        different tech stacks as i come across it and get asked in interviews
-        and stuff.
-      </p>
+      <div className="flex gap-3 items-center">
+        <div>
+          <h1 className="heading">Tamal is still learning</h1>
+          <p className="w-[60%] mt-4 text-[20px] text-yellow-600 font-poppins">
+            Welcome to this mini site where i have structred alot of things in
+            different tech stacks as i come across it and get asked in
+            interviews and stuff.
+          </p>
+        </div>
+
+        <Link
+          href={"https://github.com/tamalCodes/literally-learning"}
+          className={buttonVariants({ variant: "secondary", size: "lg" })}
+          target="_blank"
+        >
+          Star us on GitHub
+        </Link>
+      </div>
 
       <div className="mt-14 font-poppins flex flex-wrap gap-10">
         <Link href={"/css"} className="card">
@@ -22,6 +34,12 @@ export default function Home() {
           <h1 className="heading text-[40px] text-yellow-600">JS</h1>
           <p className="text-[18px] ">
             Javascript fundamentals, machine coding, etc.
+          </p>
+        </Link>
+        <Link href={"/go"} className="card">
+          <h1 className="heading text-[40px] text-yellow-600">Go</h1>
+          <p className="text-[18px] ">
+            Exploring and learning Golang to build more.
           </p>
         </Link>
         <Link href={"/oops"} className="card">
