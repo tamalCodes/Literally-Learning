@@ -50,9 +50,7 @@ export default function Home() {
         </Link>
         <div className="card">
           <h1 className="heading text-[40px] text-yellow-600">LLD</h1>
-          <p className="text-[18px] ">
-            Some CSS tricks and fundamentals that are asked a lot in interviews.
-          </p>
+          <p className="text-[18px] ">Low level system design</p>
         </div>
         <div className="card">
           <h1 className="heading text-[40px] text-yellow-600">BE</h1>
