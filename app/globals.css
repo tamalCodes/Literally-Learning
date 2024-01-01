@@ -88,7 +88,7 @@ body {
 @layer utilities {
 
   .heading {
-    @apply leading-none text-center text-[50px] font-extrabold font-poppins xl:text-start
+    @apply leading-none text-[50px] font-extrabold font-poppins
   }
 
   .subheading {

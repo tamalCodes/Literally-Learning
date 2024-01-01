@@ -48,10 +48,12 @@ export default function Home() {
             Fundamentals of Object Oriented Programming that i must know.
           </p>
         </Link>
-        <div className="card">
+
+        <Link href={"/lld"} className="card">
           <h1 className="heading text-[40px] text-yellow-600">LLD</h1>
           <p className="text-[18px] ">Low level system design</p>
-        </div>
+        </Link>
+
         <div className="card">
           <h1 className="heading text-[40px] text-yellow-600">BE</h1>
           <p className="text-[18px] ">

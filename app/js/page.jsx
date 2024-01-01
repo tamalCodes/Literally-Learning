@@ -6,7 +6,7 @@ const Javascript = () => {
       <h1 className="heading">Javascript</h1>
 
       <p className="subheading">
-        For the sake of simplicity i have divided the Javsacript into multiple
+        For the sake of simplicity i have divided the Javascript into multiple
         sections based on the topics & personal choices. Click on the topic you
         want to learn.
       </p>
