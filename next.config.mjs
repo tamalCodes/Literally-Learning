@@ -1,7 +1,7 @@
 import nextMDX from "@next/mdx";
+import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import remarkPrism from "remark-prism";
-import rehypeSlug from "rehype-slug";
 
 const withMDX = nextMDX({
   extension: /\.mdx?$/,
@@ -14,6 +14,9 @@ const withMDX = nextMDX({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
+  images: {
+    domains: ["miro.medium.com", "imgur.com", "i.imgur.com"],
+  },
 };
 
 export default withMDX(nextConfig);

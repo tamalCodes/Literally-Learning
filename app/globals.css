@@ -135,7 +135,7 @@ body {
   }
 
   .md {
-    @apply prose-li:li prose-a:a prose-ul:ul w-full prose-p:p prose-headings:text-yellow-600 prose-headings:font-poppins prose-headings:my-[30px] prose-h1:h1 prose-strong:strong
+    @apply prose-li:li prose-a:a prose-ul:ul w-full prose-p:p prose-headings:text-yellow-600 prose-headings:font-poppins prose-headings:my-[30px] prose-h1:h1 prose-strong:strong prose-code:before:hidden prose-code:after:hidden
   }
 
   .prose {
@@ -158,4 +158,13 @@ h2>a {
 .content>ul>li>a,
 .content>ul>li>ul>li>a {
   text-decoration: none !important;
+}
+
+.content>ul>li,
+.content>ul>li>ul>li {
+  margin: 0;
+}
+
+:not(pre)>code[class*="language-unknown"] {
+  color: rgb(190, 190, 19);
 }

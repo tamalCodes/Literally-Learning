@@ -1,0 +1,245 @@
+import ImageRenderer from "../../../components/ui/ImageRenderer"
+
+# Contents
+
+<div className="content">
+- [What is Go?](#what-is-go)
+- [Why do we use Go ?](#why-do-we-use-go-)
+- [Usecases of Go](#usecases-of-go)
+- [Assignment 1](#assignment-1)
+- [Assignment 2](#assignment-2)
+- [Wallrus Operator](#wallrus-operator)
+- [Why is there no need of semicolon in Go ?](#why-is-there-no-need-of-semicolon-in-go-)
+  - [What keywords are we talking about ?](#what-keywords-are-we-talking-about-)
+  - [What are line breaks ?](#what-are-line-breaks-)
+  - [What are the exceptions ?](#what-are-the-exceptions-)
+- [Go is fast, simple and productive](#go-is-fast-simple-and-productive)
+- [Compilation Process](#compilation-process)
+- [Structure of a Go program](#structure-of-a-go-program)
+- [Much detailed Compilation](#much-detailed-compilation)
+- [Compiled VS Interpreted](#compiled-vs-interpreted)
+  - [Compiled languages](#compiled-languages)
+  - [Interpreted languages](#interpreted-languages)
+- [Why to use compiled languages ?](#why-to-use-compiled-languages-)
+</div>
+
+# What is Go? 
+
+Go is an open source programming language that makes it easy to build simple, reliable, and efficient software. Go is a statically typed, compiled language in the tradition of C, with memory safety, garbage collection, structural typing, and CSP-style concurrency. The compiler, tools, and source code are all free and open source.
+
+# Why do we use Go ?
+
+- Go is a compiled language, which means that it is fast.
+- Go is a statically typed language, which means that it is safe.
+- Go has a simple syntax, which means that it is easy to learn.
+- Go has a small standard library, which means that it is easy to understand.
+
+
+# Usecases of Go
+
+- Docker uses Go for its core container runtime and networking components by using the libcontainer project, which provides a native Go implementation of the container/exec driver for Linux operating systems.
+- Kubernetes uses Go for its cluster management and container orchestration capabilities.
+- Terraform uses Go to provide a simple, safe and elegant way to manage your cloud infrastructure.
+- Hugo uses Go to provide a static site generator.
+- CockroachDB uses Go to provide a distributed SQL database.
+- InfluxDB uses Go to provide a time series database.
+
+
+# Assignment 1
+
+<p className="bg-purple-900 w-max px-3 py-1 rounded-[3px]">Assignment: log `starting Textio server` to the console instead of hello world.</p>
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	// single-line comments start with "//"
+	// comments are just for documentation - they don't execute
+	fmt.Println("starting Textio server")
+}
+```
+
+Here `fmt` is a package that contains functions for formatting text. `Println` is a function that prints a line of text to the console.
+`package main` tells the Go compiler that this is a program that can be run, as opposed to a library that can be imported into other programs.
+
+# Assignment 2
+
+<p className="bg-purple-900 px-3 py-1 rounded-[4px]">Textio users are reporting that we're billing them for wildly inaccurate amounts. They're supposed to be billed `.02` dollars for each text message sent.</p>
+
+**Given Code**
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	messagesFromDoris := []string{
+		"You doing anything later??",
+		"Did you get my last message?",
+		"Don't leave me hanging...",
+		"Please respond I'm lonely!",
+	}
+	numMessages := float64(len(messagesFromDoris))
+	costPerMessage := .02
+
+	// don't touch above this line
+
+	totalCost := costPerMessage + numMessages
+
+	// don't touch below this line
+
+	fmt.Printf("Doris spent %.2f on text messages today\n", totalCost)
+}
+```
+
+<p className="bg-green-900 px-3 py-1 w-max rounded-[4px]">Answer for the assignment</p>
+
+Just replace the `+` with `*` in the line `totalCost := costPerMessage + numMessages` and you're done.
+
+# Wallrus Operator
+
+The walrus operator `:=` is a short variable declaration operator. It is used to declare and initialize a variable at the same time. It is shorthand for declaring a variable and then assigning a value to it.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	// single-line comments start with "//"
+	// comments are just for documentation - they don't execute
+	// fmt.Println("starting Textio server")
+
+	// walrus operator
+	// var name string = "Doris"
+	// var name = "Doris"
+	name := "Doris"
+
+	fmt.Println("Hello", name)
+}
+```
+Now if we check the type of the variable `name` we get `string` as the output.
+
+```go
+fmt.Printf("%T", name)
+// string
+```
+
+
+# Why is there no need of semicolon in Go ?
+
+Go is a semicolon-free language. The Go compiler automatically inserts semicolons at the end of each line. This is called semicolon insertion. The Go compiler is smart enough to know when to insert semicolons. It does this by looking for line breaks and keywords that signal the end of a statement.
+
+## What keywords are we talking about ?
+
+- `break`
+- `continue`
+- `fallthrough`
+- `return`
+
+## What are line breaks ?
+
+- `}` closing curly brace
+- `)` closing parenthesis
+- `]` closing square bracket
+
+## What are the exceptions ?
+
+- `++` increment operator
+- `--` decrement operator
+
+# Go is fast, simple and productive
+
+Generally speaking, compiled languages run much faster than interpreted languages, and Go is no exception.
+
+Go is one of the fastest programming languages, beating JavaScript, Python, and Ruby handily in most benchmarks.
+
+However, Go code doesn't run quite as fast as its compiled Rust and C counterparts. That said, it compiles much faster than they do, which makes the developer experience super productive. Unfortunately, there are no swordfights on Go teams...
+
+Go code generally runs `faster` than interpreted languages and compiles `faster` than other compiled languages like C and Rust
+
+Go is a bit slower mostly due to its automated memory management, also known as the "Go runtime". Slightly slower speed is the price we pay for memory safety and simple syntax!
+
+<ImageRenderer img="https://miro.medium.com/v2/resize:fit:2020/1*nlpYI256BR71xMBWd1nlfg.png"/>
+
+# Compilation Process
+
+Computers need machine code, they don't understand English or even Go. We need to convert our high-level (Go) code into machine language, which is really just a set of instructions that some specific hardware can understand. In your case, your CPU.
+
+The Go compiler's job is to take Go code and produce machine code. On Windows, that would be a .exe file. On Mac or Linux, it would be any executable file. 
+
+For example you made a file called `main.go` and you want to compile it. You can do that by running the following command in your terminal.
+
+```bash
+go build main.go
+```
+
+This will create an executable file called `main` in your current directory. You can run it by typing `./main` in your terminal.
+
+
+
+# Structure of a Go program
+
+We'll go over this all later in more detail, but to sate your curiosity for now, here are a few tidbits about the code.
+
+- `package main` lets the Go compiler know that we want this code to compile and run as a standalone program, as opposed to being a library that's imported by other programs.
+- `import fmt` imports the fmt (formatting) package. The formatting package exists in Go's standard library and lets us do things like print text to the console.
+- `func main()` defines the main function. main is the name of the function that acts as the entry point for a Go program.
+
+# Much detailed Compilation
+
+Computers don't know how to do anything unless we as programmers tell them what to do. Unfortunately computers don't understand human language. In fact, they don't even understand uncompiled computer programs.
+
+For example, the code means nothing to a computer. It's just a bunch of text. We need to convert our high-level (Go) code into machine language, which is really just a set of instructions that some specific hardware can understand. In your case, your CPU.
+
+```go
+package main
+
+import "fmt"
+
+func main(){
+  fmt.Println("hello world")
+}
+```
+A computer's CPU only understands its own instruction set, which we call "machine code". Instructions are basic math operations like addition, subtraction, multiplication, and the ability to save data temporarily.
+
+For example, an ARM processor uses the ADD instruction when supplied with the number `0100` in binary.
+
+**Go, C, and Rust** are all languages where the code is first converted to machine code by the compiler before it's executed. This is called compilation. The Go compiler's job is to take Go code and produce machine code. On Windows, that would be a .exe file. On Mac or Linux, it would be any executable file.
+
+# Compiled VS Interpreted
+
+Compiled programs can be run without access to the original source code, and without access to a compiler. For example, when your browser executes the code you write in this course, it doesn't use the original code, just the compiled result.
+
+Note how this is different than interpreted languages like Python and JavaScript. With Python and JavaScript the code is interpreted at runtime by a separate program known as the "interpreter". Distributing code for users to run can be a pain because they need to have an interpreter installed, and they need access to the original source code.
+
+<ImageRenderer img="https://i.imgur.com/uqnMubj.png" />
+
+## Compiled languages
+
+- C
+- C++
+- Go
+- Rust
+
+## Interpreted languages
+
+- JavaScript
+- Python
+- Ruby
+
+<ImageRenderer img="https://i.imgur.com/ovHaWmS.jpg" />
+
+# Why to use compiled languages ?
+
+One of the most convenient things about using a compiled language like Go for Textio is that when we deploy our server we don't need to include any runtime language dependencies like Node or a Python interpreter. We just add the pre-compiled binary to the server and start it up!
+
+
+
+
+
+
+export default ({children}) => <div className="prose md">{children}</div>
