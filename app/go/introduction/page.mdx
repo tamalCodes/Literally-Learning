@@ -1,4 +1,5 @@
 import ImageRenderer from "../../../components/ui/ImageRenderer"
+import Assignment from "../../../components/ui/Assignment"
 
 # Contents
 
@@ -21,6 +22,12 @@ import ImageRenderer from "../../../components/ui/ImageRenderer"
   - [Compiled languages](#compiled-languages)
   - [Interpreted languages](#interpreted-languages)
 - [Why to use compiled languages ?](#why-to-use-compiled-languages-)
+- [Go is strongly typed](#go-is-strongly-typed)
+  - [Example of strong typing](#example-of-strong-typing)
+- [Go programs are easy on memory](#go-programs-are-easy-on-memory)
+  - [What is Go Runtime ?](#what-is-go-runtime-)
+  - [Comparison](#comparison)
+  
 </div>
 
 # What is Go? 
@@ -47,7 +54,7 @@ Go is an open source programming language that makes it easy to build simple, re
 
 # Assignment 1
 
-<p className="bg-purple-900 w-max px-3 py-1 rounded-[3px]">Assignment: log `starting Textio server` to the console instead of hello world.</p>
+<Assignment isQuestion={true} details={"Assignment: log `starting Textio server` to the console instead of hello world."}/>
 
 ```go
 package main
@@ -66,7 +73,7 @@ Here `fmt` is a package that contains functions for formatting text. `Println` i
 
 # Assignment 2
 
-<p className="bg-purple-900 px-3 py-1 rounded-[4px]">Textio users are reporting that we're billing them for wildly inaccurate amounts. They're supposed to be billed `.02` dollars for each text message sent.</p>
+<Assignment isQuestion={true} details={"Textio users are reporting that we're billing them for wildly inaccurate amounts. They're supposed to be billed `.02` dollars for each text message sent."}/>
 
 **Given Code**
 
@@ -94,8 +101,8 @@ func main() {
 	fmt.Printf("Doris spent %.2f on text messages today\n", totalCost)
 }
 ```
+<Assignment isQuestion={false} details={"The solution would be to replace the `+` with `*` in the line `totalCost := costPerMessage + numMessages` and you're done."}/>
 
-<p className="bg-green-900 px-3 py-1 w-max rounded-[4px]">Answer for the assignment</p>
 
 Just replace the `+` with `*` in the line `totalCost := costPerMessage + numMessages` and you're done.
 
@@ -237,9 +244,67 @@ Note how this is different than interpreted languages like Python and JavaScript
 
 One of the most convenient things about using a compiled language like Go for Textio is that when we deploy our server we don't need to include any runtime language dependencies like Node or a Python interpreter. We just add the pre-compiled binary to the server and start it up!
 
+<Assignment isQuestion={true} details={"Do users of compiled programs need access to source code?"} />
+
+<Assignment isQuestion={false} details={"No, users of compiled programs don't need access to the source code. They just need the compiled binary. Because compiled programs are already converted to machine code, they can be run without access to the original source code, and without access to a compiler."} />
+
+<br/>
+
+<Assignment isQuestion={true} details={"Why is it generally more simple to deploy a compiled server program?"} />
+
+<Assignment isQuestion={false} details={"Because there are no runtime dependencies like Node or a Python interpreter. We just add the pre-compiled binary to the server and start it up!"} />
 
 
 
+
+
+# Go is strongly typed
+
+Go enforces strong and static typing, meaning variables can only have a single type. A `string` variable like "hello world" can not be changed to an `int`, such as the number `3`.
+
+One of the biggest benefits of strong typing is that errors can be caught at "compile time". In other words, bugs are more easily caught ahead of time because they are detected when the code is compiled before it even runs.
+
+Contrast this with most interpreted languages, where the variable types are dynamic. Dynamic typing can lead to subtle bugs that are hard to detect. With interpreted languages, the code must be run to catch syntax and type errors. (sometimes in production if you are unlucky 😨)
+
+## Example of strong typing
+
+```go
+package main
+import "fmt"
+
+func main() {
+  var name string = "Doris"
+  name = 3 // this will throw an error
+  fmt.Println(name)
+
+  var a = "Hello"
+  var b = 77
+  fmt.Println(a + b) // this will throw an error
+}
+```
+
+
+# Go programs are easy on memory
+
+Go programs are fairly lightweight. Each program includes a small amount of "extra" code that's included in the executable binary. This extra code is called the Go Runtime. One of the purposes of the Go runtime is to cleanup unused memory at runtime.
+
+In other words, the Go compiler includes a small amount of extra logic in every Go program to make it easier for developers to write code that's memory efficient.
+
+## What is Go Runtime ?
+
+Go does have an extensive library, called the runtime, that is part of every Go program. The runtime library implements garbage collection, concurrency, stack management, and other critical features of the Go language. Although it is more central to the language, Go's runtime is analogous to libc, the C library.
+
+It is important to understand, however, that Go's runtime does not include a virtual machine, such as is provided by the Java runtime. Go programs are compiled ahead of time to native machine code (or JavaScript or WebAssembly, for some variant implementations). Thus, although the term is often used to describe the virtual environment in which a program runs, in Go the word “runtime” is just the name given to the library providing critical language services.
+
+## Comparison
+
+As a general rule Java programs use more memory than comparable Go programs because Go doesn't use an entire virtual machine to run its programs, just a small runtime. The Go runtime is small enough that it is included directly in each Go program's compiled machine code.
+
+As another general rule Rust and C++ programs use slightly less memory than Go programs because more control is given to the developer to optimize memory usage of the program. The Go runtime just handles it for us automatically.
+
+<ImageRenderer img="https://miro.medium.com/max/1400/1*Ggs-bJxobwZmrbfuoWGpFw.png" />
+
+In the chart above, Dexter Darwich compares the memory usage of three very simple programs written in Java, Go, and Rust. As you can see, Go and Rust use very little memory when compared to Java.
 
 
 export default ({children}) => <div className="prose md">{children}</div>
