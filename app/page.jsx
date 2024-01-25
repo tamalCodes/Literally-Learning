@@ -24,18 +24,27 @@ export default function Home() {
       </div>
 
       <div className="card_container">
-        <Link href={"/css"} className="card">
-          <h1 className="heading text-[40px] text-yellow-600">CSS</h1>
-          <p className="text-[18px] ">
-            Some CSS basics, tricks and fundamentals.
-          </p>
-        </Link>
         <Link href={"/js"} className="card">
           <h1 className="heading text-[40px] text-yellow-600">JS</h1>
           <p className="text-[18px] ">
             Javascript fundamentals, machine coding, etc.
           </p>
         </Link>
+
+        <Link href={"/react"} className="card">
+          <h1 className="heading text-[40px] text-yellow-600">React</h1>
+          <p className="text-[18px] ">
+            React In-Depth resources, concepts & more
+          </p>
+        </Link>
+
+        <Link href={"/css"} className="card">
+          <h1 className="heading text-[40px] text-yellow-600">CSS</h1>
+          <p className="text-[18px] ">
+            Some CSS basics, tricks and fundamentals.
+          </p>
+        </Link>
+
         <Link href={"/go"} className="card">
           <h1 className="heading text-[40px] text-yellow-600">Go</h1>
           <p className="text-[18px] ">

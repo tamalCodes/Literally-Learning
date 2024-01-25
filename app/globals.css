@@ -155,13 +155,21 @@ h2>a {
   font-weight: 700 !important;
 }
 
+h3>a {
+  text-decoration: none !important;
+  font-size: 30px !important;
+  font-weight: 600 !important;
+}
+
 .content>ul>li>a,
-.content>ul>li>ul>li>a {
+.content>ul>li>ul>li>a,
+.content>ul>li>ul>li>ul>li>a {
   text-decoration: none !important;
 }
 
 .content>ul>li,
-.content>ul>li>ul>li {
+.content>ul>li>ul>li,
+.content>ul>li>ul>li>ul>li {
   margin: 0;
 }
 

@@ -1,13 +1,4 @@
 const Assignment = ({ isQuestion, details }) => {
-  //The solution would be to replace the `+` with `*` in the line `totalCost := costPerMessage + numMessages` and you're done.
-  // replace `+` with <code>+</code>
-  // replace `*` with <code>*</code>
-  // replace `totalCost := costPerMessage + numMessages` with <code>totalCost := costPerMessage + numMessages</code>
-  // Final rendered output:
-  // The solution would be to replace the <code>+</code> with <code>*</code> in the line <code>totalCost := costPerMessage + numMessages</code> and you're done.
-
-  // There can be anything between the backticks, including backticks themselves, as long as it's not the same number of backticks you're using to wrap the string.
-
   function replaceAll(str, find, replace) {
     return str.replace(new RegExp(find, "g"), replace);
   }
