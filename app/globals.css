@@ -80,7 +80,8 @@
 
 
 body {
-  background-image: linear-gradient(135deg, #1e1e20, #0e0e11 32%);
+  /* background-image: linear-gradient(135deg, #1e1e20, #0e0e11 32%); */
+  background-color: #21242a;
 }
 
 

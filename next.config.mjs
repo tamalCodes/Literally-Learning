@@ -15,7 +15,7 @@ const withMDX = nextMDX({
 const nextConfig = {
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
   images: {
-    domains: ["miro.medium.com", "imgur.com", "i.imgur.com"],
+    domains: ["miro.medium.com", "imgur.com", "i.imgur.com","media.geeksforgeeks.org"],
   },
 };
 

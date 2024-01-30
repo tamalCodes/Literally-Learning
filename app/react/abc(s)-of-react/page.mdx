@@ -1,0 +1,224 @@
+import ImageRenderer from "@/components/ui/ImageRenderer"
+import Assignment from "../../../components/ui/Assignment"
+
+# Contents
+
+<div className="content">
+- [What and Why React?](#what-and-why-react)
+- [React Components and Lifecycle](#react-components-and-lifecycle)
+- [DOM](#dom)
+  - [Disadvantages of real DOM](#disadvantages-of-real-dom)
+  - [Virtual DOM](#virtual-dom)
+  - [How does virtual DOM actually make things faster?](#how-does-virtual-dom-actually-make-things-faster)
+  - [How virtual DOM Helps React?](#how-virtual-dom-helps-react)
+  - [Virtual DOM Key Concepts](#virtual-dom-key-concepts)
+- [JSX Transformation](#jsx-transformation)
+  - [Babel:](#babel)
+  - [React.createElement():](#reactcreateelement)
+- [JSX and React Components](#jsx-and-react-components)
+- [Browsers and React](#browsers-and-react)
+
+</div>
+
+
+# What and Why React?
+React is a JavaScript library for building user interfaces, particularly for single-page applications where the content on a page can dynamically change without requiring a full page reload. It was developed by Facebook and is maintained by both Facebook and a community of developers. React allows developers to build reusable UI components and manage the state of an application efficiently.
+
+
+- Declarative: React makes it easy to understand and reason about the application's state, making the code more predictable.
+
+- Component-Based: React follows a component-based architecture, allowing developers to build UIs by breaking them down into independent, reusable components.
+
+- Virtual DOM: React uses a virtual DOM to optimize the rendering process, making updates more efficient by minimizing direct manipulation of the actual DOM.
+
+- One-Way Data Binding: React uses a unidirectional data flow, making it easier to understand how changes to state or props affect the user interface.
+
+
+# React Components and Lifecycle
+
+React components are reusable code units that encapsulate UI and behavior. They come in two types:
+
+**Functional Components:**
+
+- Simple functions taking props, returning React elements.
+- Can manage state and use lifecycle methods with Hooks.
+
+**Class Components:**
+
+- ES6 classes extending React.Component.
+- Have local state and lifecycle methods.
+
+**Lifecycle**
+
+The React component lifecycle refers to the series of phases a component goes through from initialization to rendering, updating, and finally unmounting. Key lifecycle methods include:
+
+- **Mounting Phase**: Methods like constructor, render, componentDidMount are called during the initial rendering.
+
+- **Updating Phase**: Methods like shouldComponentUpdate, render, componentDidUpdate are called when the component is re-rendered due to changes in props or state.
+
+- **Unmounting Phase**: The componentWillUnmount method is called just before a component is removed from the DOM.
+
+These lifecycle methods provide hooks for developers to execute code at specific points in a component's life. This overview should give you a good starting point for understanding React and its core concepts. If you have any specific questions or need further clarification on any topic, feel free to ask!
+
+# DOM
+
+DOM stands for ‘Document Object Model’. In simple terms, it is a structured representation of the HTML elements that are present in a webpage or web app. DOM represents the entire UI of your application. The DOM is represented as a tree data structure. It contains a node for each UI element present in the web document. It is very useful as it allows web developers to modify content through JavaScript, also it being in structured format helps a lot as we can choose specific targets and all the code becomes much easier to work with.
+
+## Disadvantages of real DOM
+
+Every time the DOM gets updated, the updated element and its children have to be rendered again to update the UI of our page. For this, each time there is a component update, the DOM needs to be updated and the UI components have to be re-rendered.
+
+```js
+// Simple getElementById() method
+document.getElementById('some-id').innerValue = 'updated value';
+```
+
+When writing the above code in the console or in the JavaScript file, these things happen:
+
+- The browser parses the HTML to find the node with this id.
+- It removes the child element of this specific element.
+- Updates the element(DOM) with the ‘updated value’.
+- Recalculates the CSS for the parent and child nodes.
+- Update the layout.
+- Finally, traverse the tree and paint it on the screen(browser) display.
+
+
+Recalculating the CSS and changing the layouts involves complex algorithms, and they do affect the performance. So React has a different approach to dealing with this, as it makes use of something known as Virtual DOM.
+
+## `createRoot`
+
+createRoot lets you create a root to display React components inside a browser DOM node. <br/>
+`const root = createRoot(domNode, options?);`
+
+## Virtual DOM
+
+React uses Virtual DOM exists which is like a lightweight copy of the actual DOM(a virtual representation of the DOM). So for every object that exists in the original DOM, there is an object for that in React Virtual DOM. It is exactly the same, but it does not have the power to directly change the layout of the document.
+
+Manipulating DOM is slow, but manipulating Virtual DOM is fast as nothing gets drawn on the screen. So each time there is a change in the state of our application, the virtual DOM gets updated first instead of the real DOM.
+
+## How does virtual DOM actually make things faster?
+
+When anything new is added to the application, a virtual DOM is created and it is represented as a tree. Each element in the application is a node in this tree. So, whenever there is a change in the state of any element, a new Virtual DOM tree is created. This new Virtual DOM tree is then compared with the previous Virtual DOM tree and make a note of the changes. After this, it finds the best possible ways to make these changes to the real DOM. Now only the updated elements will get rendered on the page again.
+
+## How virtual DOM Helps React?
+
+In React, everything is treated as a component be it a functional component or class component. A component can contain a state. Whenever the state of any component is changed react updates its Virtual DOM tree. Though it may sound like it is ineffective the cost is not much significant as updating the virtual DOM doesn’t take much time.
+
+React maintains two Virtual DOM at each time, one contains the updated Virtual DOM and one which is just the pre-update version of this updated Virtual DOM. Now it compares the pre-update version with the updated Virtual DOM and figures out what exactly has changed in the DOM like which components have been changed. This process of comparing the current Virtual DOM tree with the previous one is known as ‘diffing’. Once React finds out what exactly has changed then it updates those objects only, on real DOM.
+
+React uses something called batch updates to update the real DOM. It just means that the changes to the real DOM are sent in batches instead of sending any update for a single change in the state of a component.
+
+We have seen that the re-rendering of the UI is the most expensive part and React manages to do this most efficiently by ensuring that the Real DOM receives batch updates to re-render the UI. This entire process of transforming changes to the **real DOM is called Reconciliation**.
+
+This significantly improves the performance and is the main reason why React and its Virtual DOM are much loved by developers all around.
+
+<ImageRenderer img="https://media.geeksforgeeks.org/wp-content/uploads/20230725135348/Browser-DOM-Virtual-DOM-copy.webp"/>
+
+## Virtual DOM Key Concepts
+
+- Virtual DOM is the virtual representation of Real DOM
+- React update the state changes in Virtual DOM first and then it syncs with Real DOM
+- Virtual DOM is just like a blueprint of a machine, can do changes in the blueprint but those changes will not directly apply to the machine.
+- Virtual DOM is a programming concept where a virtual representation of a UI is kept in memory synced with “Real DOM ” by a library such as ReactDOM and this process is called reconciliation
+- Virtual DOM makes the performance faster, not because the processing itself is done in less time. The reason is the amount of changed information – rather than wasting time on updating the entire page, you can dissect it into small elements and interactions
+
+# Reconciliation
+
+The algorithm React uses to diff one tree with another to determine which parts need to be changed. A change in the data used to render a React app. Usually the result of `setState`. Eventually results in a re-render.
+
+The central idea of React's API is to think of updates as if they cause the entire app to re-render. This allows the developer to reason declaratively, rather than worry about how to efficiently transition the app from any particular state to another (A to B, B to C, C to A, and so on).
+
+Actually re-rendering the entire app on each change only works for the most trivial apps; in a real-world app, it's prohibitively costly in terms of performance. React has optimizations which create the appearance of whole app re-rendering while maintaining great performance. The bulk of these optimizations are part of a process called **reconciliation**.
+
+**Reconciliation** is the algorithm behind what is popularly understood as the "virtual DOM." A high-level description goes something like this: when you render a React application, a tree of nodes that describes the app is generated and saved in memory. This tree is then flushed to the rendering environment — for example, in the case of a browser application, it's translated to a set of DOM operations. When the app is updated (usually via setState), a new tree is generated. The new tree is diffed with the previous tree to compute which operations are needed to update the rendered app.
+
+## Reconciliation versus rendering
+
+The DOM is just one of the rendering environments React can render to, the other major targets being native iOS and Android views via React Native. (This is why "virtual DOM" is a bit of a misnomer.)
+
+The reason it can support so many targets is because React is designed so that reconciliation and rendering are separate phases. The reconciler does the work of computing which parts of a tree have changed; the renderer then uses that information to actually update the rendered app.
+
+This separation means that React DOM and React Native can use their own renderers while sharing the same reconciler, provided by React core.
+
+Fiber reimplements the reconciler. It is not principally concerned with rendering, though renderers will need to change to support (and take advantage of) the new architecture.
+
+## Another concept: Scheduling
+the process of determining when work should be performed.
+
+- In a UI, it's not necessary for every update to be applied immediately; in fact, doing so can be wasteful, causing frames to drop and degrading the user experience.
+- Different types of updates have different priorities — an animation update needs to complete more quickly than, say, an update from a data store.
+- A push-based approach requires the app (you, the programmer) to decide how to schedule work. A pull-based approach allows the framework (React) to be smart and make those decisions for you.
+
+React doesn't currently take advantage of scheduling in a significant way; an update results in the entire subtree being re-rendered immediately. Overhauling React's core algorithm to take advantage of scheduling is the driving idea behind Fiber.
+
+# JSX Transformation
+
+JSX is not understood by browsers directly because it's not valid JavaScript. Browsers can only interpret JavaScript code. Therefore, JSX needs to be transformed into regular JavaScript before it's sent to the browser.
+
+## Babel:
+Babel is a JavaScript compiler that allows developers to write code using the latest ECMAScript (ES) syntax and features, even if the target environment does not support them yet. It is a popular tool in the JavaScript ecosystem, used for transpiling code from one version of JavaScript to another.  It takes source code written in the latest ECMAScript syntax and transforms it into an older version of JavaScript that is compatible with a wide range of browsers and environments.
+
+Steps in Transformation:
+- Parsing: Babel first parses the JSX code to create an Abstract Syntax Tree (AST). This is a hierarchical representation of the code's structure.
+
+- Transformation: The AST is then transformed to replace JSX elements with JavaScript function calls.
+For example, `div` elements are replaced with `React.createElement('div', ...)`.
+
+- Code Generation: Finally, the transformed AST is used to generate the equivalent JavaScript code.
+
+## React.createElement():
+
+In the transformed code, JSX elements are replaced with calls to `React.createElement()`. This function creates a JavaScript object representing a virtual DOM element.
+
+For example, this JSX code:
+```jsx
+const element = <h1>Hello, World!</h1>;
+```
+
+Gets transformed into:
+```jsx
+const element = React.createElement('h1', null, 'Hello, World!');
+```
+
+The first argument is the element type, the second argument is for properties (or `null` if there are none), and the following arguments are the children of the element.
+
+# JSX and React Components
+Props in functional components are accessed directly as arguments in the function. In the example above, `props` is the parameter of the functional component, and `props.name` is used to access the `name` prop.
+
+```jsx
+const FunctionalComponent = (props) => {
+  return (
+    <div>
+      <h1>Hello, {props.name}!</h1>
+      <p>This is a functional component.</p>
+    </div>
+  );
+};
+```
+
+When you use this functional component elsewhere, you can pass the `name` prop like this
+
+```jsx
+import React from 'react';
+import FunctionalComponent from './FunctionalComponent';
+
+const App = () => {
+  return <FunctionalComponent name="John" />;
+};
+
+export default App;
+```
+
+Here, the `App` component is using the `FunctionalComponent` and passing a `name` prop with the value "John".
+
+In summary, JSX works seamlessly with both functional and class-based components in React. The syntax remains the same, and the transformation process ensures that the JSX code is converted into valid JavaScript that browsers can understand.
+
+# Browsers and React
+Once the JSX is transformed into plain JavaScript, browsers can understand and execute it like any other JavaScript code. The resulting JavaScript code contains calls to React functions that manage the virtual DOM and update the actual DOM efficiently.
+
+In summary, React uses JSX as a more readable and expressive syntax for defining components, and tools like Babel are used to transform JSX into standard JavaScript that browsers can interpret. The transformed code utilizes React functions to create and manage the virtual DOM, enabling efficient updates to the actual DOM.
+
+
+
+
+export default ({children}) => <div className="prose md">{children}</div>
