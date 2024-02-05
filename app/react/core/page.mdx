@@ -1,5 +1,4 @@
 import ImageRenderer from "@/components/ui/ImageRenderer"
-import Assignment from "../../../components/ui/Assignment"
 
 # Contents
 
@@ -12,9 +11,20 @@ import Assignment from "../../../components/ui/Assignment"
   - [How does virtual DOM actually make things faster?](#how-does-virtual-dom-actually-make-things-faster)
   - [How virtual DOM Helps React?](#how-virtual-dom-helps-react)
   - [Virtual DOM Key Concepts](#virtual-dom-key-concepts)
+- [Reconciliation](#reconciliation)
+  - [Reconciliation versus rendering](#reconciliation-versus-rendering)
+  - [Another concept: Scheduling](#another-concept-scheduling)
 - [JSX Transformation](#jsx-transformation)
-  - [Babel:](#babel)
+  - [Using Babel to Transform JSX](#using-babel-to-transform-jsx)
   - [React.createElement():](#reactcreateelement)
+  - [Webpack](#webpack)
+  - [Rollup](#rollup)
+  - [Gulp](#gulp)
+  - [Parcel](#parcel)
+- [Webpack vs ViteJS](#webpack-vs-vitejs)
+  - [Advantages of Vite over Webpack](#advantages-of-vite-over-webpack)
+  - [Does Vite Replace Webpack?](#does-vite-replace-webpack)
+  - [Should We Choose Vite?](#should-we-choose-vite)
 - [JSX and React Components](#jsx-and-react-components)
 - [Browsers and React](#browsers-and-react)
 
@@ -155,7 +165,7 @@ React doesn't currently take advantage of scheduling in a significant way; an up
 
 JSX is not understood by browsers directly because it's not valid JavaScript. Browsers can only interpret JavaScript code. Therefore, JSX needs to be transformed into regular JavaScript before it's sent to the browser.
 
-## Babel:
+## Using Babel to Transform JSX
 Babel is a JavaScript compiler that allows developers to write code using the latest ECMAScript (ES) syntax and features, even if the target environment does not support them yet. It is a popular tool in the JavaScript ecosystem, used for transpiling code from one version of JavaScript to another.  It takes source code written in the latest ECMAScript syntax and transforms it into an older version of JavaScript that is compatible with a wide range of browsers and environments.
 
 Steps in Transformation:
@@ -165,6 +175,9 @@ Steps in Transformation:
 For example, `div` elements are replaced with `React.createElement('div', ...)`.
 
 - Code Generation: Finally, the transformed AST is used to generate the equivalent JavaScript code.
+
+
+<i className="text-yellow-500 font-poppins text-[15px] leading-1">Transpiling: The process of converting source code from one language to another. In the context of Babel, it refers to converting modern JavaScript code to an older version that is compatible with a wide range of browsers and environments.</i>
 
 ## React.createElement():
 
@@ -181,6 +194,65 @@ const element = React.createElement('h1', null, 'Hello, World!');
 ```
 
 The first argument is the element type, the second argument is for properties (or `null` if there are none), and the following arguments are the children of the element.
+
+
+## Webpack
+
+webpack is a module bundler for modern JavaScript applications. It is a module bundler that can be used in a variety of ways, from a build-time tool to a development-time tool.
+
+Consider Babel if you want to use new JavaScript features that are not yet implemented in browsers.
+**Consider webpack if you** want to bundle your JavaScript application for production.
+
+## Rollup
+
+Rollup is a module bundler for JavaScript modules. It is a minimalistic alternative to webpack and is best suited for smaller projects.
+
+**Consider Rollup if you** are looking for a minimalistic alternative to webpack.
+Consider Webpack if you are looking for a more robust alternative to Rollup.
+
+## Gulp
+
+Gulp is a JavaScript task runner that automates tasks such as minification, compilation, unit testing, linting, etc. Gulp is a streaming build system, meaning it doesn't have to wait for tasks to finish before executing the next one.
+
+**Consider Gulp if you ** want to automate tasks such as minification, compilation, unit testing, linting, etc.
+Consider Webpack if you want to bundle JavaScript files for usage in a browser.
+
+## Parcel
+Parcel is a zero configuration web application bundler that is fast and easy to use. **Consider Parcel if you** want a fast and easy to use bundler for your web application.
+
+# Webpack vs ViteJS
+The primary difference between Vite and webpack is how code is served in development and which modules are supported.
+
+- While talking about webpack vs Vite, Vite comes with a very limited plugins ecosystem as compared to webpack.
+- Vite may not have as many features for production builds as webpack because it’s primarily focused on development builds.
+- While comparing Vite with webpack, it’s relatively new in the market and may not be adopted by the community.
+- Unlike webpack or Parcel, Vite does not require a configuration file, making it easier to set up and use.
+
+## Advantages of Vite over Webpack
+We can say that Vite offers many functionalities and features. Besides, it's amazing speed feature has already attracted developers for further development use. Vite is not to be surpassed when it comes to style management. It manages CSS @imports, preprocessors like SASS and LESS, CSS modules, and even the postprocessor PostCSS without the need for any plugins or settings.
+
+More anecdotally, Vite knows how to handle your .env file to control your environment variables.
+But it was the SSR's relatively straightforward setup that truly blew us away.
+
+## Does Vite Replace Webpack?
+
+After giving you a brief introduction to webpack vs ViteJS, you should not forget a simple rule.
+Everything that a tool does for you mysteriously becomes more difficult to customize.
+Vite's numerous possibilities to enhance the developer experience makes me a little concerned. I'm concerned that the Vite teams will find it difficult to keep all of this default configuration.
+On the other hand, using Vite as a dev tool, TezJS has become a developer’s favorite due to its various features, functionalities, and unmatched developer experience.
+
+In contrast to esbuild, which has the motto "I want to deliver a tool that does a few things but does them really well," we have a tool that offers a lot of promises.
+
+On the other hand, Vite allows us to use and define plugins to extend its functionality without making them native to the main tool.
+It's also worth noting that Vite is built on Rollup, a second-generation bundler. However, the Rollup configuration is really difficult to edit and maintain, so I hope you won't have to use it if you're tempted to try Vite on your applications.
+On the brighter side, some tool like VuePress is an alternative option to Vitepress, which uses Vite as a bundler.
+
+## Should We Choose Vite?
+While I haven't covered all of the complexities of ViteJS and webpack, I have attempted to demonstrate the essential differences, such as how bundling and no-bundling work.
+
+You can consider Vite a viable option. There is a lot of promise in the ecosystem right now; keep an eye on it. in the next 12 months, we could witness an explosion of Vite-related enterprises.
+
+
 
 # JSX and React Components
 Props in functional components are accessed directly as arguments in the function. In the example above, `props` is the parameter of the functional component, and `props.name` is used to access the `name` prop.

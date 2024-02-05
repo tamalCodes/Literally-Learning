@@ -40,10 +40,8 @@ const ReactTutorial = () => {
       </div>
 
       <div className="card_container">
-        <Link href={"/react/abc(s)-of-react"} className="card">
-          <h1 className="heading text-[40px] text-yellow-600 ">
-            ABCs of React
-          </h1>
+        <Link href={"/react/core"} className="card">
+          <h1 className="heading text-[40px] text-yellow-600 ">Core</h1>
         </Link>
         <Link href={"/react/hooks"} className="card">
           <h1 className="heading text-[40px] text-yellow-600">Hooks</h1>
