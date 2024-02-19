@@ -1,0 +1,171 @@
+@import "../styles/onedark.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 10% 3.9%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground text-[#f8f8f8] min-h-screen m-auto p-6 pt-8 xl:p-16 xl:max-w-[1200px];
+  }
+}
+
+body {
+  /* background-image: linear-gradient(135deg, #1e1e20, #0e0e11 32%); */
+  background-color: #21242a;
+}
+
+@layer utilities {
+  .heading {
+    @apply leading-none text-[50px] font-extrabold font-poppins;
+  }
+
+  .subheading {
+    @apply mt-4 text-[17px] text-yellow-600 font-poppins text-center xl:w-[60%] xl:text-start;
+  }
+
+  .span {
+    @apply text-[#f8f8f8] text-[15px] font-normal;
+  }
+
+  .card_container {
+    @apply mt-14 font-poppins flex flex-wrap max-xl:justify-center gap-10;
+  }
+
+  .card {
+    @apply bg-[#1c1c21] rounded-md p-5 border-2 border-[#ffffff5b] w-[300px] h-[300px] flex flex-col justify-center items-center text-center gap-3 cursor-pointer;
+  }
+
+  .ul {
+    @apply w-full;
+  }
+
+  .a {
+    @apply text-yellow-600;
+  }
+
+  .li {
+    @apply text-[#f8f8f8] font-normal m-2 w-full font-poppins;
+  }
+
+  .p {
+    @apply text-[#f8f8f8] font-normal font-poppins;
+  }
+
+  .strong {
+    @apply text-yellow-600 font-bold font-poppins;
+  }
+
+  .h1 {
+    @apply font-poppins;
+  }
+
+  .md {
+    @apply prose-li:li prose-a:a prose-ul:ul w-full prose-p:p prose-headings:text-yellow-600 prose-headings:font-poppins prose-headings:my-[30px] prose-h1:h1 prose-strong:strong prose-code:before:hidden prose-code:after:hidden;
+  }
+
+  .prose {
+    @apply max-w-none;
+  }
+}
+
+h1 > a {
+  text-decoration: none !important;
+  font-size: 45px !important;
+  font-weight: 800 !important;
+}
+
+h2 > a {
+  text-decoration: none !important;
+  font-size: 33px !important;
+  font-weight: 700 !important;
+}
+
+h3 > a {
+  text-decoration: none !important;
+  font-size: 30px !important;
+  font-weight: 600 !important;
+}
+
+.content > ul > li > a,
+.content > ul > li > ul > li > a,
+.content > ul > li > ul > li > ul > li > a {
+  text-decoration: none !important;
+}
+
+.content > ul > li,
+.content > ul > li > ul > li,
+.content > ul > li > ul > li > ul > li {
+  margin: 0;
+}
+
+:not(pre) > code[class*="language-unknown"] {
+  color: rgb(190, 190, 19);
+}

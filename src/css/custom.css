@@ -1,0 +1,100 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+
+:root {
+  --ifm-color-primary: #2e8555;
+  --ifm-color-primary-dark: #29784c;
+  --ifm-color-primary-darker: #277148;
+  --ifm-color-primary-darkest: #205d3b;
+  --ifm-color-primary-light: #33925d;
+  --ifm-color-primary-lighter: #359962;
+  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme="dark"] {
+  --ifm-color-primary: #25c2a0;
+  --ifm-color-primary-dark: #21af90;
+  --ifm-color-primary-darker: #1fa588;
+  --ifm-color-primary-darkest: #1a8870;
+  --ifm-color-primary-light: #29d5b0;
+  --ifm-color-primary-lighter: #32d8b4;
+  --ifm-color-primary-lightest: #4fddbf;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+.navbar__title {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: var(--ifm-color-primary);
+}
+
+/* .navbar {
+  background-color: #1b1b1d;
+} */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.table-of-contents {
+  font-family: "Poppins", sans-serif;
+}
+
+p,
+.markdown > ul {
+  font-family: "Outfit", sans-serif;
+}
+
+h1,
+.markdown > h2,
+.markdown > h3,
+.markdown > h4,
+.greencolor {
+  color: var(--ifm-color-primary);
+}
+
+.menu__link {
+  font-family: "Outfit", sans-serif;
+}
+
+.card > p {
+  font-family: "Outfit", sans-serif;
+  font-size: 16px;
+}
+
+.card > h2 > p {
+  color: var(--ifm-color-primary);
+  font-weight: 800 !important;
+  font-family: "Poppins", sans-serif !important;
+}
+
+@media (min-width: 997px) {
+  .docSidebarContainer_node_modules-\@docusaurus-theme-classic-lib-theme-DocRoot-Layout-Sidebar-styles-module {
+    border-right: 1px solid #27272b !important;
+  }
+}
+
+.question {
+  background-color: #581c87;
+  font-family: "Poppins", sans-serif;
+  color: white;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  border-radius: 4px;
+}

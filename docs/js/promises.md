@@ -1,0 +1,277 @@
+---
+sidebar_position: 11
+description: "Promises in Javascript"
+---
+
+
+# Promises in Javascript
+
+## Definition
+
+A Promise is an object representing the eventual completion or failure of an asynchronous operation.
+
+<!-- <ImageRenderer img="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/promises.png"/> -->
+
+![Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/promises.png)
+
+A promise can be in one of three states:
+
+- `pending`: The initial state of a promise. It represents an operation that has not yet completed, and the promise is neither fulfilled nor rejected.
+- `fulfilled`: The state of a promise representing a successful operation. This is the state set when the promise's resolve() function is called.
+- `rejected`: The state of a promise representing a failed operation. This is the state set when the promise's reject() function is called.
+
+## Promises in API
+
+
+```js
+
+ fetch("https://api.milanhub.org/clubs")
+ .then((res) => res.json())
+ .then((data) => console.log(data))
+ .catch((error) => console.error("Error fetching data:", error));
+
+```
+
+- The global `fetch()` method starts the process of fetching a resource from the network, returning a promise that is fulfilled once the response is available
+- Then we get the `res` and call the `json()` method on it to parse the response, which again returns a new promise for the parsed json
+- Then we get the finally get the `data` and log it to the console
+- Chains a rejection handler using `.catch()`
+
+## `.then` and `.catch` ?
+
+The `then()` is used to handle the fulfillment of a promise. Takes one or two callbacks as arguments.The first callback is executed when the promise is resolved (fulfilled). The second callback (optional) is executed when the promise is rejected. It returns a new promise, allowing for chaining.
+
+The `catch()` method returns a Promise and deals with rejected cases only. Returns a new promise for the error case.
+
+```js
+fetch("https://api.example.com/data")
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.json();
+  })
+  .then((data) => {
+    console.log("Data:", data);
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  });
+```
+
+## Callbacks vs Promises
+
+First of all let us take a quick look of how we use to code with callbackas and then we will see how promises are better than callbacks.
+
+```js
+
+const cart = ["shoes", "shirts", "socks"];
+
+createOrder(cart, function(orderID){
+    proceedToPayment(orderID);
+});
+
+
+
+const promise = createOrder(cart);
+promise.then(function(orderID){
+    proceedToPayment(orderID);
+});
+```
+So first of all in the very first instance we were blindly trusting the `createOrder` function meaning that `createOrder` would be able to call the function whenever it wanted to
+
+But in the second instance we are now attaching the callback function `proceedToPayment` to the `promise` object. Meaning we have alot of control with us. It will call the `proceedToPayment` function only when the `createOrder` function has been resolved.
+
+And in case of errors we can use the `.catch` method to catch the error and handle it accordingly.
+
+## Promise chaining
+
+Promise chaining is used to execute multiple asynchronous operations sequentially. In other words, one after another. This is done by chaining `.then()` calls on the returned promise. The `.then()` method returns a new promise, different from the original one, which allows chaining.
+
+```js
+
+const promise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(1);
+  }, 2000);
+});
+
+promise
+  .then((result) => {
+    console.log(result); // 1
+    return result * 2;
+  })
+  .then((result) => {
+    console.log(result); // 2
+    return result * 2;
+  })
+  .then((result) => {
+    console.log(result); // 4
+    return result * 2;
+  });
+
+```
+
+In the example above, the promise is resolved after 2 seconds with the value `1`. The first `.then()` block is executed with the value `1` and returns `2`. The second `.then()` block is executed with the value `2` and returns `4`. The third `.then()` block is executed with the value `4` and returns `8`.
+
+## Methods
+
+### Promise.all
+
+`Promise.all` is a method that takes an array of promises as input and returns a new promise that resolves when **all the input promises** have resolved or **rejects when** at least **one of the input** promises is rejected. It makes all API calls in parallel and waits for all of them to finish.
+
+If **one of them gets rejected** then the **whole promise** gets rejected.
+
+```js
+const promise1 = Promise.resolve('Hello');
+const promise2 = 42;
+const promise3 = new Promise((resolve, reject) => {
+  setTimeout(resolve, 100, 'World');
+});
+
+Promise.all([promise1, promise2, promise3]).then(values => {
+  console.log(values); // Output: ['Hello', 42, 'World']
+}).catch(error => {
+  console.error(error); // This will not be executed in this example
+});
+
+```
+
+### Promise.allSettled
+
+The only thing that is new in here is that it will **wait for all the promises to be settled**. It does not matter if they are resolved or rejected. It will wait for all of them to be settled.
+
+### Promise.race
+
+Suppose i have 3 promises `a` takes 3s, `b` takes 1s and `c` takes 2s. Then `Promise.race` will return the value of the promise that resolves first which is `b` in this case. Even if `b` is rejected, it will still return the value of `b` as it was the first one to resolve.
+
+```js
+const a = new Promise((resolve, reject) => {
+  setTimeout(resolve, 3000, 'one');
+});
+
+const b = new Promise((resolve, reject) => {
+  setTimeout(resolve, 1000, 'two');
+});
+
+const c = new Promise((resolve, reject) => {
+  setTimeout(resolve, 2000, 'three');
+});
+
+// The first promise to resolve is `b`
+
+const result  = Promise.race([a, b, c]);
+result.then((value) => {
+  console.log(value); // Output: 'two'
+});
+```
+
+### Promise.any
+
+This waits for the **first success** instead of the first settled. So if the first promise is rejected then it will wait for the second promise to be successful and so on.
+
+
+
+## Handling errors
+
+While using asynchronous code, JavaScript’s ES6 promises can make your life a lot easier without having callback pyramids and error handling on every second line. But Promises have some pitfalls and the biggest one is swallowing errors by default.
+
+Let's say you expect to print an error to the console for all the below cases,
+
+```javascript
+Promise.resolve("promised value").then(function () {
+  throw new Error("error");
+});
+
+Promise.reject("error value").catch(function () {
+  throw new Error("error");
+});
+
+new Promise(function (resolve, reject) {
+  throw new Error("error");
+});
+```
+
+But there are many modern JavaScript environments that won't print any errors. You can fix this problem in different ways,
+
+1. **Add catch block at the end of each chain:** You can add catch block to the end of each of your promise chains
+
+```javascript
+Promise.resolve("promised value")
+  .then(function () {
+    throw new Error("error");
+  })
+  .catch(function (error) {
+    console.error(error.stack);
+  });
+```
+
+But it is quite difficult to type for each promise chain and verbose too.
+
+ 2. **Add done method:** You can replace first solution's then and catch blocks with done method
+
+```javascript
+Promise.resolve("promised value").done(function () {
+  throw new Error("error");
+});
+```
+
+Let's say you want to fetch data using HTTP and later perform processing on the resulting data asynchronously. You can write `done` block as below,
+
+```javascript
+getDataFromHttp()
+  .then(function (result) {
+    return processDataAsync(result);
+  })
+  .done(function (processed) {
+    displayData(processed);
+  });
+```
+
+In future, if the processing library API changed to synchronous then you can remove `done` block as below,
+
+```javascript
+getDataFromHttp().then(function (result) {
+  return displayData(processDataAsync(result));
+});
+```
+
+and then you forgot to add `done` block to `then` block leads to silent errors.
+
+## Async and Await
+
+The async function declaration defines an asynchronous function, which returns an AsyncFunction object. An asynchronous function is a function which operates asynchronously via the event loop, using an implicit Promise to return its result. But the syntax and structure of your code using async functions is much more like using standard synchronous functions.
+
+The await operator is used to wait for a Promise. It can only be used inside an async function.
+
+The await expression causes async function execution to pause until a Promise is settled (that is, fulfilled or rejected), and to resume execution of the async function after fulfillment. When resumed, the value of the await expression is that of the fulfilled Promise.
+
+### promise vs async/await
+
+The async/await syntax is built on top of promises. It cannot be used with plain callbacks or node callbacks, so it can only be used with functions that return promises. The async/await syntax allows you to write asynchronous code that reads similarly to synchronous code.
+
+```js
+  // fetch("https://api.milanhub.org/clubs")
+  // .then((res) => res.json())
+  // .then((data) => console.log(data))
+  // .catch((error) => console.error("Error fetching data:", error));
+
+async function fetchData(){
+  const res = await fetch("https://api.milanhub.org/clubs");
+  const data = await res.json();
+  console.log(data);
+}
+
+fetchData();
+```
+
+### `async` vs `defer`
+
+In case of `async` tag while the parsing is going on, the script will be executed asynchronously. In case of `defer` tag, the script will be executed after the parsing of the document is completed.
+
+```html
+<script async src="script.js"></script>
+
+<script defer src="script.js"></script>
+```
+
