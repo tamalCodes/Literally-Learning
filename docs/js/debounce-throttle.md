@@ -12,58 +12,52 @@ description: "Understanding debouncing and throttling in JavaScript."
 Debouncing is a programming practice used to ensure that time-consuming tasks do not fire so often, that it stalls the performance of the web page. In other words, it limits the rate at which a function gets invoked. Suppose we have an input box and we are constantly listening to the input event on that input box. Now, if we want to perform some action on every input event, then we can do that. But, if we want to perform some action after the user has stopped typing, then we can use debouncing.
 
 ```js
-const userInput = document.getElementById("userinput");
-
-// this is your main function that will be doing tasks, api calls and what not
-const filterElements = (targetValue) => {
-    console.log("Hi, I was called 👉 ", targetValue);
-
-    userArr.filter((curElem) => {
-        curElem.innerText.toLowerCase().includes(targetValue.toLowerCase()) ?
-            curElem.classList.remove('hide') :
-            curElem.classList.add('hide')
-    })
-};
-
-// this is the core logic
-const debounce = (callback, delay) => {
-    let timer;
+// Simplified debounce function
+const debounce = (func, delay) => {
+    let timeoutId;
     return (...args) => {
-        clearTimeout(timer);
-        timer = setTimeout(() => {
-            callback(...args);
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+            func(...args);
         }, delay);
     };
 };
 
-const debouncedFilter = debounce(filterElements, 1000);
+// Example usage of debounce function with a basic input event
+const inputElement = document.getElementById('input');
 
-// Add event listener with the debounced function
-userInput.addEventListener("input", () => {
-    const inputText = userInput.value.trim();
-    debouncedFilter(inputText);
-});
+// Function to be debounced
+const handleInput = (event) => {
+    console.log('Input value:', event.target.value);
+};
+
+// Debounce the handleInput function with a delay of 500 milliseconds
+const debouncedInputHandler = debounce(handleInput, 500);
+
+// Attach the debounced function to the input event
+inputElement.addEventListener('input', debouncedInputHandler);
+
 
 ```
 
 
 ### Understanding details
 
-- In our very first function we have `filterElements`, this can be something else too like calling an API or something else. This is the function that will be called after the user has stopped typing.
-- Next we have `debounce` function, this is the core logic of our debouncing. This function takes two arguments, first is the `function that we want to call after the user has stopped typing` and the second argument is the `delay after which we want to call that function`. I will talk more about this later.
-- Finally we have `debouncedFilter`, we are now calling the `debounce(filterElements, 1000)` - remeber that the `debounce` function returns us a very important function, so we are storing that function in `debouncedFilter` variable.
-- Last but not least we are adding an event listener to our input box, and we are calling the `debouncedFilter` function inside it along with the texts that the user is typing.
+- In our initial function, `handleInput`, we can replace it with any functionality we desire, such as making an API call or performing any other task. This function is triggered after the user has finished typing.
+- The `debounce` function is the heart of our debouncing mechanism. It accepts two arguments: the `function` we want to execute after the user stops typing and the `delay` after which we want to execute that function.
+- Subsequently, `debouncedInputHandler` stores the crucial function returned by the `debounce` function. This function will be invoked later when needed.
+- Finally, we attach an event listener to our input element, where we invoke the `debouncedInputHandler` function along with the text input by the user.
 
 ### Workflow
 
-- When the user starts typing, the `debouncedFilter` function is called with the text that the user is typing.
+- When the user starts typing, the `debouncedInputHandler` function is called with the text that the user is typing.
 
+- Remember that the `debounce` function returns a crucial function, which we store in the `debouncedInputHandler` variable. Now, we execute this function by passing `inputText`.
 
-- Remember how i told you earlier that the `debounce` function returns us a very important function, so we are storing that function in `debouncedFilter` variable? Now it's time to call that function as we are writing `debouncedFilter(inputText)`
+- Upon invoking the `debouncedInputHandler` function, it clears any previously set timer to maintain a fresh timer. This ensures that the `handleInput` function will only execute after the most recent delay, unaffected by any prior calls.
 
-- Once we call the `debouncedFilter` function, it will first clear the timer that we have set earlier to keep a fresh timer. By clearing the previous timeout, you ensure that the `callback` function will only run after the most recent delay and not be affected by any previous calls.
+- The `debounced` function will execute the `handleInput` function only after the specified delay (500ms), ensuring that it is triggered only when there are no further calls within that delay period.
 
-- The `debounced` function will only execute the callback function after the specified delay (1000ms) when there are no further calls to the `debounced` function within that delay period.
 
 
 ## Throttling
@@ -71,54 +65,45 @@ userInput.addEventListener("input", () => {
 Throttling is a technique in which, no matter how many times the user fires the event, the attached function will be executed only once in a given time interval. Suppose we have an input box and we are constantly listening to the input event on that input box. Now, if we want to perform some action on every input event, then we can do that. But, if we want to perform some action after a certain interval of time, then we can use throttling.
 
 ```js
-const userButton = document.getElementById("userbutton");
-
-const throttleHandler = () => {
-    console.log("Hi, I was clicked");
-};
-
-
-const throttle = (callback, delay) => {
-    let isWaiting = false;
-    return () => {
-        if (!isWaiting) {
-            callback();
-            isWaiting = true;
-            setTimeout(() => {
-                isWaiting = false;
-            }, delay);
-        }
+// Throttle function
+const throttle = (func, delay) => {
+    let lastCall = 0;
+    return (...args) => {
+        const now = new Date().getTime();
+        if (now - lastCall < delay) return;
+        lastCall = now;
+        func(...args);
     };
 };
 
-// Throttled click event handler
-const throttledClickHandler = throttle(throttleHandler, 1000);
+// Example usage of throttle function with a basic button click event
+const button = document.getElementById('button');
 
-// Adding event listener with the throttled click handler
-userButton.addEventListener("click", throttledClickHandler);
+// Function to be throttled
+const handleClick = () => {
+    console.log('Button clicked!');
+};
+
+// Throttle the handleClick function with a delay of 1000 milliseconds
+const throttledClickHandler = throttle(handleClick, 1000);
+
+// Attach the throttled function to the button click event
+button.addEventListener('click', throttledClickHandler);
 ```
 
 ### Understanding details
 
--  We first have our `throttleHandler` function this is the function that will be called at every interval. We are just console logging you can do anything here.
--  Next we have our `throttle` function whis again returns us a very important function. This function takes two arguments, first is the `function that we want to call` and the second argument is the `delay after which we want to call that function`. I will talk more about this later.
-
-
-- Next we have `throttledClickHandler` function, we are now calling the `throttle(throttleHandler, 1000)` - remeber that the `throttle` function returns us a very important function, so we are storing that function in `throttledClickHandler` variable.
-
-- Last but not least we are adding an event listener to our button, and we are calling the `throttledClickHandler` function inside it.
-
+- In our example, we have a simple button click event that triggers the `handleClick` function.
+- The `throttle` function is responsible for controlling the frequency of function execution. It accepts two arguments: the `function` we want to throttle and the `delay` between each execution.
+- `throttle` ensures that the provided function is not executed more frequently than the specified delay.
+- We create a throttled version of the `handleClick` function using `throttle(handleClick, 1000)`, which means `handleClick` will be executed at most once every 1000 milliseconds.
+- This throttled version of `handleClick` is stored in `throttledClickHandler`.
+- We attach `throttledClickHandler` to the button click event, ensuring that the button click triggers the throttled function.
 
 ### Workflow
 
-- When the user clicks on the button, the `throttledClickHandler` function is called.
-
-- Remember how i told you earlier that the `throttle` function returns us a very important function, so we are storing that function in `throttledClickHandler` variable? Now it's time to call that function as we are writing `userButton.addEventListener("click", throttledClickHandler)`
-
-- Inside of that imporant function we have alot of things such as `isWaiting` variable, this variable is used to check if the user is waiting or not. By default it  will be false, so as soon as it is false we are gonna call the `throttleHandler` that was passed to us.
-
-- Next we simply set the `isWaiting` variable to true, so that the next time the user clicks on the button, the `throttleHandler` function will not be called.
-
-- We also have a `setTimeout` function, this is used to set the `isWaiting` variable to false after a certain interval of time so that the function is called again.
+- When the button is clicked, the throttled version of the `handleClick` function (`throttledClickHandler`) is invoked.
+- The `throttle` function ensures that `handleClick` is executed at most once every 1000 milliseconds.
+- If the button is clicked multiple times within the 1000ms interval, only the first click will trigger the `handleClick` function. Subsequent clicks will be ignored until the next 1000ms interval begins.
 
 

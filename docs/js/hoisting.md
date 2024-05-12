@@ -12,7 +12,6 @@ description: "Scopes,Let, Var, Hoisting in JS in detail"
 Hoisting is a JavaScript mechanism where variables and function declarations are moved to the top of their scope before code execution. This means that if a variable is declared anywhere in a function, it is moved to the top of the function for execution regardless of whether the declaration is at the top of the function or not.
 
 ```js
-
 function myFunction() {
   console.log(myVar); // undefined
   var myVar = "Hello";
@@ -37,9 +36,9 @@ Consider this following code
 ```js
 console.log(a);
 console.log(b);
+
 let a = 10;
 var b = 20;
-
 ```
 
 For `a` we would get `ReferenceError: Cannot access 'a' before initialization` and for `b` we would get a special placeholder of  `undefined`. This is because of hoisting.
@@ -51,12 +50,9 @@ So both of them works the same way in terms of hoisting the only difference is t
 
 ```js
 let a;
+a = 10; // we can initialize it later
 
-// we can initialize it later
-a = 10;
-
-const b;
-// this will give an error
+const b; // this will give an error
 ```
 
 This is because const is meant to be initialized at the time of declaration. We can't do it later on.
@@ -66,8 +62,8 @@ This is because const is meant to be initialized at the time of declaration. We 
 
 ### var
 
-- var is function scoped when it is declared within a function. This means that it is available and can be accessed only within that function.
-- var is global scoped when it is declared outside a function. This means that it is available and can be accessed throughout the program.
+- Function scoped when it is declared within a function. Available only within that function.
+- Global scoped when it is declared outside a function. Available globally.
 
 ```js
 function myFunction() {
@@ -81,27 +77,25 @@ function myFunction() {
 myFunction();
 ```
 
-In this example, the variable `x` is declared using var inside the if statement, but it is still accessible when we try to log its value outside the if statement. This is because var does not have true block scope; it creates function-scoped variables.
+In this example, the variable `x` is declared using var inside the if statement, but it is still accessible when we try to log its value outside the if statement. This is because **var does not have true block scope**; it creates function-scoped variables.
 
 ### let
 
-- let is block scoped. A block is a set of statements wrapped in curly braces. We need to group statements together in a block when we want to execute them together. Each block has its own lexical scope.
-- let is not hoisted to the top of its block. If a variable is declared using let, it is only available from the point at which it is declared until the end of the block.
+- Block scoped. A block is a set of statements wrapped in curly braces. Each block has its own lexical scope.
+- Not hoisted to the top of its block. If a variable is declared using let, it is only available from the point at which it is declared until the end of the block.
 
 ```js
 function myFunction() {
   if (true) {
     let y = 20;
-    console.log(y); // Output: 20, as 'y' is declared and used inside the block
+    console.log(y); // Output: 20, as 'y' is declared inside the block
   }
 
-  console.log(y); // Error: 'y' is not defined, as it is only accessible inside the block
+  console.log(y); // Error: 'y' is not defined, as outside the block
 }
 
 myFunction();
 ```
-
-In this example, the variable `y` is declared using let inside the if statement. When we try to log its value outside the if statement, we get an error because it is not accessible beyond the block where it was declared.
 
 
 ### Can I redeclare `let` and `const` variables
@@ -152,7 +146,7 @@ No, the const variable doesn't make the value immutable. But it disallows subseq
 
 ### Temporal dead zone
 
-The time between the variable being declared and being initialized is called the temporal dead zone.
+The time between the **variable being declared** and **being initialized** is called the temporal dead zone.
 
 ```js
 console.log(x);
@@ -162,9 +156,7 @@ let a = 10;
 
 In the above code, the temporal dead zone is between the `let a = 10` and `console.log(a)`. `a` will be assigned a value of `undefined` during the temporal dead zone.
 
-There is a difference between the `ReferenceError` that we get for `x` and `a`. For `x` we get `ReferenceError: x is not defined` and for `a` we get `ReferenceError: Cannot access 'a' before initialization`. This is because `x` is not declared at all and `a` is declared but not initialized.
-
-Also to keep in mind that we have a reserved space for `var` in the global scope and `let` & `const` in the block scope.
+For `x` we get `ReferenceError: x is not defined` and for `a` we get `ReferenceError: Cannot access 'a' before initialization`. This is because `x` is not declared at all and `a` is declared but not initialized.
 
 
 ## Scopes
@@ -182,38 +174,6 @@ Lexical scope means that in a nested group of functions, the inner functions hav
 Global scope refers to the context within which variables are accessible to every part of the program. If a variable is declared outside of all functions or curly braces (i.e. in the root of the program), it is said to be defined in the global scope.
 
 
-### Detailed example
-
-```js
-
-let a = 10;
-
-function myFunction() {
-  let b = 20;
-
-  function myInnerFunction() {
-    let c = 30;
-    console.log(a); // 10
-    console.log(b); // 20
-    console.log(c); // 30
-  }
-
-  myInnerFunction();
-}
-
-myFunction();
-
-console.log(a); // 10
-
-console.log(b); // ReferenceError: b is not defined
-
-console.log(c); // ReferenceError: c is not defined
-
-```
-
-In the above code, we can see that `a` is accessible from everywhere because it is declared in the global scope. `b` is accessible only inside `myFunction` because it is declared in the block scope of `myFunction`. `c` is accessible only inside `myInnerFunction` because it is declared in the block scope of `myInnerFunction`.
-
-
 
 ### Variables without Block Scope
 `(Using var or Function Declarations in Non-Strict Mode)`
@@ -222,7 +182,6 @@ In JavaScript, when you declare a variable using var or create a function withou
 
 
 ```js
-
 function exampleFunction() {
   if (true) {
     var x = 10; // This variable is accessible throughout the function
@@ -234,64 +193,51 @@ function exampleFunction() {
 exampleFunction();
 ```
 
-In this example, the variable `x` is declared inside the block (the if statement), but it is still accessible when we try to log its value outside the block. This is because var does not have true block scope; it creates function-scoped variables.
+ `x` is declared inside the block (the if statement), but it is still accessible when we try to log its value outside the block. This is because **var does not have true block scope;** it creates **function-scoped** variables.
 
 ### Variables with Block Scope
 
 `(Using let and const):`
 
-In modern JavaScript, you can use let and const to create variables with true block scope. This means that if you declare a variable using let or const inside a block, it will only be accessible within that block, and its effects will not persist beyond the block.
 
 
 ```js
-
 function exampleFunction() {
   if (true) {
-    let y = 20; // This variable is only accessible within this block
-    const z = 30; // This constant is also only accessible within this block
-    console.log(y); // Output: 20, as 'y' is declared and used inside the block
+    let x = 10; // block scoped, only acessible here.
   }
 
-  console.log(y); // Error: 'y' is not defined, as it is only accessible inside the block
-  console.log(z); // Error: 'z' is not defined, as it is only accessible inside the block
+  console.log(x); // Output: ReferenceError: x is not defined
 }
 
 exampleFunction();
 ```
 
-In this example, the variables `y` and `z` are declared using let and const, respectively, inside the block (the if statement). When we try to log their values outside the block, we get errors because they are not accessible beyond the block where they were declared.
-
-Using let and const for block-scoped variables helps prevent unintended side effects and makes the code more predictable and easier to maintain. It is considered best practice in modern JavaScript development.
+In this example, the variable `x` is declared using let inside the block, and it is not accessible outside the block. This demonstrates the true block scope behavior of let and const.
 
 
 ## Shadowing
 
 ```js
-
 var a = 100;
-
 {
     var a = 200;
     console.log(a);
 }
 
 console.log(a);
-
 ```
 
 Here the output would be `200` and `200`. This is because `var a = 100;` is in the global scope and `var a = 200;` even if it is in the block, we learnt that `var` is function/global scoped. So the `var a = 200;` is actually shadowing the `var a = 100;` in the global scope ie they are acting as the same variable.
 
 ```js
-
 let a = 100;
-
 {
     let a = 200;
     console.log(a);
 }
 
 console.log(a);
-
 ```
 
 Here the output would be `200` and `100`. This is because `let a = 100;` is in the global scope and `let a = 200;` is in the block scope. So they are two different variables. **SAME FOR CONST.**
@@ -300,9 +246,7 @@ Here the output would be `200` and `100`. This is because `let a = 100;` is in t
 ### Illegal shadowing
 
 ```js
-
 let a = 100;
-
 {
     var a = 200;
     console.log(a);

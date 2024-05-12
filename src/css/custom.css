@@ -98,3 +98,9 @@ h1,
   padding-bottom: 0.25rem;
   border-radius: 4px;
 }
+
+.heading {
+  color: var(--ifm-color-primary) !important;
+  font-weight: 700 !important;
+  font-family: "Poppins", sans-serif !important;
+}

@@ -1,0 +1,11 @@
+.accordion-main {
+  font-family: "Outfit", sans-serif;
+  background-color: rgba(77, 78, 79, 0.225) !important;
+  color: rgba(255, 255, 255, 0.92) !important;
+  border: 1px solid var(--ifm-color-primary);
+  border-radius: 5px !important;
+}
+
+.accordion-main:nth-of-type(2) {
+  margin-top: 10px;
+}
