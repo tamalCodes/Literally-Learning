@@ -1,7 +1,0 @@
-# Contents
-
-<div className="content">
-
-</div>
-
-export default ({children}) => <div className="prose md">{children}</div>

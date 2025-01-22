@@ -13,7 +13,7 @@ const config = {
   favicon: "img/favicon.ico",
 
   // Set the production url of your site here
-  url: "https://tamallearns.vercel.app",
+  url: "https://learn.tamal.codes",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/",
@@ -66,7 +66,7 @@ const config = {
         title: "Learn",
         items: [
           {
-            href: "https://github.com/facebook/docusaurus",
+            href: "https://github.com/tamalCodes",
             label: "GitHub",
             position: "right",
           },

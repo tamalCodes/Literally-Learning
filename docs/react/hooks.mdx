@@ -297,6 +297,54 @@ In this example, the handleClick function is memoized using useCallback. The fun
 
 To summarize, useMemo is used to memoize a value and recomputes it when dependencies change, while useCallback is used to memoize a function and return the same function instance unless dependencies change. Both hooks help optimize performance by preventing unnecessary re-computations or re-renders.
 
+
+## Custom Hooks in React
+
+Custom hooks are reusable functions that contain logic shared across multiple components. They allow you to extract and reuse stateful logic from components, making your code more modular and easier to maintain.
+
+```jsx
+import { useState } from "react";
+
+const useCounter = (initialCount) => {
+  const [count, setCount] = useState(initialCount);
+
+  const increment = () => {
+    setCount(count + 1);
+  };
+
+  const decrement = () => {
+    setCount(count - 1);
+  };
+
+  return { count, increment, decrement };
+};
+
+export default useCounter;
+```
+
+In this example, we have created a custom hook called useCounter that manages a count state and provides functions to increment and decrement the count. The useCounter hook returns an object with the count value and the increment and decrement functions.
+
+Now, you can use the useCounter hook in any component to manage count state and perform increment and decrement operations:
+
+```jsx
+import React from "react";
+import useCounter from "./useCounter";
+
+const Counter = () => {
+  const { count, increment, decrement } = useCounter(0);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={increment}>Increment</button>
+      <button onClick={decrement}>Decrement</button>
+    </div>
+  );
+};
+
+export default Counter;
+```
+
 ## Virtualization
 
 Virtualization is a technique used to render only the components that are currently visible on the screen. Instead of rendering the entire list of components, React renders only the ones in the current view. When dealing with long lists or large datasets, rendering all components at once can lead to performance issues. Virtualization helps in improving performance by rendering only the components that are needed, based on the user's scroll or view.
