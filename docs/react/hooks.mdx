@@ -144,23 +144,42 @@ The useffect will run **once at component mount** and then it will run **everyti
 The `useMemo()` is a React Hook that lets you cache the result of a calculation between re-renders. This can be useful when you have a calculation that is expensive to perform, such as a complex algorithm or a database query.
 
 ```js
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 
-function MyComponent() {
+const HookDemo = () => {
   const [count, setCount] = useState(0);
+  const hugeItemList = new Array(100000).fill("huge item");
 
-  const result = useMemo(() => {
-    // Perform expensive calculation here
-    return count * 2;
-  }, [count]);
+  // The last element of the hugeItemList
+  // this might be expensive if the list is huge
+  // recalculates every time the component re-renders
+
+  const selectedItem = hugeItemList?.find(
+    (item, index) => index === hugeItemList.length - 1
+  );
+
+  // Optimized version
+  // will only RECALCULATE when hugeItemList changes
+  // so even though i change a usestate -> re-render the component -> the calculation will not be done again
+
+  const optimizedSelectedItem = useMemo(() => {
+    return hugeItemList?.find(
+      (item, index) => index === hugeItemList.length - 1
+    );
+  }, [hugeItemList]);
 
   return (
-    <div>
-      <div>Result: {result}</div>
-      <button onClick={() => setCount(count + 1)}>Increment</button>
+    <div
+      onClick={() => {
+        setCount(count + 1);
+      }}
+    >
+      {count}
     </div>
   );
-}
+};
+
+export default HookDemo;
 ```
 
 This will be called only when the count state changes & when the component is re-rendered.
@@ -172,18 +191,33 @@ The useMemo hook is used to memoize a value and recompute it only when its depen
 In React, `useCallback` is a hook that is used to memoize a function so that it is only re-created when one of its dependencies changes. This is similar to useMemo, but instead of memoizing a value, useCallback memoizes a function.
 
 ```js
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 
-function MyComponent({ value1, value2 }) {
-  const handleClick = useCallback(() => {
-    console.log("Clicked!");
-  }, [onClick]);
+const HookDemo = () => {
+  const [count, setCount] = useState(0);
+  const [text, setText] = useState("Click me");
 
-  return <button onClick={handleClick}>Click me</button>;
-}
+  // Without useCallback: Function is recreated on every render
+  const handleClick = () => {
+    setCount(count + 1);
+  };
+
+  // With useCallback: Function is only recreated when count changes
+  const optimizedHandleClick = useCallback(() => {
+    setCount((prevCount) => prevCount + 1);
+  }, []); // No dependencies, so it remains the same function across renders
+
+  return (
+    <div>
+      <button onClick={optimizedHandleClick}>{count}</button>
+      <button onClick={() => setText("Updated")}>{text}</button>
+    </div>
+  );
+};
+
+export default HookDemo;
+
 ```
-
-In this example, the handleClick function is memoized using useCallback. This means that the function will only be re-created when the onClick prop changes.
 
 See everytime a component re-renders, all of its functions are re-created. This is because functions are objects in JavaScript, and objects are created every time they are referenced.
 
@@ -238,24 +272,35 @@ useContext is a React Hook that lets you read and subscribe to context from your
 The useRef hook is similar to the useState hook, but it does not cause the component to re-render when the ref object is updated.
 
 ```jsx
-import React, { useRef, useState } from "react";
+import React, { useState, useRef } from "react";
 
-function MyComponent() {
+const HookDemo = () => {
   const [count, setCount] = useState(0);
-  const ref = useRef();
+  const buttonRef = useRef(null);
+
+  const handleClick = () => {
+    setCount((prevCount) => prevCount + 1);
+  };
+
+  const focusButton = () => {
+    if (buttonRef.current) {
+      buttonRef.current.focus();
+    }
+  };
 
   return (
     <div>
-      <div ref={ref}>Hello</div>
-      <button onClick={() => setCount(count + 1)}>Increment</button>
+      <button ref={buttonRef} onClick={handleClick}>{count}</button>
+      <button onClick={focusButton}>Focus Counter Button</button>
     </div>
   );
-}
+};
+
+export default HookDemo;
 ```
+When `setCount` is called inside `handleClick`, React updates the state (count) and triggers a re-render of the component.
 
-In this example, the ref object is created using the useRef hook. The ref object is then passed to the div element, which allows us to access the DOM node of the div element using the ref.current property.
-
-The count state is created using the useState hook. When the button is clicked, the count state is updated using the `setCount()` function, which causes the component to re-render.
+But, `buttonRef` holds a reference to a DOM element, and calling `focusButton` does not trigger a re-render, it just interacts with the DOM directly.
 
 ### useMemo VS useCallback
 
@@ -263,39 +308,11 @@ useMemo and useCallback are both hooks in React that help optimize the performan
 
 useMemo: This hook is used to memoize a value and recompute it only when its dependencies change. It takes a function and an array of dependencies as arguments. The function is executed initially and whenever any dependency in the array changes. The result of the function is stored and returned as the memoized value.
 
-```jsx
-import React, { useMemo } from "react";
-
-const MyComponent = ({ a, b }) => {
-  const sum = useMemo(() => {
-    console.log("Computing sum...");
-    return a + b;
-  }, [a, b]);
-
-  return <div>{sum}</div>;
-};
-```
-
-In this example, the sum value is memoized using useMemo. The function inside useMemo computes the sum of a and b. If either a or b changes, the function will recompute the sum and update the memoized value. Otherwise, it will use the previously memoized value without recomputing.
 
 useCallback: This hook is used to memoize a function and return the same instance of the function until its dependencies change. It takes a function and an array of dependencies as arguments. The function is memoized and returned as a callback. The callback will remain the same unless any of the dependencies change.
 
-```jsx
-import React, { useCallback } from "react";
 
-const MyComponent = ({ onClick }) => {
-  const handleClick = useCallback(() => {
-    console.log("Button clicked!");
-    onClick();
-  }, [onClick]);
-
-  return <button onClick={handleClick}>Click me</button>;
-};
-```
-
-In this example, the handleClick function is memoized using useCallback. The function is defined inline and will be memoized. If the onClick dependency changes, the memoized function will be updated. Otherwise, it will return the same function instance, preventing unnecessary re-renders of child components that receive handleClick as a prop.
-
-To summarize, useMemo is used to memoize a value and recomputes it when dependencies change, while useCallback is used to memoize a function and return the same function instance unless dependencies change. Both hooks help optimize performance by preventing unnecessary re-computations or re-renders.
+**To summarize,** `useMemo` is used to memoize a value and recomputes it when dependencies change, while useCallback is used to memoize a function and return the same function instance unless dependencies change. Both hooks help optimize performance by preventing unnecessary re-computations or re-renders.
 
 
 ## Custom Hooks in React
@@ -364,60 +381,28 @@ In summary, virtualization helps in rendering only what's necessary for the curr
 
 In React, a Higher Order Component (HOC) is a pattern that allows you to reuse component logic by wrapping a component with a function. The HOC takes a component as an argument and returns a new component with additional props or behavior.
 
-```jsx
-import React from "react";
-
-const Message = ({ text }) => {
-  return <div>{text}</div>;
-};
-
-export default Message;
-```
-
-Now, we want to create a Higher Order Component that adds a timestamp to the message and passes it as a prop to the original Message component.
 
 ```jsx
 import React from "react";
 
-const withTimestamp = (WrappedComponent) => {
-  return (props) => {
-    const timestamp = new Date().toLocaleString();
-    return <WrappedComponent {...props} timestamp={timestamp} />;
-  };
-};
-
-const Message = ({ text, timestamp }) => {
-  return (
-    <div>
-      <p>{text}</p>
-      <p>Timestamp: {timestamp}</p>
+const withBorder = (WrappedComponent) => {
+  return (props) => (
+    <div style={{ border: "2px solid red", padding: "10px" }}>
+      <WrappedComponent {...props} />
     </div>
   );
 };
 
-const MessageWithTimestamp = withTimestamp(Message);
 
-export default MessageWithTimestamp;
-```
+export function App() {
 
-In this example, we have created the `withTimestamp` Higher Order Component that takes the Message component as an argument and returns a new component. The new component has the original Message component as a child but with an additional timestamp prop.
+  const EnhancedMessage = withBorder(Message);
 
-Now, wherever you want to use the Message component with the timestamp feature, you can use `MessageWithTimestamp` instead:
+  return <EnhancedMessage text="Hello from HOC!" />;
+}
 
-```jsx
-import React from "react";
-import MessageWithTimestamp from "./MessageWithTimestamp";
-
-const App = () => {
-  return <MessageWithTimestamp text="Hello, world!" />;
-};
 
 export default App;
 ```
 
-Now, when rendering the App component, it will display the message with the added timestamp:
-
-```jsx
-Hello, world!
-Timestamp: 7/31/2023, 12:34:56 PM
-```
+In this example, the withBorder HOC takes a component (Message) as an argument and returns a new component (EnhancedMessage) that wraps the original component with a border style. The EnhancedMessage component can now be used to render the Message component with the added border style.
