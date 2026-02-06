@@ -1,0 +1,5 @@
+{
+  "title": "Literally Learning",
+  "root": true,
+  "pages": ["index", "js", "react", "oops", "css"]
+}

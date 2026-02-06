@@ -1,95 +1,45 @@
-# Website
+# Literally Learning
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+This repository now runs on [Fumadocs](https://fumadocs.dev/) with Next.js.
 
-### Installation
+Run development server:
 
-```
-$ yarn
-```
-
-### Local Development
-
-```
-$ yarn start
+```bash
+npm run dev
+# or
+pnpm dev
+# or
+yarn dev
 ```
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+Open `http://localhost:3000` with your browser to see the result.
 
-### Build
+## Explore
 
-```
-$ yarn build
-```
+In the project:
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+- `content/docs`: Documentation content and navigation (`meta.json`).
+- `src/lib/source.ts`: Fumadocs content source adapter.
+- `src/lib/layout.shared.tsx`: Shared layout options (navbar title + links).
 
-### Deployment
+| Route                     | Description                                            |
+| ------------------------- | ------------------------------------------------------ |
+| `app/(home)`              | The route group for your landing page and other pages. |
+| `app/docs`                | The documentation layout and pages.                    |
+| `app/api/search/route.ts` | The Route Handler for search.                          |
 
-Using SSH:
+## Fumadocs MDX
 
-```
-$ USE_SSH=true yarn deploy
-```
+The `source.config.ts` file controls MDX collection settings and schemas.
 
-Not using SSH:
+Read the [Introduction](https://fumadocs.dev/docs/mdx) for further details.
 
-```
-$ GIT_USER=<Your GitHub username> yarn deploy
-```
+## Learn More
 
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+To learn more about Next.js and Fumadocs, take a look at the following
+resources:
 
-
-<head>
-
-<meta charset="utf-8" />
-<link rel="icon" href="/favicon.ico" />
-
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta
-  name="description"
-  content="Welcome to Milan, we are a hub to connect NGOs, Charities, and the world to collaborate and build a better tommorow."
-  data-rh="true"
-/>
-<meta
-  name="google-site-verification"
-  content="ISkkPcMaQwANRR5_0CPjjxQJ3SyWzUt94nSP7wc1JdA"
-/>
-
-<meta name="title" content="Milan" />
-<meta name="language" content="en" />
-<meta name="author" content="Tamal Das" />
-<meta name="robots" content="index, follow" />
-<meta name="revisit-after" content="7 days" />
-<meta
-  name="keywords"
-  content="Milan, hub, connect, user collaboration, charities, NGO, support, social impact,community"
-/>
-
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://milanhub.org/" />
-<meta property="og:title" content="Milan" />
-<meta
-  property="og:description"
-  content="Welcome to Milan, we are a hub to connect NGOs, Charities, and the world to collaborate and build a better tommorow."
-/>
-<meta
-  property="og:image"
-  content="https://raw.githubusercontent.com/MilanCommunity/Milan/main/src/assets/pictures/Banner/MilanSEO.svg"
-/>
-<meta name="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content="https://milanhub.org/" />
-<meta property="twitter:title" content="Milan" />
-<meta
-  property="twitter:description"
-  content="Welcome to Milan, we are a hub to connect NGOs, Charities, and the world to collaborate and build a better tommorow."
-/>
-<meta
-  property="twitter:image"
-  content="https://raw.githubusercontent.com/MilanCommunity/Milan/main/src/assets/pictures/Banner/MilanSEO.svg"
-/>
-
-<title>Milan</title>
-
-</head>
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js
+  features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Fumadocs](https://fumadocs.dev) - Fumadocs documentation

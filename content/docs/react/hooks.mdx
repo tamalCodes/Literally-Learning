@@ -1,0 +1,410 @@
+---
+title: "Hooks"
+description: "Concepts of react's hooks"
+---
+
+
+
+# Hooks
+
+## States
+
+State is a JavaScript object that stores a component's dynamic data and determines the component's behavior. It is managed internally by the component itself and can only be updated by the component itself. State is used to store data that can change over time, such as user input, network responses, and UI events.
+
+## State before hooks
+
+Yes, before the introduction of hooks in React, components could still have state. Stateful components were commonly created using class-based components, where state was managed through the this.state property. Class-based components had a constructor method to initialize the state and various lifecycle methods (e.g., componentDidMount, componentDidUpdate, etc.) to handle state updates and side effects.
+
+```js
+import React, { Component } from "react";
+
+class Counter extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      count: 0,
+    };
+  }
+
+  incrementCount() {
+    this.setState({ count: this.state.count + 1 });
+  }
+
+  render() {
+    return (
+      <div>
+        <p>Count: {this.state.count}</p>
+        <button onClick={() => this.incrementCount()}>Increment</button>
+      </div>
+    );
+  }
+}
+```
+
+While class-based components were widely used, they sometimes led to complex and less reusable code. Hooks were introduced as a way to simplify state management and side effects in functional components, making it easier to work with state and promoting better code organization and reusability.
+
+### If we have `const x = 10;` is that a state too ?
+
+No, const x = 10; is not considered state in the context of React components.
+
+In React, "state" refers to any data that can change over time and affects the rendering of a component. It is used to manage dynamic values that can be modified and trigger re-rendering of the component when they change.
+
+The code const x = 10; is simply assigning the value 10 to a constant variable x, which means x has a fixed value of 10 throughout the component's life cycle. This is not considered state because it doesn't change during the component's rendering or interaction with the user.
+
+In contrast, React state is typically used when you want to track and update data that can change in response to user actions, network requests, or other events. This dynamic behavior is what makes state essential for building interactive and responsive user interfaces.
+
+## Component Lifecycle Method
+
+In React, the term "lifecycle" refers to the different stages that a component goes through from its creation to its removal from the DOM. During each stage of a component's lifecycle, React provides developers with specific methods that can be overridden to perform actions or handle behaviors related to that particular stage.
+
+The React component lifecycle can be divided into three main phases:
+
+### Mounting Phase:
+
+This is the initial phase when a component is being created and inserted into the DOM. It involves methods that are called when the component is being mounted. Lifecycle methods in this phase are called in the following order: `constructor()`, `static getDerivedStateFromProps()`, `render()`, and `componentDidMount()`.
+
+### Updating Phase:
+
+This phase occurs when a component's props or state change, causing it to re-render.
+It involves methods that are called when the component is being updated.
+Lifecycle methods in this phase are called in the following order: static getDerivedStateFromProps(), shouldComponentUpdate(), render(), getSnapshotBeforeUpdate(), and componentDidUpdate().
+
+### Unmounting Phase:
+
+This phase occurs when a component is being removed from the DOM.
+It involves methods that are called when the component is being unmounted.
+The only lifecycle method in this phase is componentWillUnmount(), which allows developers to perform cleanup tasks before the component is removed. Additionally, there is a newer error handling phase introduced in React 16.
+
+### Error Handling Phase:
+
+This phase is related to handling errors that occur during rendering, lifecycle methods, or inside child components.
+It involves two error handling methods: static getDerivedStateFromError() and componentDidCatch().
+It's essential to understand the component lifecycle because it provides developers with opportunities to perform specific tasks at different stages of a component's existence. However, with the introduction of React Hooks, the traditional class-based lifecycle methods are being replaced in favor of using functional components with hooks like useState, useEffect, etc. These hooks provide a more straightforward and predictable way to manage component behavior without relying on class components and their lifecycle methods.
+
+## useState
+
+useState is a React Hook that lets you add state to functional components. It takes an initial value as an argument and returns an array of two values: the current state and a function to update it.
+
+```jsx
+import React, { useState } from "react";
+
+function MyComponent() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <div>Count: {count}</div>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+}
+```
+
+In this example, the count state is created using the useState hook. The count state is initialized to 0, and the setCount function is used to update the count state. When the button is clicked, the count state is updated using the setCount function, which causes the component to re-render.
+
+## useEffect
+
+UseEffect in code is used mostly for side effects. Whenever something or the other changes we will be using useEffect to do somethhing else based on the code change. It will run atleast once when the component mounts with the code that it has inside of it's body.
+
+```jsx
+import React, { useEffect, useState } from "react";
+
+function App() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    console.log("useEffect called");
+  }, [count]);
+}
+```
+
+Here as you can see in this example the useEffect is now hooked to the count and as soon as the count will increase we will be console logging it that is because we have count in the dependency array.
+
+Let us also understand cleanup
+
+```jsx
+import React, { useEffect, useState } from "react";
+
+function App() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    console.log("useEffect called");
+    return () => {
+      console.log("cleanup function called");
+    };
+  }, [count]);
+}
+```
+
+Now the output of this code will be `cleanup function called` and then `useEffect called` because the cleanup function is called before the useEffect is called. Why does this happen ?
+
+The useffect will run **once at component mount** and then it will run **everytime the dependency array changes**. But when the dependency array changes the cleanup function is called first, then the useEffect destroys the previous effect and then it runs the useEffect again with the new value.
+
+## useMemo
+
+The `useMemo()` is a React Hook that lets you cache the result of a calculation between re-renders. This can be useful when you have a calculation that is expensive to perform, such as a complex algorithm or a database query.
+
+```js
+import React, { useMemo, useState } from "react";
+
+const HookDemo = () => {
+  const [count, setCount] = useState(0);
+  const hugeItemList = new Array(100000).fill("huge item");
+
+  // The last element of the hugeItemList
+  // this might be expensive if the list is huge
+  // recalculates every time the component re-renders
+
+  const selectedItem = hugeItemList?.find(
+    (item, index) => index === hugeItemList.length - 1
+  );
+
+  // Optimized version
+  // will only RECALCULATE when hugeItemList changes
+  // so even though i change a usestate -> re-render the component -> the calculation will not be done again
+
+  const optimizedSelectedItem = useMemo(() => {
+    return hugeItemList?.find(
+      (item, index) => index === hugeItemList.length - 1
+    );
+  }, [hugeItemList]);
+
+  return (
+    <div
+      onClick={() => {
+        setCount(count + 1);
+      }}
+    >
+      {count}
+    </div>
+  );
+};
+
+export default HookDemo;
+```
+
+This will be called only when the count state changes & when the component is re-rendered.
+
+The useMemo hook is used to memoize a value and recompute it only when its dependencies change. It takes a function and an array of dependencies as arguments. The function is executed initially and whenever any dependency in the array changes. The result of the function is stored and returned as the memoized value.
+
+## useCallback
+
+In React, `useCallback` is a hook that is used to memoize a function so that it is only re-created when one of its dependencies changes. This is similar to useMemo, but instead of memoizing a value, useCallback memoizes a function.
+
+```js
+import React, { useCallback, useState } from "react";
+
+const HookDemo = () => {
+  const [count, setCount] = useState(0);
+  const [text, setText] = useState("Click me");
+
+  // Without useCallback: Function is recreated on every render
+  const handleClick = () => {
+    setCount(count + 1);
+  };
+
+  // With useCallback: Function is only recreated when count changes
+  const optimizedHandleClick = useCallback(() => {
+    setCount((prevCount) => prevCount + 1);
+  }, []); // No dependencies, so it remains the same function across renders
+
+  return (
+    <div>
+      <button onClick={optimizedHandleClick}>{count}</button>
+      <button onClick={() => setText("Updated")}>{text}</button>
+    </div>
+  );
+};
+
+export default HookDemo;
+
+```
+
+See everytime a component re-renders, all of its functions are re-created. This is because functions are objects in JavaScript, and objects are created every time they are referenced.
+
+UseCallback will preserve the identity of the function between re-renders, so that it is only re-created when one of its dependencies changes. This can be useful when you have a function that is expensive to create, such as a function that performs a complex calculation or a database query.
+
+## useReducer
+
+useReducer is a hook for state management, much like useState, and relies upon a kind of function called a reducer.
+
+Reducers btw are just pure functions that take the previous state and an action, and return the next state.
+
+useReducer can be used in many of the same ways that useState can, but is more helpful for managing state across multiple components that may involve different operations or "actions".
+
+You will need to reach for useReducer less than useState around your app. But it is very helpful as a powerful means of managing state in smaller applications, rather than having to reach for a third-party state management library like Redux.
+
+```jsx
+import React, { useReducer } from "react";
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "increment":
+      return { count: state.count + 1 };
+    case "decrement":
+      return { count: state.count - 1 };
+    default:
+      throw new Error();
+  }
+}
+
+function Counter({ initialCount }) {
+  const [state, dispatch] = useReducer(reducer, { count: initialCount });
+  return (
+    <>
+      Count: {state.count}
+      <button onClick={() => dispatch({ type: "increment" })}>+</button>
+      <button onClick={() => dispatch({ type: "decrement" })}>-</button>
+    </>
+  );
+}
+```
+
+In this example, the useReducer hook is used to manage the state of the count variable. The reducer function is passed to the useReducer hook as the first argument, and the initial state is passed as the second argument.
+
+## useContext
+
+useContext is a React Hook that lets you read and subscribe to context from your component. It's similar to the useState hook, but instead of managing state, it lets you access context from anywhere in your component tree.
+
+## Differences
+
+### useRef VS useState
+
+The useRef hook is similar to the useState hook, but it does not cause the component to re-render when the ref object is updated.
+
+```jsx
+import React, { useState, useRef } from "react";
+
+const HookDemo = () => {
+  const [count, setCount] = useState(0);
+  const buttonRef = useRef(null);
+
+  const handleClick = () => {
+    setCount((prevCount) => prevCount + 1);
+  };
+
+  const focusButton = () => {
+    if (buttonRef.current) {
+      buttonRef.current.focus();
+    }
+  };
+
+  return (
+    <div>
+      <button ref={buttonRef} onClick={handleClick}>{count}</button>
+      <button onClick={focusButton}>Focus Counter Button</button>
+    </div>
+  );
+};
+
+export default HookDemo;
+```
+When `setCount` is called inside `handleClick`, React updates the state (count) and triggers a re-render of the component.
+
+But, `buttonRef` holds a reference to a DOM element, and calling `focusButton` does not trigger a re-render, it just interacts with the DOM directly.
+
+### useMemo VS useCallback
+
+useMemo and useCallback are both hooks in React that help optimize the performance of functional components by memoizing values or functions. Let's break down their differences in simple terms:
+
+useMemo: This hook is used to memoize a value and recompute it only when its dependencies change. It takes a function and an array of dependencies as arguments. The function is executed initially and whenever any dependency in the array changes. The result of the function is stored and returned as the memoized value.
+
+
+useCallback: This hook is used to memoize a function and return the same instance of the function until its dependencies change. It takes a function and an array of dependencies as arguments. The function is memoized and returned as a callback. The callback will remain the same unless any of the dependencies change.
+
+
+**To summarize,** `useMemo` is used to memoize a value and recomputes it when dependencies change, while useCallback is used to memoize a function and return the same function instance unless dependencies change. Both hooks help optimize performance by preventing unnecessary re-computations or re-renders.
+
+
+## Custom Hooks in React
+
+Custom hooks are reusable functions that contain logic shared across multiple components. They allow you to extract and reuse stateful logic from components, making your code more modular and easier to maintain.
+
+```jsx
+import { useState } from "react";
+
+const useCounter = (initialCount) => {
+  const [count, setCount] = useState(initialCount);
+
+  const increment = () => {
+    setCount(count + 1);
+  };
+
+  const decrement = () => {
+    setCount(count - 1);
+  };
+
+  return { count, increment, decrement };
+};
+
+export default useCounter;
+```
+
+In this example, we have created a custom hook called useCounter that manages a count state and provides functions to increment and decrement the count. The useCounter hook returns an object with the count value and the increment and decrement functions.
+
+Now, you can use the useCounter hook in any component to manage count state and perform increment and decrement operations:
+
+```jsx
+import React from "react";
+import useCounter from "./useCounter";
+
+const Counter = () => {
+  const { count, increment, decrement } = useCounter(0);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={increment}>Increment</button>
+      <button onClick={decrement}>Decrement</button>
+    </div>
+  );
+};
+
+export default Counter;
+```
+
+## Virtualization
+
+Virtualization is a technique used to render only the components that are currently visible on the screen. Instead of rendering the entire list of components, React renders only the ones in the current view. When dealing with long lists or large datasets, rendering all components at once can lead to performance issues. Virtualization helps in improving performance by rendering only the components that are needed, based on the user's scroll or view.
+
+## Reconcialiation
+
+Reconciliation is the process through which React updates the UI to match the most recent state of the components. React compares the new virtual representation of the component tree with the previous one and makes the necessary updates to reflect the changes. Efficient reconciliation ensures that the UI stays in sync with the application state without causing unnecessary re-renders. This is crucial for maintaining a smooth user experience and optimal performance.
+
+### How It Works:
+
+- **Diffing Algorithm:** React uses a diffing algorithm during reconciliation. It compares the new and old virtual trees, identifying the differences or changes.
+- **Minimal Updates:** React aims to make the smallest number of updates necessary to bring the UI to the desired state. It doesn't re-render the entire component tree but only the parts that have changed.
+
+In summary, virtualization helps in rendering only what's necessary for the current user view, and reconciliation ensures that the UI is efficiently updated based on changes in the component tree. Together, they contribute to creating fast and responsive user interfaces, especially in applications dealing with dynamic or large datasets.
+
+## Higher Order Component
+
+In React, a Higher Order Component (HOC) is a pattern that allows you to reuse component logic by wrapping a component with a function. The HOC takes a component as an argument and returns a new component with additional props or behavior.
+
+
+```jsx
+import React from "react";
+
+const withBorder = (WrappedComponent) => {
+  return (props) => (
+    <div style={{ border: "2px solid red", padding: "10px" }}>
+      <WrappedComponent {...props} />
+    </div>
+  );
+};
+
+
+export function App() {
+
+  const EnhancedMessage = withBorder(Message);
+
+  return <EnhancedMessage text="Hello from HOC!" />;
+}
+
+
+export default App;
+```
+
+In this example, the withBorder HOC takes a component (Message) as an argument and returns a new component (EnhancedMessage) that wraps the original component with a border style. The EnhancedMessage component can now be used to render the Message component with the added border style.

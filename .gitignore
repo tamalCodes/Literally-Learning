@@ -7,6 +7,9 @@
 # Generated files
 .docusaurus
 .cache-loader
+.next
+.source
+next-env.d.ts
 
 # Misc
 .DS_Store

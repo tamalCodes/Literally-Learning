@@ -1,0 +1,16 @@
+{
+  "title": "Javascript",
+  "pages": [
+    "index",
+    "arrays",
+    "browsers",
+    "closures",
+    "debounce-throttle",
+    "engines",
+    "eventloops",
+    "functions",
+    "hoisting",
+    "objects",
+    "promises"
+  ]
+}
