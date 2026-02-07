@@ -33,7 +33,9 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
       tableOfContent={{ enabled: !isOverviewPage, style: "clerk" }}
       tableOfContentPopover={{ enabled: !isOverviewPage, style: "clerk" }}
     >
-      <DocsTitle>{page.data.title}</DocsTitle>
+      <DocsTitle className="text-title font-aeonik-pro">
+        {page.data.title}
+      </DocsTitle>
       <DocsDescription className="mb-0">
         {page.data.description}
       </DocsDescription>
@@ -46,7 +48,7 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
           />
         </div>
       )}
-      <DocsBody className={isOverviewPage ? "grow-0" : undefined}>
+      <DocsBody className={isOverviewPage ? "grow-0 docs-content" : "docs-content"}>
         <MDX
           components={getMDXComponents({
             // this allows you to link to other pages with relative file paths
